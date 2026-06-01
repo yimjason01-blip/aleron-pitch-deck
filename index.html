@@ -1776,7 +1776,7 @@ render();
     const stack = document.elementsFromPoint(probeX, probeY);
     const section = stack
       .map(el => el.closest && el.closest('[data-logo-tone]'))
-      .find(Boolean);
+      .find(el => el && el !== brand);
     brand.dataset.logoTone = section ? section.dataset.logoTone : 'dark';
   }
 
