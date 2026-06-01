@@ -141,7 +141,7 @@
   }
   .slide { position: relative; }
 
-  /* Footer branding */
+  /* Fixed brand mark. No contrast box: the mark itself changes color by section. */
   .slide-brand {
     position: fixed;
     top: 24px;
@@ -150,17 +150,23 @@
     display: flex;
     align-items: center;
     height: 48px;
-    padding: 0 16px;
-    background: rgba(36, 36, 38, 0.82);
-    border: 1px solid rgba(239, 234, 224, 0.16);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    padding: 0;
+    background: transparent;
+    border: 0;
+    pointer-events: none;
+    transition: opacity 180ms var(--ease-soft);
   }
   .slide-brand img {
     display: block;
     width: 132px;
     height: auto;
-    filter: drop-shadow(0 1px 10px rgba(10, 13, 20, 0.35));
+    transition: filter 220ms var(--ease-soft), opacity 180ms var(--ease-soft);
+  }
+  .slide-brand[data-logo-tone="light"] img {
+    filter: brightness(0) invert(1) drop-shadow(0 1px 10px rgba(10, 13, 20, 0.35));
+  }
+  .slide-brand[data-logo-tone="dark"] img {
+    filter: brightness(0) saturate(100%) invert(29%) sepia(12%) saturate(1122%) hue-rotate(187deg) brightness(92%) contrast(88%) drop-shadow(0 1px 8px rgba(10, 13, 20, 0.10));
   }
 
   /* Aleron deck square-geometry enforcement */
@@ -485,7 +491,7 @@
 
 
 <!-- OPENING HERO — female runner from figma-hero-shot, single layered parallax hero -->
-<section class="opening-hero-scroll" data-opening-hero>
+<section class="opening-hero-scroll" data-opening-hero data-logo-tone="light">
   <div class="opening-hero">
     <img class="opening-hero-layer bg" data-motion-layer="background" src="assets/aleron-runner-hero/hero03-bg-plane.png" alt="Aleron female runner background plane">
     <img class="opening-hero-layer mid" data-motion-layer="parallax-blocks" src="assets/aleron-runner-hero/hero03-mid-blocks-plane.png" alt="Aleron female runner geometric block plane">
@@ -504,7 +510,7 @@
 </section>
 
 <!-- SLIDE 1 -->
-<div class="slide source-qol-slide" data-qol-source-tool-section>
+<div class="slide source-qol-slide" data-qol-source-tool-section data-logo-tone="dark">
   <section class="qol-source-tool" aria-label="Quality of Life VO2max teaching tool copied from qol-three-slider/aleron.html">
     <h2 class="qol-source-title">Your Future is Written on Top of This Curve</h2>
     <div class="chart-wrap">
@@ -546,12 +552,12 @@
 
 
 
-<div class="slide-brand">
+<div class="slide-brand" data-logo-tone="dark">
   <img src="assets/aleron-logo-white.png?v=aleron-deck-20260601" alt="Aleron MD">
 </div>
 
 <!-- SLIDE 2 -->
-<div class="slide" style="background:var(--navy);">
+<div class="slide" data-logo-tone="light" style="background:var(--navy);">
   <div class="slide-headline" style="color:#fffefb;">
     That curve is shaped by your <span style="color:var(--mint);">blood</span>,<br><span style="color:var(--mint);">behavior</span>, and <span style="color:var(--mint);">DNA.</span>
   </div>
@@ -583,7 +589,7 @@
 </div>
 
 <!-- SLIDE 3 -->
-<div class="slide" style="background:var(--deck-light-bg);">
+<div class="slide" data-logo-tone="dark" style="background:var(--deck-light-bg);">
   <div class="slide-headline">
     If you know what to do,<br>you can <span>shift and bend the curve.</span>
   </div>
@@ -611,7 +617,7 @@
 </div>
 
 <!-- SLIDE 4 -->
-<div class="slide" style="background:var(--navy);">
+<div class="slide" data-logo-tone="light" style="background:var(--navy);">
   <div class="slide-headline" style="color:#fffefb;">
     But if you're not steering,<br>it can bend the <span style="color:rgba(162,78,59,0.92);">other way.</span>
   </div>
@@ -639,7 +645,7 @@
 </div>
 
 <!-- SLIDE 4b: THE ROI — WHAT CLARITY BUYS YOU -->
-<div class="slide" style="background:var(--deck-light-bg);">
+<div class="slide" data-logo-tone="dark" style="background:var(--deck-light-bg);">
   <div style="max-width:1100px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:800;color:var(--navy);letter-spacing:-2px;line-height:1.15;">
       One more session. <span style="color:var(--teal);">Two pills.</span>
@@ -698,7 +704,7 @@
 </div>
 
 <!-- SLIDE 4c: THE START IS JUST THE START -->
-<div class="slide" style="background:var(--navy);">
+<div class="slide" data-logo-tone="light" style="background:var(--navy);">
   <div style="max-width:1100px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:52px;font-weight:800;color:#fffefb;letter-spacing:-2px;line-height:1.15;">
       The start is <span style="color:var(--mint);">just the start.</span>
@@ -794,7 +800,7 @@
 </div>
 
 <!-- SLIDE 4d: COMPETITIVE LANDSCAPE -->
-<div class="slide" style="background:var(--deck-light-bg);padding:48px 60px;">
+<div class="slide" data-logo-tone="dark" style="background:var(--deck-light-bg);padding:48px 60px;">
   <div style="max-width:1060px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:700;color:var(--navy);letter-spacing:-0.045em;line-height:1.08;">
       Meridian vs. <span style="color:var(--teal);">Consumer Market.</span>
@@ -884,7 +890,7 @@
 </div>
 
 <!-- SLIDE 4e: EXECUTIVE HEALTH LANDSCAPE -->
-<div class="slide" style="background:var(--deck-light-bg);padding:48px 60px;">
+<div class="slide" data-logo-tone="dark" style="background:var(--deck-light-bg);padding:48px 60px;">
   <div style="max-width:1060px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:800;color:var(--navy);letter-spacing:-2px;line-height:1.15;">
       Meridian vs. <span style="color:var(--teal);">Executive Health.</span>
@@ -975,7 +981,7 @@
 
 
 <!-- SLIDE 05b: MARKET VALIDATION STATS -->
-<div class="slide" style="background:var(--navy);">
+<div class="slide" data-logo-tone="light" style="background:var(--navy);">
   <div style="max-width:1100px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:56px;font-weight:800;color:#fffefb;letter-spacing:-2.5px;line-height:1.1;">
       The market wants it.<br><span style="color:var(--mint);">No one's built it.</span>
@@ -1036,7 +1042,7 @@
 </div>
 
 <!-- SLIDE 6: POSSIBILITIES -->
-<div class="slide" style="background:var(--page-bg);padding-top:40px;">
+<div class="slide" data-logo-tone="dark" style="background:var(--page-bg);padding-top:40px;">
   <div style="max-width:900px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:96px;font-weight:800;color:var(--navy);letter-spacing:-3px;line-height:1;">Possibilities.</div>
     <div style="margin-top:80px;text-align:left;max-width:800px;margin-left:auto;margin-right:auto;">
@@ -1762,6 +1768,18 @@ render();
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   let ticking = false;
 
+  function updateBrandTone() {
+    if (!brand) return;
+    const rect = brand.getBoundingClientRect();
+    const probeX = Math.round(rect.left + rect.width / 2);
+    const probeY = Math.round(rect.top + rect.height / 2);
+    const stack = document.elementsFromPoint(probeX, probeY);
+    const section = stack
+      .map(el => el.closest && el.closest('[data-logo-tone]'))
+      .find(Boolean);
+    brand.dataset.logoTone = section ? section.dataset.logoTone : 'dark';
+  }
+
   function updateHeroBlocks() {
     if (!reduceMotion) {
       const heroHeight = hero.offsetHeight || 1;
@@ -1771,6 +1789,7 @@ render();
     }
     const rect = hero.getBoundingClientRect();
     if (brand) brand.classList.toggle('hero-hidden', rect.bottom > 80);
+    updateBrandTone();
     ticking = false;
   }
 
