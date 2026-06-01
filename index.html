@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- WORKING_COPY_CREATED_2026_05_31 from https://board.the-meridian-project.com/dashboard/meridian-demo.html -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian 10-Slide Pitch Deck — Working Copy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f2234;
+    --teal: #37c0a5;
+    --mint: #37c0a5;
+    --accent: #2a63ff;
+    --bg: #f7fafc;
+    --bg-warm: #eef3f7;
+    --bg-cool: #edf2f8;
+    --text: #0f2234;
+    --text-muted: #5d7488;
+    --card: rgba(255, 255, 255, 0.84);
+    --card-solid: #ffffff;
+    --border: rgba(16, 32, 48, 0.08);
+    --border-strong: rgba(16, 32, 48, 0.12);
+    --shadow-sm: 0 10px 30px rgba(16, 32, 48, 0.04);
+    --shadow-lg: 0 28px 70px rgba(16, 32, 48, 0.06);
+    --ce-atmo-blue: rgba(49, 116, 255, 0.13);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    background:
+      radial-gradient(circle at 15% 0%, var(--ce-atmo-blue), transparent 30%),
+      linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 58%, var(--bg-cool) 100%);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* SLIDE LAYOUT */
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    overflow: hidden;
+  }
+
+  .slide-headline {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: center;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+    margin-bottom: 48px;
+    max-width: 900px;
+  }
+  .slide-headline span { color: var(--accent); }
+
+  .charts-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .chart-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 32px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .chart-label {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .chart-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .chart-card canvas {
+    width: 100%;
+  }
+
+  .chart-legend {
+    display: flex;
+    gap: 20px;
+    margin-top: 16px;
+    justify-content: center;
+  }
+  .chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chart-legend-line {
+    width: 28px;
+    height: 3.5px;
+    border-radius: 2px;
+  }
+  .chart-legend-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  /* Slide number — per slide, not fixed */
+  .slide-num {
+    position: absolute;
+    bottom: 24px;
+    right: 32px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.2);
+    letter-spacing: 1px;
+  }
+  .slide { position: relative; }
+
+  /* Footer branding */
+  .slide-brand {
+    position: fixed;
+    top: 24px;
+    left: 32px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide" style="background:linear-gradient(180deg, #eef3f7 0%, #f7fafc 40%, #edf2f8 100%);">
+  <div class="slide-headline">
+    The story of your future is written<br>on top of <span>one curve.</span>
+  </div>
+
+  <div class="charts-row">
+    <!-- Quality of Life -->
+    <div class="chart-card">
+      <div class="chart-label">Quality of life</div>
+      <div class="chart-desc">What your body can do at every age — from full capability to needing help.</div>
+      <canvas id="qolChart" height="320"></canvas>
+      <div class="chart-legend">
+        <div class="chart-legend-item">
+          <div class="chart-legend-line" style="background:var(--accent);"></div>
+          <div class="chart-legend-label">Average American</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-num">01</div>
+</div>
+
+
+
+<div class="slide-brand">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 100" height="44" style="display:block;"><style>.s1-bt{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:68px;letter-spacing:-1px}.s1-m{font-weight:700;fill:#0f2234}.s1-h{font-weight:400;fill:#37c0a5}</style><text x="10" y="75" class="s1-bt"><tspan class="s1-m">The Meridian Project</tspan></text></svg>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" style="background:var(--navy);">
+  <div class="slide-headline" style="color:#ECF2FD;">
+    That curve is shaped by your <span style="color:var(--mint);">blood</span>,<br><span style="color:var(--mint);">behavior</span>, and <span style="color:var(--mint);">DNA.</span>
+  </div>
+
+  <div style="display:flex;justify-content:center;gap:48px;max-width:960px;">
+    <div style="text-align:center;background:rgba(255,255,255,0.06);border-radius:16px;padding:36px 32px;min-width:240px;border:1px solid rgba(255,255,255,0.08);">
+      <div style="font-size:64px;margin-bottom:16px;">🩸</div>
+      <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:24px;font-weight:700;color:var(--mint);margin-bottom:8px;">Blood</div>
+      <div style="font-size:15px;color:rgba(236,242,253,0.6);line-height:1.6;max-width:240px;">
+        Cholesterol, inflammation, metabolic markers — the signals your body is sending right now.
+      </div>
+    </div>
+    <div style="text-align:center;background:rgba(255,255,255,0.06);border-radius:16px;padding:36px 32px;min-width:240px;border:1px solid rgba(255,255,255,0.08);">
+      <div style="font-size:64px;margin-bottom:16px;">🏃</div>
+      <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:24px;font-weight:700;color:var(--mint);margin-bottom:8px;">Behavior</div>
+      <div style="font-size:15px;color:rgba(236,242,253,0.6);line-height:1.6;max-width:240px;">
+        Fitness, sleep, training consistency — the daily choices that bend your curve up or down.
+      </div>
+    </div>
+    <div style="text-align:center;background:rgba(255,255,255,0.06);border-radius:16px;padding:36px 32px;min-width:240px;border:1px solid rgba(255,255,255,0.08);">
+      <div style="font-size:64px;margin-bottom:16px;">🧬</div>
+      <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:24px;font-weight:700;color:var(--mint);margin-bottom:8px;">DNA</div>
+      <div style="font-size:15px;color:rgba(236,242,253,0.6);line-height:1.6;max-width:240px;">
+        Genetic variants that set your baseline risk — some you can offset, some you can't.
+      </div>
+    </div>
+  </div>
+  <div class="slide-num" style="color:rgba(255,255,255,0.15);">02</div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" style="background:linear-gradient(180deg, #eef3f7 0%, #f7fafc 40%, #edf2f8 100%);">
+  <div class="slide-headline">
+    If you know what to do,<br>you can <span>shift and bend the curve.</span>
+  </div>
+
+  <div class="charts-row">
+    <!-- Quality of Life — with intervention -->
+    <div class="chart-card">
+      <div class="chart-label">Quality of life</div>
+      <div class="chart-desc">The same curve — but with the right interventions, it stays higher for longer.</div>
+      <canvas id="qolChart2" height="320"></canvas>
+      <div class="chart-legend">
+        <div class="chart-legend-item">
+          <div class="chart-legend-line" style="background:#CBD0DB;"></div>
+          <div class="chart-legend-label">Average American</div>
+        </div>
+        <div class="chart-legend-item">
+          <div class="chart-legend-line" style="background:var(--accent);"></div>
+          <div class="chart-legend-label">Best possible</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-num">03</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" style="background:var(--navy);">
+  <div class="slide-headline" style="color:#ECF2FD;">
+    But if you're not steering,<br>it can bend the <span style="color:rgba(232,96,76,0.9);">other way.</span>
+  </div>
+
+  <div class="charts-row">
+    <div style="background:rgba(255,255,255,0.04);border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,0.08);">
+      <canvas id="qolChart3" height="320"></canvas>
+      <div style="display:flex;gap:20px;margin-top:14px;justify-content:center;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:3px;background:rgba(232,96,76,0.7);border-radius:2px;"></div>
+          <span style="font-size:13px;font-weight:600;color:rgba(236,242,253,0.5);">Worst case</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:3px;background:#CBD0DB;border-radius:2px;"></div>
+          <span style="font-size:13px;font-weight:600;color:rgba(236,242,253,0.5);">Average American</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:3px;background:#A5EAD1;border-radius:2px;"></div>
+          <span style="font-size:13px;font-weight:600;color:rgba(236,242,253,0.5);">Best possible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num" style="color:rgba(255,255,255,0.15);">04</div>
+</div>
+
+<!-- SLIDE 4b: THE ROI — WHAT CLARITY BUYS YOU -->
+<div class="slide" style="background:linear-gradient(180deg, #eef3f7 0%, #f7fafc 40%, #edf2f8 100%);">
+  <div style="max-width:1100px;width:100%;text-align:center;">
+    <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:800;color:var(--navy);letter-spacing:-2px;line-height:1.15;">
+      One more session. <span style="color:var(--teal);">Two pills.</span>
+    </div>
+    <div style="font-size:17px;color:#54566B;margin-top:12px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.6;">
+      That's the gap between your current trajectory and your best one.
+    </div>
+
+    <div style="display:flex;align-items:stretch;gap:0;margin-top:56px;max-width:1000px;margin-left:auto;margin-right:auto;">
+
+      <!-- LEFT: The Investment -->
+      <div style="flex:1;background:var(--navy);border-radius:20px 0 0 20px;padding:48px 40px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:rgba(165,234,209,0.6);margin-bottom:20px;">You invest</div>
+        <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:120px;font-weight:800;color:var(--mint);letter-spacing:-4px;line-height:1;">1</div>
+        <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:32px;font-weight:700;color:rgba(236,242,253,0.85);margin-top:-4px;">more hour / week</div>
+        <div style="font-size:14px;color:rgba(236,242,253,0.4);margin-top:16px;line-height:1.6;">
+          One extra session. Two pills.<br>One screening. That's it.
+        </div>
+      </div>
+
+      <!-- CENTER: Arrow / Divider -->
+      <div style="flex:0 0 80px;background:linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);display:flex;align-items:center;justify-content:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </div>
+
+      <!-- RIGHT: The Return -->
+      <div style="flex:2;background:white;border-radius:0 20px 20px 0;padding:44px 48px;text-align:left;border:1px solid var(--border);border-left:none;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--teal);margin-bottom:28px;">You get</div>
+        
+        <!-- Good years -->
+        <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:8px;">
+          <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:72px;font-weight:800;color:var(--navy);letter-spacing:-3px;line-height:1;">+6</div>
+          <div>
+            <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:22px;font-weight:700;color:var(--navy);">more years</div>
+            <div style="font-size:15px;color:var(--text-muted);line-height:1.5;">of mountain biking, snowboarding, keeping up<br>with your daughter — on your terms, full send.</div>
+          </div>
+        </div>
+
+        <div style="height:1px;background:var(--border);margin:24px 0;"></div>
+
+        <!-- Bad years -->
+        <div style="display:flex;align-items:baseline;gap:16px;">
+          <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:72px;font-weight:800;color:#D94F4F;letter-spacing:-3px;line-height:1;">−3</div>
+          <div>
+            <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:22px;font-weight:700;color:var(--navy);">fewer years</div>
+            <div style="font-size:15px;color:var(--text-muted);line-height:1.5;">of decline — needing help, losing independence,<br>watching from the sideline instead of riding.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">04b</div>
+</div>
+
+<!-- SLIDE 4c: THE START IS JUST THE START -->
+<div class="slide" style="background:var(--navy);">
+  <div style="max-width:1100px;width:100%;text-align:center;">
+    <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:52px;font-weight:800;color:#ECF2FD;letter-spacing:-2px;line-height:1.15;">
+      The start is <span style="color:var(--mint);">just the start.</span>
+    </div>
+    <div style="font-size:17px;color:rgba(236,242,253,0.5);margin-top:14px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;">
+      Meridian doesn't hand you a report and disappear.<br>It works for you continuously.
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:52px;max-width:1060px;margin-left:auto;margin-right:auto;text-align:left;">
+
+      <!-- Card 1: Digital biometrics -->
+      <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="width:44px;height:44px;background:rgba(165,234,209,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:18px;font-weight:700;color:#ECF2FD;margin-bottom:8px;">Continuous biometric monitoring</div>
+        <div style="font-size:13px;color:rgba(236,242,253,0.45);line-height:1.6;">Sleep, HRV, resting heart rate, activity — tracked and analyzed over time. We catch the signal before you feel the symptom.</div>
+      </div>
+
+      <!-- Card 2: Labs every 6 months -->
+      <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="width:44px;height:44px;background:rgba(165,234,209,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2v6"></path>
+            <path d="M15 2v6"></path>
+            <path d="M9 8h6l2 13H7L9 8z"></path>
+            <path d="M8 14h8"></path>
+          </svg>
+        </div>
+        <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:18px;font-weight:700;color:#ECF2FD;margin-bottom:8px;">Labs retested every 6 months</div>
+        <div style="font-size:13px;color:rgba(236,242,253,0.45);line-height:1.6;">Blood work twice a year to track what's changing — ApoB, glucose, inflammation markers. Proof that what you're doing is working.</div>
+      </div>
+
+      <!-- Card 3: Emerging research -->
+      <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="width:44px;height:44px;background:rgba(165,234,209,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+        </div>
+        <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:18px;font-weight:700;color:#ECF2FD;margin-bottom:8px;">Emerging research, applied to you</div>
+        <div style="font-size:13px;color:rgba(236,242,253,0.45);line-height:1.6;">We scan clinical studies and match them to your genetics, labs, and history. When something matters for <em>you</em>, you'll know.</div>
+      </div>
+
+      <!-- Card 4: Dynamic priorities -->
+      <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="width:44px;height:44px;background:rgba(165,234,209,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"></path>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          </svg>
+        </div>
+        <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:18px;font-weight:700;color:#ECF2FD;margin-bottom:8px;">Priorities that evolve with you</div>
+        <div style="font-size:13px;color:rgba(236,242,253,0.45);line-height:1.6;">Your action plan isn't static. As new data comes in — from your body, your labs, or the literature — your priorities dynamically adjust.</div>
+      </div>
+
+      <!-- Card 5: Unlimited telemedicine -->
+      <div style="background:rgba(255,255,255,0.05);border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,0.08);">
+        <div style="width:44px;height:44px;background:rgba(165,234,209,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path>
+            <path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"></path>
+            <circle cx="20" cy="10" r="2"></circle>
+          </svg>
+        </div>
+        <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:18px;font-weight:700;color:#ECF2FD;margin-bottom:8px;">Unlimited physician access</div>
+        <div style="font-size:13px;color:rgba(236,242,253,0.45);line-height:1.6;">24/7 telemedicine with a physician who has your full picture — your data, your genetics, your history. No repeating yourself.</div>
+      </div>
+
+      <!-- Card 6: Behavioral coaching (optional) -->
+      <div style="background:rgba(255,255,255,0.03);border-radius:16px;padding:28px;border:1px dashed rgba(255,255,255,0.12);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:44px;height:44px;background:rgba(165,234,209,0.08);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(165,234,209,0.4);">Optional add-on</div>
+        </div>
+        <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:18px;font-weight:700;color:rgba(236,242,253,0.7);margin-bottom:8px;">Behavioral change coaching</div>
+        <div style="font-size:13px;color:rgba(236,242,253,0.35);line-height:1.6;">For members who want support turning insights into habits — identity-based coaching that helps you become the person who does this naturally.</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-num" style="color:rgba(255,255,255,0.15);">04c</div>
+</div>
+
+<!-- SLIDE 4d: COMPETITIVE LANDSCAPE -->
+<div class="slide" style="background:linear-gradient(180deg, #eef3f7 0%, #f7fafc 40%, #edf2f8 100%);padding:48px 60px;">
+  <div style="max-width:1060px;width:100%;text-align:center;">
+    <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:700;color:var(--navy);letter-spacing:-0.045em;line-height:1.08;">
+      Meridian vs. <span style="color:var(--teal);">Consumer Market.</span>
+    </div>
+    <div style="font-size:15px;color:#54566B;margin-top:10px;margin-bottom:40px;">Annual pricing. <span style="color:#0D8086;font-weight:600;">●</span> Included &nbsp; <span style="color:#B86E00;font-weight:600;">●</span> Partial &nbsp; <span style="color:#C62828;font-weight:600;">●</span> No</div>
+
+    <table style="width:100%;border-collapse:separate;border-spacing:0;font-size:15px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);text-align:left;">
+      <thead>
+        <tr>
+          <th style="background:var(--navy);padding:20px 20px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:rgba(236,242,253,0.5);width:130px;border-radius:14px 0 0 0;"></th>
+          <th style="background:var(--teal);padding:20px 20px;font-weight:700;font-size:14px;color:#fff;min-width:160px;">Meridian</th>
+          <th style="background:var(--navy);padding:20px 18px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:rgba(236,242,253,0.5);">Fountain Life</th>
+          <th style="background:var(--navy);padding:20px 18px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:rgba(236,242,253,0.5);">Wild Health</th>
+          <th style="background:var(--navy);padding:20px 18px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:rgba(236,242,253,0.5);">Your PCP</th>
+          <th style="background:var(--navy);padding:20px 18px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:rgba(236,242,253,0.5);border-radius:0 14px 0 0;">Function</th>
+        </tr>
+      </thead>
+      <tbody style="line-height:1.5;">
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Cost</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);font-weight:700;color:var(--navy);">$1,800–$2,400/yr</td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;color:#54566B;">$10,500–$85,000/yr</td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;color:#54566B;">$4,345–$25,000/yr</td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;color:#54566B;">$20–50/visit</td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;color:#54566B;">~$360/yr</td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Wearables</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Continuous</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Via Zori AI</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">$25K tier only</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Genetics</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Invitae 167-gene panel</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">WGS</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">700K SNPs</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Blood labs</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Quest Elite · 100 markers · 2×/yr</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">100+ · 1×/yr</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">68+ · 4×/yr</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">~20 · 1×/yr</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">160+ · 2×/yr</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">AI risk model</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">OpenEvidence + Claude Opus 4.6</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Zori AI (FM-LLM)</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Guidelines</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Medical action plan</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Prioritized by effect size</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">MD + coach + AI</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">MD + coach</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Standard of care</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Imaging</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Add-on</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">MRI · CT · DEXA</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">$25K tier only</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Referral</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Access</td>
+          <td style="padding:18px 20px;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Fully virtual</span></td>
+          <td style="padding:18px 18px;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">5 clinics</span></td>
+          <td style="padding:18px 18px;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Virtual</span></td>
+          <td style="padding:18px 18px;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">In-person</span></td>
+          <td style="padding:18px 18px;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Virtual</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-num">04d</div>
+</div>
+
+<!-- SLIDE 4e: EXECUTIVE HEALTH LANDSCAPE -->
+<div class="slide" style="background:linear-gradient(180deg, #eef3f7 0%, #f7fafc 40%, #edf2f8 100%);padding:48px 60px;">
+  <div style="max-width:1060px;width:100%;text-align:center;">
+    <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:800;color:var(--navy);letter-spacing:-2px;line-height:1.15;">
+      Meridian vs. <span style="color:var(--teal);">Executive Health.</span>
+    </div>
+    <div style="font-size:15px;color:#54566B;margin-top:10px;margin-bottom:40px;">Health-system executive programs. In-person, employer-sold, $2K–$10K+. <span style="color:#0D8086;font-weight:600;">●</span> Included &nbsp; <span style="color:#B86E00;font-weight:600;">●</span> Partial &nbsp; <span style="color:#C62828;font-weight:600;">●</span> No</div>
+
+    <table style="width:100%;border-collapse:separate;border-spacing:0;font-size:15px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);text-align:left;">
+      <thead>
+        <tr>
+          <th style="background:var(--navy);padding:20px 20px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.6px;color:rgba(236,242,253,0.5);width:130px;border-radius:14px 0 0 0;"></th>
+          <th style="background:var(--teal);padding:20px 20px;font-weight:700;font-size:14px;color:#fff;min-width:150px;">Meridian</th>
+          <th style="background:var(--navy);padding:20px 18px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:rgba(236,242,253,0.5);">Mayo Clinic</th>
+          <th style="background:var(--navy);padding:20px 18px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:rgba(236,242,253,0.5);">Cleveland Clinic</th>
+          <th style="background:var(--navy);padding:20px 18px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:rgba(236,242,253,0.5);">Johns Hopkins</th>
+          <th style="background:var(--navy);padding:20px 18px;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:rgba(236,242,253,0.5);border-radius:0 14px 0 0;">Inova</th>
+        </tr>
+      </thead>
+      <tbody style="line-height:1.5;">
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Cost</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);font-weight:700;color:var(--navy);">$1,800–$2,400/yr</td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;color:#54566B;">$5,000–$10,000+</td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;color:#54566B;">$3,500–$6,000+</td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;color:#54566B;">$3,000–$7,000+</td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;color:#54566B;">$2,000–$4,500</td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Model</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Continuous · Virtual</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">1-day visit · Annual</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">1-day visit · Annual</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">1-day visit · Annual</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">1-day visit · Annual</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Wearables</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Continuous</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Genetics</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">167-gene panel</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Add-on</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Add-on</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Add-on</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">AI risk model</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Multi-model board review</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">No</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Imaging</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#FFF3E0;color:#B86E00;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Add-on</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">MRI · CT · DEXA</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">DEXA · Add-on CT</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">CT · Stress echo</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">CT · Ultrasound</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Broker-ready</td>
+          <td style="padding:18px 20px;border-bottom:1px solid #EDEFF3;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Yes · API + enrollment</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Direct to employer</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Direct to employer</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Direct to employer</span></td>
+          <td style="padding:18px 18px;border-bottom:1px solid #EDEFF3;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Direct to employer</span></td>
+        </tr>
+        <tr>
+          <td style="padding:18px 20px;font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Access</td>
+          <td style="padding:18px 20px;background:rgba(13,128,134,0.04);"><span style="background:#E0F5EC;color:#0D8086;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Fully virtual · Nationwide</span></td>
+          <td style="padding:18px 18px;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Rochester · AZ · FL</span></td>
+          <td style="padding:18px 18px;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Cleveland · FL</span></td>
+          <td style="padding:18px 18px;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Baltimore</span></td>
+          <td style="padding:18px 18px;"><span style="background:#FCEAEC;color:#C62828;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;">Northern VA</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-num">04e</div>
+</div>
+
+
+<!-- SLIDE 05b: MARKET VALIDATION STATS -->
+<div class="slide" style="background:var(--navy);">
+  <div style="max-width:1100px;width:100%;text-align:center;">
+    <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:56px;font-weight:800;color:#ECF2FD;letter-spacing:-2.5px;line-height:1.1;">
+      The market wants it.<br><span style="color:var(--mint);">No one's built it.</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;text-align:center;max-width:1100px;margin:56px auto 0;">
+
+      <!-- Tile 1: Who we talked to -->
+      <div style="background:rgba(255,255,255,0.04);border-radius:20px;padding:56px 44px 52px;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
+        <div style="min-height:180px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:84px;font-weight:800;color:var(--mint);letter-spacing:-4px;line-height:1;">23</div>
+          <div style="font-size:22px;color:#ECF2FD;font-weight:600;margin-top:12px;">interviews</div>
+        </div>
+        <div style="width:100px;height:2px;background:rgba(255,255,255,0.12);margin:0 auto;"></div>
+        <table style="margin:28px auto 0;border-collapse:collapse;">
+          <tr>
+            <td style="font-family:'Inter',sans-serif;font-size:32px;font-weight:800;color:var(--mint);letter-spacing:-1px;text-align:right;padding:4px 14px 4px 0;vertical-align:middle;">16</td>
+            <td style="font-size:22px;font-weight:600;color:#ECF2FD;text-align:left;padding:4px 0;vertical-align:middle;">executives</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Inter',sans-serif;font-size:32px;font-weight:800;color:var(--mint);letter-spacing:-1px;text-align:right;padding:4px 14px 4px 0;vertical-align:middle;">4</td>
+            <td style="font-size:22px;font-weight:600;color:#ECF2FD;text-align:left;padding:4px 0;vertical-align:middle;">physicians</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Inter',sans-serif;font-size:32px;font-weight:800;color:var(--mint);letter-spacing:-1px;text-align:right;padding:4px 14px 4px 0;vertical-align:middle;">3</td>
+            <td style="font-size:22px;font-weight:600;color:#ECF2FD;text-align:left;padding:4px 0;vertical-align:middle;">VCs</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Tile 2: The duality -->
+      <div style="background:rgba(255,255,255,0.04);border-radius:20px;padding:56px 44px 52px;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
+        <div style="min-height:180px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:84px;font-weight:800;color:var(--mint);letter-spacing:-4px;line-height:1;">96%</div>
+          <div style="font-size:18px;color:#ECF2FD;font-weight:600;margin-top:12px;line-height:1.4;">believe the right medical team could bend their curve</div>
+        </div>
+        <div style="width:100px;height:2px;background:rgba(255,255,255,0.12);margin:0 auto;"></div>
+        <div style="margin-top:28px;text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-size:48px;font-weight:800;color:#ECF2FD;letter-spacing:-2px;line-height:1;">9%</div>
+          <div style="font-size:20px;color:rgba(236,242,253,0.5);font-weight:600;margin-top:10px;line-height:1.4;">believe they can find that team</div>
+        </div>
+      </div>
+
+      <!-- Tile 3: The real barrier -->
+      <div style="background:rgba(255,255,255,0.04);border-radius:20px;padding:56px 44px 52px;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
+        <div style="min-height:180px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:800;color:var(--mint);letter-spacing:-2px;line-height:1.1;">They have<br>the money.</div>
+        </div>
+        <div style="width:100px;height:2px;background:rgba(255,255,255,0.12);margin:0 auto;"></div>
+        <div style="margin-top:28px;text-align:center;">
+          <div style="font-size:24px;color:#ECF2FD;font-weight:700;line-height:1.5;">The barrier is<br>clarity and time.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-num" style="color:rgba(255,255,255,0.15);">05b</div>
+</div>
+
+<!-- SLIDE 6: POSSIBILITIES -->
+<div class="slide" style="background:#fff;padding-top:40px;">
+  <div style="max-width:900px;width:100%;text-align:center;">
+    <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:96px;font-weight:800;color:var(--navy);letter-spacing:-3px;line-height:1;">Possibilities.</div>
+    <div style="margin-top:80px;text-align:left;max-width:800px;margin-left:auto;margin-right:auto;">
+
+      <div style="display:flex;align-items:baseline;gap:20px;margin-bottom:40px;">
+        <span style="font-family:'Inter',sans-serif;font-size:28px;font-weight:800;color:var(--mint);min-width:32px;">01</span>
+        <span style="font-family:'Inter',sans-serif;font-size:32px;font-weight:600;color:var(--navy);line-height:1.4;">Do you see an employee benefit market for this?</span>
+      </div>
+
+      <div style="display:flex;align-items:baseline;gap:20px;margin-bottom:40px;">
+        <span style="font-family:'Inter',sans-serif;font-size:28px;font-weight:800;color:var(--mint);min-width:32px;">02</span>
+        <span style="font-family:'Inter',sans-serif;font-size:32px;font-weight:600;color:var(--navy);line-height:1.4;">Standalone or bundled with another product?</span>
+      </div>
+
+      <div style="display:flex;align-items:baseline;gap:20px;">
+        <span style="font-family:'Inter',sans-serif;font-size:28px;font-weight:800;color:var(--mint);min-width:32px;">03</span>
+        <span style="font-family:'Inter',sans-serif;font-size:32px;font-weight:600;color:var(--navy);line-height:1.4;white-space:nowrap;">Is there any competition in the market that I need to consider?</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-num">06</div>
+</div>
+
+
+
+
+
+
+<script>
+(function() {
+  const dpr = window.devicePixelRatio || 1;
+
+  // Monotone cubic (Fritsch-Carlson)
+  function monoTangents(px) {
+    const n=px.length, d=[], m=[];
+    for(let i=0;i<n-1;i++) d[i]=(px[i+1][1]-px[i][1])/(px[i+1][0]-px[i][0]);
+    m[0]=d[0]; m[n-1]=d[n-2];
+    for(let i=1;i<n-1;i++){if(d[i-1]*d[i]<=0)m[i]=0;else m[i]=(d[i-1]+d[i])/2;}
+    for(let i=0;i<n-1;i++){if(Math.abs(d[i])<1e-6){m[i]=0;m[i+1]=0;continue;}
+      const a=m[i]/d[i],b=m[i+1]/d[i];const s=a*a+b*b;
+      if(s>9){const t=3/Math.sqrt(s);m[i]=t*a*d[i];m[i+1]=t*b*d[i];}}
+    return m;
+  }
+
+  function drawCurve(ctx, px, color, lw) {
+    const m = monoTangents(px);
+    ctx.strokeStyle = color; ctx.lineWidth = lw;
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(px[0][0], px[0][1]);
+    for(let i=0; i<px.length-1; i++) {
+      const dx = px[i+1][0] - px[i][0];
+      ctx.bezierCurveTo(
+        px[i][0]+dx/3, px[i][1]+m[i]*dx/3,
+        px[i+1][0]-dx/3, px[i+1][1]-m[i+1]*dx/3,
+        px[i+1][0], px[i+1][1]
+      );
+    }
+    ctx.stroke();
+  }
+
+  function setupCanvas(id) {
+    const c = document.getElementById(id);
+    if (!c) return { ctx: null, W: 0, H: 0 };
+    const parent = c.parentElement;
+    const ps = getComputedStyle(parent);
+    const W = parent.clientWidth - (parseFloat(ps.paddingLeft)||0) - (parseFloat(ps.paddingRight)||0);
+    const H = 320;
+    c.width = W * dpr; c.height = H * dpr;
+    c.style.width = W + 'px'; c.style.height = H + 'px';
+    const ctx = c.getContext('2d');
+    ctx.scale(dpr, dpr);
+    return { ctx, W, H };
+  }
+
+  // === QUALITY OF LIFE CHART ===
+  {
+    const { ctx, W, H } = setupCanvas('qolChart');
+    const pad = { top: 30, right: 24, bottom: 50, left: 145 };
+    const cw = W - pad.left - pad.right;
+    const ch = H - pad.top - pad.bottom;
+    const minAge = 30, maxAge = 95;
+
+    function xA(age) { return pad.left + ((age - minAge) / (maxAge - minAge)) * cw; }
+    function yP(pct) { return pad.top + ((100 - pct) / 100) * ch; }
+
+    // Average American: BMI ~30, VO₂ ~35 at 30 declining to ~20 by 70, sedentary, MetSyn by 55
+    const qol = [
+      [30,84],[35,82],[40,79],[45,75],[50,70],[55,64],
+      [60,56],[65,48],[70,40],[75,30],[78,20],[80,12],[82,4],[83,0]
+    ];
+    const px = qol.map(d => [xA(d[0]), yP(d[1])]);
+
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
+
+    // Category bands
+    const bands = [
+      { from: 75, to: 100, color: 'rgba(55,192,165,0.12)', label: 'Do anything', labelColor: '#1a8a72', border: '#37c0a5' },
+      { from: 50, to: 75, color: 'rgba(42,99,255,0.08)', label: 'Active & independent', labelColor: '#1e4fd6', border: '#2a63ff' },
+      { from: 25, to: 50, color: 'rgba(224,155,45,0.10)', label: 'Slowing down', labelColor: '#b07a1a', border: '#e09b2d' },
+      { from: 0, to: 25, color: 'rgba(232,96,76,0.10)', label: 'Need help', labelColor: '#c0402e', border: '#e8604c' }
+    ];
+    bands.forEach(b => {
+      ctx.fillStyle = b.color;
+      ctx.fillRect(pad.left, yP(b.to), cw, yP(b.from) - yP(b.to));
+      
+      // Divider line
+      ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(pad.left, yP(b.to)); ctx.lineTo(pad.left + cw, yP(b.to)); ctx.stroke();
+    });
+
+    // Shaded area under curve
+    ctx.beginPath();
+    ctx.moveTo(px[0][0], px[0][1]);
+    const m = monoTangents(px);
+    for(let i=0; i<px.length-1; i++) {
+      const dx = px[i+1][0] - px[i][0];
+      ctx.bezierCurveTo(px[i][0]+dx/3, px[i][1]+m[i]*dx/3, px[i+1][0]-dx/3, px[i+1][1]-m[i+1]*dx/3, px[i+1][0], px[i+1][1]);
+    }
+    ctx.lineTo(px[px.length-1][0], yP(0));
+    ctx.lineTo(px[0][0], yP(0));
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(13,128,134,0.08)';
+    ctx.fill();
+
+    drawCurve(ctx, px, '#2a63ff', 3.5);
+
+    // Y-axis: category labels instead of percentages
+    ctx.font = '600 11px Inter'; ctx.textAlign = 'right';
+    bands.forEach(b => {
+      ctx.fillStyle = b.labelColor;
+      const midY = (yP(b.to) + yP(b.from)) / 2;
+      ctx.fillText(b.label, pad.left - 10, midY + 4);
+      // Color accent strip between label and plot
+      if (b.border) { ctx.fillStyle = b.border; ctx.fillRect(pad.left - 4, yP(b.to) + 1, 2.5, yP(b.from) - yP(b.to) - 2); }
+    });
+
+    // X-axis
+    ctx.font = '500 13px Inter'; ctx.textAlign = 'center'; ctx.fillStyle = '#5d7488';
+    for(let age = 30; age <= 90; age += 10) ctx.fillText(age, xA(age), yP(0) + 20);
+    ctx.fillStyle = '#4f667b'; ctx.font = '600 13px Inter';
+    ctx.fillText('Age', pad.left + cw / 2, yP(0) + 40);
+  }
+
+  // survChart removed
+
+  // === SLIDE 3: QUALITY OF LIFE — TWO CURVES ===
+  {
+    const { ctx, W, H } = setupCanvas('qolChart2');
+    const pad = { top: 30, right: 24, bottom: 50, left: 145 };
+    const cw = W - pad.left - pad.right;
+    const ch = H - pad.top - pad.bottom;
+    const minAge = 30, maxAge = 95;
+
+    function xA(age) { return pad.left + ((age - minAge) / (maxAge - minAge)) * cw; }
+    function yP(pct) { return pad.top + ((100 - pct) / 100) * ch; }
+
+    // US average (same as slide 1)
+    const qolDef = [
+      [30,84],[35,82],[40,79],[45,75],[50,70],[55,64],
+      [60,56],[65,48],[70,40],[75,30],[78,20],[80,12],[82,4],[83,0]
+    ];
+    // Best version: elite fitness, optimal lipids, proactive screening, good sleep
+    const qolOpt = [
+      [30,97],[35,97],[40,96],[45,95],[50,94],[55,92],
+      [60,89],[65,85],[70,80],[75,74],[78,68],[80,62],[82,55],[84,45],[86,30],[87,15],[88,0]
+    ];
+
+    const pxDef = qolDef.map(d => [xA(d[0]), yP(d[1])]);
+    const pxOpt = qolOpt.map(d => [xA(d[0]), yP(d[1])]);
+
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
+
+    // Category bands
+    const bands = [
+      { from: 75, to: 100, color: 'rgba(55,192,165,0.12)', label: 'Do anything', labelColor: '#1a8a72', border: '#37c0a5' },
+      { from: 50, to: 75, color: 'rgba(42,99,255,0.08)', label: 'Active & independent', labelColor: '#1e4fd6', border: '#2a63ff' },
+      { from: 25, to: 50, color: 'rgba(224,155,45,0.10)', label: 'Slowing down', labelColor: '#b07a1a', border: '#e09b2d' },
+      { from: 0, to: 25, color: 'rgba(232,96,76,0.10)', label: 'Need help', labelColor: '#c0402e', border: '#e8604c' }
+    ];
+    bands.forEach(b => {
+      ctx.fillStyle = b.color;
+      ctx.fillRect(pad.left, yP(b.to), cw, yP(b.from) - yP(b.to));
+      
+      ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(pad.left, yP(b.to)); ctx.lineTo(pad.left + cw, yP(b.to)); ctx.stroke();
+    });
+
+    // Shaded area between curves
+    ctx.beginPath();
+    pxDef.forEach((p,i) => i===0 ? ctx.moveTo(p[0],p[1]) : ctx.lineTo(p[0],p[1]));
+    for(let i=pxOpt.length-1; i>=0; i--) ctx.lineTo(pxOpt[i][0], pxOpt[i][1]);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(13,128,134,0.1)';
+    ctx.fill();
+
+    drawCurve(ctx, pxDef, '#CBD0DB', 3);
+    drawCurve(ctx, pxOpt, '#2a63ff', 3.5);
+
+    // Y-axis: category labels
+    ctx.font = '600 11px Inter'; ctx.textAlign = 'right';
+    bands.forEach(b => {
+      ctx.fillStyle = b.labelColor;
+      const midY = (yP(b.to) + yP(b.from)) / 2;
+      ctx.fillText(b.label, pad.left - 10, midY + 4);
+      // Color accent strip between label and plot
+      if (b.border) { ctx.fillStyle = b.border; ctx.fillRect(pad.left - 4, yP(b.to) + 1, 2.5, yP(b.from) - yP(b.to) - 2); }
+    });
+
+    // X-axis
+    ctx.font = '500 13px Inter'; ctx.textAlign = 'center'; ctx.fillStyle = '#5d7488';
+    for(let age = 30; age <= 90; age += 10) ctx.fillText(age, xA(age), yP(0) + 20);
+    ctx.fillStyle = '#4f667b'; ctx.font = '600 13px Inter';
+    ctx.fillText('Age', pad.left + cw / 2, yP(0) + 40);
+  }
+
+  // survChart2 removed
+
+  // === SLIDE 4: QoL with 30-year annotation ===
+  {
+    const { ctx, W, H } = setupCanvas('qolChart3');
+    const pad = { top: 30, right: 24, bottom: 50, left: 145 };
+    const cw = W - pad.left - pad.right;
+    const ch = H - pad.top - pad.bottom;
+    const minAge = 30, maxAge = 95;
+
+    function xA(age) { return pad.left + ((age - minAge) / (maxAge - minAge)) * cw; }
+    function yP(pct) { return pad.top + ((100 - pct) / 100) * ch; }
+
+    const qolDef = [
+      [30,84],[35,82],[40,79],[45,75],[50,70],[55,64],
+      [60,56],[65,48],[70,40],[75,30],[78,20],[80,12],[82,4],[83,0]
+    ];
+    const qolOpt = [
+      [30,97],[35,97],[40,96],[45,95],[50,94],[55,92],
+      [60,89],[65,85],[70,80],[75,74],[78,68],[80,62],[82,55],[84,45],[86,30],[87,15],[88,0]
+    ];
+    // Worst case: tracks average but offset ~8-10pts lower, then cardiac event at 55
+    const qolWorst = [
+      [30,76],[35,74],[40,71],[45,67],[50,62],[53,57],[54.5,55]
+    ];
+
+    const pxDef = qolDef.map(d => [xA(d[0]), yP(d[1])]);
+    const pxOpt = qolOpt.map(d => [xA(d[0]), yP(d[1])]);
+    const pxWorst = qolWorst.map(d => [xA(d[0]), yP(d[1])]);
+
+    // Dark background for this chart
+    ctx.fillStyle = 'rgba(17,35,75,0.3)'; ctx.fillRect(0, 0, W, H);
+
+    // Category bands (dark theme)
+    const bands = [
+      { from: 75, to: 100, color: 'rgba(55,192,165,0.15)', label: 'Do anything', labelColor: 'rgba(55,192,165,0.8)', border: '#37c0a5' },
+      { from: 50, to: 75, color: 'rgba(42,99,255,0.12)', label: 'Active & independent', labelColor: 'rgba(42,99,255,0.7)', border: '#2a63ff' },
+      { from: 25, to: 50, color: 'rgba(224,155,45,0.10)', label: 'Slowing down', labelColor: 'rgba(224,155,45,0.6)', border: '#e09b2d' },
+      { from: 0, to: 25, color: 'rgba(232,96,76,0.10)', label: 'Need help', labelColor: 'rgba(232,96,76,0.6)', border: '#e8604c' }
+    ];
+    bands.forEach(b => {
+      ctx.fillStyle = b.color;
+      ctx.fillRect(pad.left, yP(b.to), cw, yP(b.from) - yP(b.to));
+      
+      ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(pad.left, yP(b.to)); ctx.lineTo(pad.left + cw, yP(b.to)); ctx.stroke();
+    });
+
+    // Shaded area between average and best only (no shading past cardiac event)
+    ctx.beginPath();
+    pxDef.forEach((p,i) => i===0 ? ctx.moveTo(p[0],p[1]) : ctx.lineTo(p[0],p[1]));
+    for(let i=pxOpt.length-1; i>=0; i--) ctx.lineTo(pxOpt[i][0], pxOpt[i][1]);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(165,234,209,0.08)';
+    ctx.fill();
+
+    // Draw curves
+    drawCurve(ctx, pxWorst, 'rgba(232,96,76,0.7)', 2.5);
+    // Vertical drop — cardiac event
+    const lastWorst = pxWorst[pxWorst.length - 1];
+    ctx.beginPath();
+    ctx.moveTo(lastWorst[0], lastWorst[1]);
+    ctx.lineTo(lastWorst[0], yP(0));
+    ctx.strokeStyle = 'rgba(232,96,76,0.7)'; ctx.lineWidth = 2.5; ctx.setLineDash([]); ctx.stroke();
+
+    drawCurve(ctx, pxDef, 'rgba(203,208,219,0.6)', 2.5);
+    drawCurve(ctx, pxOpt, '#A5EAD1', 3.5);
+
+    // Fatal event marker at bottom of drop
+    ctx.beginPath(); ctx.arc(lastWorst[0], yP(0), 5, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(232,96,76,0.9)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(17,35,75,0.8)'; ctx.lineWidth = 2; ctx.stroke();
+
+
+    // Y-axis labels
+    ctx.font = '600 11px Inter'; ctx.textAlign = 'right';
+    bands.forEach(b => {
+      ctx.fillStyle = b.labelColor;
+      const midY = (yP(b.to) + yP(b.from)) / 2;
+      ctx.fillText(b.label, pad.left - 10, midY + 4);
+      // Color accent strip between label and plot
+      if (b.border) { ctx.fillStyle = b.border; ctx.fillRect(pad.left - 4, yP(b.to) + 1, 2.5, yP(b.from) - yP(b.to) - 2); }
+    });
+
+    // X-axis
+    ctx.font = '500 13px Inter'; ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(236,242,253,0.4)';
+    for(let age = 30; age <= 90; age += 10) ctx.fillText(age, xA(age), yP(0) + 20);
+    ctx.fillStyle = 'rgba(236,242,253,0.5)'; ctx.font = '600 13px Inter';
+    ctx.fillText('Age', pad.left + cw / 2, yP(0) + 40);
+  }
+})();
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"8dc646a0a32e46b1a343e1b4fd6a2995","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
