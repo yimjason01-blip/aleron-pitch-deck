@@ -544,33 +544,6 @@
     min-height: 300px;
     width: 100%;
   }
-  .signal-stage-curve {
-    position: absolute;
-    inset: 0 3% 3% 3%;
-    width: 94%;
-    height: 100%;
-    overflow: visible;
-    opacity: 0.9;
-  }
-  .signal-stage-curve path.curve-shadow {
-    fill: none;
-    stroke: rgba(65,76,106,0.08);
-    stroke-width: 18;
-    stroke-linecap: round;
-  }
-  .signal-stage-curve path.curve-line {
-    fill: none;
-    stroke: #c5a26e;
-    stroke-width: 4.5;
-    stroke-linecap: round;
-  }
-  .signal-stage-curve path.curve-line-navy {
-    fill: none;
-    stroke: rgba(65,76,106,0.45);
-    stroke-width: 1.4;
-    stroke-linecap: round;
-    stroke-dasharray: 7 12;
-  }
   .signal-object {
     position: absolute;
     margin: 0;
@@ -597,7 +570,6 @@
     .signal-sources-slide { padding: 72px 28px; }
     .signal-sources-inner { min-height: 82vh; gap: 28px; }
     .signal-stage { height: 48vh; min-height: 410px; }
-    .signal-stage-curve { inset: 4% -4% 0 -4%; width: 108%; }
     .signal-object.labs { --x: 24%; --y: 29%; --w: 204px; }
     .signal-object.genetics { --x: 72%; --y: 30%; --w: 242px; }
     .signal-object.wearables { --x: 27%; --y: 76%; --w: 236px; }
@@ -681,11 +653,6 @@
     <h2 class="signal-sources-title">Aleron uses advanced labs, genetics, wearable data, and imaging to help you <span>shape the curve.</span></h2>
 
     <div class="signal-stage" aria-hidden="true">
-      <svg class="signal-stage-curve" viewBox="0 0 1180 360" preserveAspectRatio="none">
-        <path class="curve-shadow" d="M64 264 C 276 126, 455 104, 626 156 S 922 226, 1116 82" />
-        <path class="curve-line" d="M64 264 C 276 126, 455 104, 626 156 S 922 226, 1116 82" />
-        <path class="curve-line-navy" d="M120 302 C 326 206, 478 206, 650 238 S 906 248, 1050 158" />
-      </svg>
       <figure class="signal-object labs"><img src="assets/signal-isometric/cutouts/advanced-labs-cutout.png?v=integrated-20260601" alt="" loading="eager" decoding="async"></figure>
       <figure class="signal-object genetics"><img src="assets/signal-isometric/cutouts/genetics-cutout.png?v=integrated-20260601" alt="" loading="eager" decoding="async"></figure>
       <figure class="signal-object wearables"><img src="assets/signal-isometric/cutouts/wearables-cutout.png?v=integrated-20260601" alt="" loading="eager" decoding="async"></figure>
