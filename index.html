@@ -534,32 +534,28 @@
     gap: 18px;
   }
   .signal-card {
-    min-height: 268px;
+    min-height: 314px;
     background: rgba(255,254,251,0.74);
     border: 1px solid rgba(65,76,106,0.14);
-    padding: 18px 18px 18px;
+    padding: 18px 18px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   .signal-figure {
-    height: 124px;
+    height: 166px;
     display: grid;
     place-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    overflow: hidden;
   }
-  .signal-figure svg {
-    width: 164px;
-    height: 124px;
+  .signal-figure img {
+    width: min(100%, 230px);
+    height: 166px;
+    object-fit: contain;
     display: block;
+    mix-blend-mode: multiply;
   }
-  .iso-outline { stroke: #29251f; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
-  .iso-ink { fill: #29251f; }
-  .iso-top { fill: #efeae0; }
-  .iso-face { fill: #c5a26e; }
-  .iso-side { fill: #a2653b; }
-  .iso-navy { fill: #414c6a; }
-  .iso-soft { fill: rgba(197,162,110,0.24); }
   .signal-label {
     font-size: 12px;
     letter-spacing: 0.14em;
@@ -672,18 +668,8 @@
     <div class="signal-grid" aria-label="Aleron data sources">
       <article class="signal-card">
         <div>
-          <div class="signal-figure" aria-hidden="true">
-            <svg viewBox="0 0 176 142" role="img">
-              <polygon class="iso-soft" points="34,102 92,72 144,102 86,132"/>
-              <polygon class="iso-top iso-outline" points="42,84 92,58 134,82 84,108"/>
-              <polygon class="iso-face iso-outline" points="42,84 84,108 84,122 42,98"/>
-              <polygon class="iso-side iso-outline" points="84,108 134,82 134,96 84,122"/>
-              <path class="iso-outline" fill="#efeae0" d="M64 42h14v47c0 7-14 7-14 0z"/>
-              <path class="iso-outline" fill="#efeae0" d="M93 34h14v48c0 7-14 7-14 0z"/>
-              <rect class="iso-side" x="64" y="68" width="14" height="16"/>
-              <rect class="iso-navy" x="93" y="58" width="14" height="20"/>
-              <path class="iso-outline" fill="none" d="M60 42h22M89 34h22"/>
-            </svg>
+          <div class="signal-figure">
+            <img src="assets/signal-isometric/advanced-labs.png?v=locked-20260601" alt="Advanced labs isometric still-life illustration" loading="eager" decoding="async">
           </div>
           <div class="signal-label">Advanced labs</div>
           <h3>Signals in blood</h3>
@@ -693,19 +679,8 @@
 
       <article class="signal-card">
         <div>
-          <div class="signal-figure" aria-hidden="true">
-            <svg viewBox="0 0 176 142" role="img">
-              <polygon class="iso-soft" points="34,104 88,74 142,104 88,132"/>
-              <polygon class="iso-top iso-outline" points="50,78 92,56 132,78 90,102"/>
-              <polygon class="iso-face iso-outline" points="50,78 90,102 90,118 50,94"/>
-              <polygon class="iso-side iso-outline" points="90,102 132,78 132,94 90,118"/>
-              <path class="iso-outline" fill="none" d="M72 34c30 10 30 54 0 64M108 34c-30 10-30 54 0 64"/>
-              <path class="iso-outline" fill="none" d="M76 45h28M70 58h40M70 72h40M76 86h28"/>
-              <circle class="iso-navy" cx="72" cy="45" r="3.5"/>
-              <circle class="iso-side" cx="108" cy="45" r="3.5"/>
-              <circle class="iso-side" cx="70" cy="72" r="3.5"/>
-              <circle class="iso-navy" cx="110" cy="72" r="3.5"/>
-            </svg>
+          <div class="signal-figure">
+            <img src="assets/signal-isometric/genetics.png?v=locked-20260601" alt="Genetics test kit isometric still-life illustration" loading="eager" decoding="async">
           </div>
           <div class="signal-label">Genetics</div>
           <h3>Inherited risk</h3>
@@ -715,17 +690,8 @@
 
       <article class="signal-card">
         <div>
-          <div class="signal-figure" aria-hidden="true">
-            <svg viewBox="0 0 176 142" role="img">
-              <polygon class="iso-soft" points="34,104 88,76 142,104 88,132"/>
-              <path class="iso-outline" fill="#c5a26e" d="M80 28l22 12-9 22-22-12z"/>
-              <path class="iso-outline" fill="#c5a26e" d="M92 82l24 14-10 24-24-14z"/>
-              <rect class="iso-navy iso-outline" x="72" y="52" width="42" height="44" rx="10" transform="rotate(25 93 74)"/>
-              <rect fill="#efeae0" x="82" y="62" width="22" height="22" rx="5" transform="rotate(25 93 73)"/>
-              <path class="iso-outline" fill="none" d="M82 75l6-4 5 5 9-10"/>
-              <circle class="iso-side" cx="116" cy="78" r="3.8"/>
-              <path class="iso-outline" fill="none" d="M50 58c18-22 60-24 88 0M44 96c18 18 58 22 92 2"/>
-            </svg>
+          <div class="signal-figure">
+            <img src="assets/signal-isometric/wearables.png?v=locked-20260601" alt="Wearables health data isometric still-life illustration" loading="eager" decoding="async">
           </div>
           <div class="signal-label">Wearables</div>
           <h3>Daily trajectory</h3>
@@ -735,18 +701,8 @@
 
       <article class="signal-card">
         <div>
-          <div class="signal-figure" aria-hidden="true">
-            <svg viewBox="0 0 176 142" role="img">
-              <polygon class="iso-soft" points="30,104 88,74 148,104 90,134"/>
-              <polygon class="iso-top iso-outline" points="48,96 88,76 138,100 98,122"/>
-              <polygon class="iso-face iso-outline" points="48,96 98,122 98,130 48,106"/>
-              <polygon class="iso-side iso-outline" points="98,122 138,100 138,108 98,130"/>
-              <ellipse class="iso-top iso-outline" cx="90" cy="64" rx="34" ry="28"/>
-              <ellipse class="iso-navy" cx="90" cy="64" rx="18" ry="14"/>
-              <path class="iso-outline" fill="#efeae0" d="M52 92h58l20 10H70z"/>
-              <path class="iso-outline" fill="none" d="M62 88c11-8 29-8 40 0M82 82v12M74 88h26"/>
-              <rect class="iso-side" x="120" y="74" width="14" height="10"/>
-            </svg>
+          <div class="signal-figure">
+            <img src="assets/signal-isometric/imaging.png?v=locked-20260601" alt="Medical imaging isometric still-life illustration" loading="eager" decoding="async">
           </div>
           <div class="signal-label">Imaging</div>
           <h3>Structural evidence</h3>
