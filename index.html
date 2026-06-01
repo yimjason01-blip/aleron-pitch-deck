@@ -172,6 +172,207 @@
   div { border-radius: 0 !important; }
 
 
+  /* VO2max interactive trajectory component */
+  .vo2-slide {
+    padding: 48px 56px 40px;
+    justify-content: center;
+    align-items: center;
+    background: #f4eee6 !important;
+  }
+  .vo2-tool {
+    width: min(1180px, 96vw);
+    background: #f5efe8;
+    color: #2b2b2d;
+    border: 1px solid rgba(43, 43, 45, 0.08);
+    box-shadow: 0 24px 70px rgba(36, 36, 38, 0.08);
+    padding: 26px 28px 28px;
+  }
+  .vo2-title {
+    text-align: center;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #242426;
+    margin-bottom: 0;
+  }
+  .vo2-unit {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #7b766e;
+    margin-bottom: 12px;
+  }
+  .vo2-chart-shell {
+    width: 100%;
+    overflow-x: auto;
+    padding: 0 2px 2px;
+  }
+  .vo2-svg {
+    display: block;
+    width: 100%;
+    min-width: 920px;
+    height: auto;
+  }
+  .vo2-func-label {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 650;
+    font-size: 14px;
+    fill: #4b4947;
+  }
+  .vo2-axis-label,
+  .vo2-tick-label {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    fill: #68635d;
+    font-size: 13px;
+    font-weight: 650;
+  }
+  .vo2-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px 18px;
+    margin: 10px auto 24px;
+    color: #625d56;
+    font-size: 13px;
+  }
+  .vo2-outcome-toggle {
+    border: 0;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0;
+    cursor: pointer;
+    color: #69645e;
+    font: inherit;
+  }
+  .vo2-toggle-dot {
+    width: 25px;
+    height: 14px;
+    border-radius: 999px !important;
+    background: #b8b2aa;
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(36,36,38,0.08);
+  }
+  .vo2-toggle-dot::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50% !important;
+    background: #f7f2ea;
+    transition: transform 180ms ease;
+  }
+  .vo2-outcome-toggle.is-active .vo2-toggle-dot {
+    background: #9b5d2f;
+  }
+  .vo2-outcome-toggle.is-active .vo2-toggle-dot::after {
+    transform: translateX(11px);
+  }
+  .vo2-outcome-toggle strong {
+    color: #242426;
+    font-weight: 800;
+  }
+  .vo2-key-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .vo2-dash-swatch {
+    width: 38px;
+    height: 0;
+    border-top: 2px dashed #8f8880;
+  }
+  .vo2-window-swatch {
+    width: 28px;
+    height: 14px;
+    background: rgba(126, 126, 126, 0.34);
+    border: 1px solid rgba(94, 94, 94, 0.20);
+  }
+  .vo2-controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .vo2-control-card {
+    background: #e9e2da;
+    border: 1px solid rgba(36,36,38,0.08);
+    padding: 18px 18px 16px;
+  }
+  .vo2-control-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .vo2-control-kicker {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: #8b847b;
+  }
+  .vo2-control-value {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #29292b;
+    text-align: right;
+  }
+  .vo2-slider {
+    width: 100%;
+    appearance: none;
+    height: 2px;
+    background: #bcb5ad;
+    outline: none;
+    margin: 2px 0 13px;
+  }
+  .vo2-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50% !important;
+    border: 2px solid #8d867e;
+    background: #f8f3ec;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(36,36,38,0.14);
+  }
+  .vo2-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50% !important;
+    border: 2px solid #8d867e;
+    background: #f8f3ec;
+    cursor: pointer;
+  }
+  .vo2-scale-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    color: #817a71;
+    text-transform: uppercase;
+  }
+  .vo2-panel,
+  .vo2-tool,
+  .vo2-control-card {
+    border-radius: 24px !important;
+  }
+  @media (max-width: 900px) {
+    .vo2-slide { padding: 36px 18px; align-items: stretch; }
+    .vo2-tool { width: 100%; padding: 20px 14px 18px; }
+    .vo2-controls { grid-template-columns: 1fr; }
+    .vo2-title { font-size: 26px; }
+  }
+
+
   /* OPENING HERO — Aleron female runner, layered for scroll parallax */
   .opening-hero-scroll {
     position: relative;
@@ -306,26 +507,39 @@
 </section>
 
 <!-- SLIDE 1 -->
-<div class="slide" style="background:var(--deck-light-bg);">
-  <div class="slide-headline">
-    The story of your future is written<br>on top of <span>one curve.</span>
-  </div>
-
-  <div class="charts-row">
-    <!-- Quality of Life -->
-    <div class="chart-card">
-      <div class="chart-label">Quality of life</div>
-      <div class="chart-desc">What your body can do at every age — from full capability to needing help.</div>
-      <canvas id="qolChart" height="320"></canvas>
-      <div class="chart-legend">
-        <div class="chart-legend-item">
-          <div class="chart-legend-line" style="background:var(--accent);"></div>
-          <div class="chart-legend-label">Average American</div>
-        </div>
+<div class="slide vo2-slide" data-vo2-tool-section>
+  <section class="vo2-tool" aria-label="Interactive VO2max trajectory tool">
+    <h2 class="vo2-title">VO2max</h2>
+    <div class="vo2-unit">mL/kg/min</div>
+    <div class="vo2-chart-shell">
+      <svg class="vo2-svg" data-vo2-chart viewBox="0 0 1180 620" role="img" aria-label="VO2max trajectory by age"></svg>
+    </div>
+    <div class="vo2-legend" data-vo2-legend>
+      <button class="vo2-outcome-toggle" type="button" data-outcome="spared" aria-pressed="false"><span class="vo2-toggle-dot" aria-hidden="true"></span><span>spared both <strong data-percent="spared">41%</strong></span></button>
+      <button class="vo2-outcome-toggle" type="button" data-outcome="cancer" aria-pressed="false"><span class="vo2-toggle-dot" aria-hidden="true"></span><span>cancer only <strong data-percent="cancer">28%</strong></span></button>
+      <button class="vo2-outcome-toggle" type="button" data-outcome="cv" aria-pressed="false"><span class="vo2-toggle-dot" aria-hidden="true"></span><span>CV only <strong data-percent="cv">18%</strong></span></button>
+      <button class="vo2-outcome-toggle is-active" type="button" data-outcome="both" aria-pressed="true"><span class="vo2-toggle-dot" aria-hidden="true"></span><span>both events <strong data-percent="both">13%</strong></span></button>
+      <span class="vo2-key-item"><span class="vo2-dash-swatch" aria-hidden="true"></span><span>Average American reference</span></span>
+      <span class="vo2-key-item"><span class="vo2-window-swatch" aria-hidden="true"></span><span>Cognitive impairment window</span></span>
+    </div>
+    <div class="vo2-controls">
+      <div class="vo2-control-card">
+        <div class="vo2-control-head"><div class="vo2-control-kicker">CONDITIONING</div><div class="vo2-control-value" data-vo2-value="conditioning">Average</div></div>
+        <input class="vo2-slider" type="range" min="0" max="3" step="1" value="1" data-vo2-input="conditioning" aria-label="Conditioning">
+        <div class="vo2-scale-labels"><span>DECOND</span><span>AVG</span><span>WELL</span><span>ELITE</span></div>
+      </div>
+      <div class="vo2-control-card">
+        <div class="vo2-control-head"><div class="vo2-control-kicker">LIFESTYLE</div><div class="vo2-control-value" data-vo2-value="lifestyle">Maintained</div></div>
+        <input class="vo2-slider" type="range" min="0" max="2" step="1" value="1" data-vo2-input="lifestyle" aria-label="Lifestyle">
+        <div class="vo2-scale-labels"><span>NEGLECTED</span><span>MAINTAINED</span><span>OPTIMIZED</span></div>
+      </div>
+      <div class="vo2-control-card">
+        <div class="vo2-control-head"><div class="vo2-control-kicker">UNDERLYING RISK</div><div class="vo2-control-value" data-vo2-value="risk">Average</div></div>
+        <input class="vo2-slider" type="range" min="0" max="2" step="1" value="1" data-vo2-input="risk" aria-label="Underlying risk">
+        <div class="vo2-scale-labels"><span>LOW</span><span>AVG</span><span>HIGH</span></div>
       </div>
     </div>
-
-  </div>
+  </section>
   <div class="slide-num">01</div>
 </div>
 
@@ -851,6 +1065,177 @@
 
 
 
+
+<script>
+(function() {
+  const root = document.querySelector('[data-vo2-tool-section]');
+  if (!root) return;
+  const svg = root.querySelector('[data-vo2-chart]');
+  const inputs = {
+    conditioning: root.querySelector('[data-vo2-input="conditioning"]'),
+    lifestyle: root.querySelector('[data-vo2-input="lifestyle"]'),
+    risk: root.querySelector('[data-vo2-input="risk"]')
+  };
+  const valueLabels = {
+    conditioning: root.querySelector('[data-vo2-value="conditioning"]'),
+    lifestyle: root.querySelector('[data-vo2-value="lifestyle"]'),
+    risk: root.querySelector('[data-vo2-value="risk"]')
+  };
+  const labels = {
+    conditioning: ['Deconditioned', 'Average', 'Well', 'Elite'],
+    lifestyle: ['Neglected', 'Maintained', 'Optimized'],
+    risk: ['Low', 'Average', 'High']
+  };
+  let activeOutcome = 'both';
+
+  const box = { x0: 210, y0: 70, w: 860, h: 390 };
+  const xAge = age => box.x0 + ((age - 30) / 70) * box.w;
+  const yVo2 = v => box.y0 + ((62 - v) / 62) * box.h;
+  const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+
+  function pathFrom(points) {
+    return points.map((p, i) => `${i ? 'L' : 'M'}${xAge(p.age).toFixed(1)} ${yVo2(p.vo2).toFixed(1)}`).join(' ');
+  }
+
+  function state() {
+    return {
+      conditioning: Number(inputs.conditioning.value),
+      lifestyle: Number(inputs.lifestyle.value),
+      risk: Number(inputs.risk.value)
+    };
+  }
+
+  function eventAges(s) {
+    const cancer = clamp(66 + s.lifestyle * 3 - s.risk * 4, 58, 78);
+    const cv = clamp(76 + s.lifestyle * 2 - s.risk * 5, cancer + 4, 88);
+    return { cancer, cv };
+  }
+
+  function baseVo2(age, s) {
+    const start = [29, 38, 48, 56][s.conditioning];
+    const decline = [0.30, 0.23, 0.17][s.lifestyle] + [0.00, 0.04, 0.09][s.risk];
+    const yrs = age - 30;
+    return start - decline * yrs - 0.0026 * yrs * yrs;
+  }
+
+  function vo2At(age, kind, s) {
+    const e = eventAges(s);
+    let vo2 = baseVo2(age, s);
+    if ((kind === 'cancer' || kind === 'both') && age >= e.cancer) vo2 -= (age - e.cancer) * 0.34;
+    if ((kind === 'cv' || kind === 'both') && age >= e.cv) vo2 -= (age - e.cv) * 0.42;
+    return clamp(vo2, 6, 62);
+  }
+
+  function trajectory(kind, s) {
+    const pts = [];
+    for (let age = 30; age <= 100; age += 2) pts.push({ age, vo2: vo2At(age, kind, s) });
+    return pts;
+  }
+
+  function sampleSegment(kind, s, start, end) {
+    const pts = [{ age: start, vo2: vo2At(start, kind, s) }];
+    let age = Math.ceil(start / 2) * 2;
+    for (; age < end; age += 2) {
+      if (age > start) pts.push({ age, vo2: vo2At(age, kind, s) });
+    }
+    pts.push({ age: end, vo2: vo2At(end, kind, s) });
+    return pts;
+  }
+
+  function segmentedPaths(kind, s) {
+    const e = eventAges(s);
+    if (kind === 'spared') return [{ color: '#48b75f', pts: sampleSegment(kind, s, 30, 100) }];
+    if (kind === 'cancer') return [
+      { color: '#48b75f', pts: sampleSegment(kind, s, 30, e.cancer) },
+      { color: '#e3a436', pts: sampleSegment(kind, s, e.cancer, 100) }
+    ];
+    if (kind === 'cv') return [
+      { color: '#48b75f', pts: sampleSegment(kind, s, 30, e.cv) },
+      { color: '#e07168', pts: sampleSegment(kind, s, e.cv, 100) }
+    ];
+    return [
+      { color: '#48b75f', pts: sampleSegment(kind, s, 30, e.cancer) },
+      { color: '#e3a436', pts: sampleSegment(kind, s, e.cancer, e.cv) },
+      { color: '#e07168', pts: sampleSegment(kind, s, e.cv, 100) }
+    ];
+  }
+
+  function probabilityMix(s) {
+    let spared = 41 + (s.conditioning - 1) * 7 + (s.lifestyle - 1) * 10 - (s.risk - 1) * 8;
+    let cancer = 28 - (s.lifestyle - 1) * 3 + (s.risk - 1) * 3;
+    let cv = 18 - (s.conditioning - 1) * 3 - (s.lifestyle - 1) * 3 + (s.risk - 1) * 4;
+    let both = 100 - spared - cancer - cv;
+    const vals = [spared, cancer, cv, both].map(v => Math.max(4, v));
+    const sum = vals.reduce((a, b) => a + b, 0);
+    const rounded = vals.map(v => Math.round(v / sum * 100));
+    rounded[3] += 100 - rounded.reduce((a, b) => a + b, 0);
+    return { spared: rounded[0], cancer: rounded[1], cv: rounded[2], both: rounded[3] };
+  }
+
+  function render() {
+    const s = state();
+    valueLabels.conditioning.textContent = labels.conditioning[s.conditioning];
+    valueLabels.lifestyle.textContent = labels.lifestyle[s.lifestyle];
+    valueLabels.risk.textContent = labels.risk[s.risk];
+    const mix = probabilityMix(s);
+    Object.entries(mix).forEach(([k, v]) => {
+      const el = root.querySelector(`[data-percent="${k}"]`);
+      if (el) el.textContent = `${v}%`;
+    });
+    root.querySelectorAll('[data-outcome]').forEach(btn => {
+      const on = btn.dataset.outcome === activeOutcome;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', String(on));
+    });
+
+    const yTicks = [0, 10, 20, 30, 40, 50, 60];
+    const xTicks = [30, 40, 50, 60, 70, 80, 90, 100];
+    const funcLabels = [
+      ['Endurance athlete', 60], ['Hard recreation', 48], ['Stairs without thinking', 37],
+      ['Independent daily life', 28], ['Strained effort', 21], ['Needs help', 12]
+    ];
+    const e = eventAges(s);
+    const activePts = trajectory(activeOutcome, s);
+    const refPts = [];
+    for (let age = 30; age <= 100; age += 2) {
+      const yrs = age - 30;
+      refPts.push({ age, vo2: clamp(36 - 0.24 * yrs - 0.0028 * yrs * yrs, 7, 60) });
+    }
+    const dotAt = age => {
+      const nearest = activePts.reduce((best, p) => Math.abs(p.age - age) < Math.abs(best.age - age) ? p : best, activePts[0]);
+      return { x: xAge(age), y: yVo2(nearest.vo2) };
+    };
+    const showCancerDot = activeOutcome === 'cancer' || activeOutcome === 'both';
+    const showCvDot = activeOutcome === 'cv' || activeOutcome === 'both';
+
+    svg.innerHTML = `
+      <rect x="0" y="0" width="1180" height="620" fill="#f5efe8"/>
+      <rect x="${box.x0}" y="${yVo2(18)}" width="${box.w}" height="${yVo2(0)-yVo2(18)}" fill="rgba(225, 137, 137, 0.20)"/>
+      <rect x="${xAge(83)}" y="${box.y0}" width="${xAge(100)-xAge(83)}" height="${box.h}" fill="rgba(122, 122, 122, 0.22)"/>
+      ${yTicks.map(t => `<line x1="${box.x0}" y1="${yVo2(t)}" x2="${box.x0 + box.w}" y2="${yVo2(t)}" stroke="rgba(86,81,76,0.16)" stroke-width="1"/>`).join('')}
+      ${xTicks.map(t => `<line x1="${xAge(t)}" y1="${box.y0}" x2="${xAge(t)}" y2="${box.y0 + box.h}" stroke="rgba(86,81,76,0.08)" stroke-width="1"/>`).join('')}
+      <path d="${pathFrom(refPts)}" fill="none" stroke="#8f8880" stroke-width="2" stroke-dasharray="8 8" opacity="0.72"/>
+      ${funcLabels.map(([label, v]) => `<text class="vo2-func-label" x="${box.x0 - 24}" y="${yVo2(v) + 4}" text-anchor="end">${label}</text>`).join('')}
+      ${yTicks.map(t => `<text class="vo2-tick-label" x="${box.x0 + box.w + 24}" y="${yVo2(t) + 4}" text-anchor="middle">${t}</text>`).join('')}
+      ${xTicks.map(t => `<text class="vo2-tick-label" x="${xAge(t)}" y="${box.y0 + box.h + 33}" text-anchor="middle">${t}</text>`).join('')}
+      <text class="vo2-axis-label" x="${box.x0 + box.w/2}" y="${box.y0 + box.h + 67}" text-anchor="middle" style="font-size:16px;letter-spacing:.08em;">AGE</text>
+      <line x1="${box.x0}" y1="${box.y0 + box.h}" x2="${box.x0 + box.w}" y2="${box.y0 + box.h}" stroke="#625d56" stroke-width="1.5"/>
+      <line x1="${box.x0 + box.w}" y1="${box.y0}" x2="${box.x0 + box.w}" y2="${box.y0 + box.h}" stroke="#625d56" stroke-width="1.5" opacity="0.45"/>
+      ${segmentedPaths(activeOutcome, s).map(seg => seg.pts.length > 1 ? `<path d="${pathFrom(seg.pts)}" fill="none" stroke="${seg.color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>` : '').join('')}
+      ${showCancerDot ? `<circle cx="${dotAt(e.cancer).x}" cy="${dotAt(e.cancer).y}" r="6" fill="#73421f" stroke="#f5efe8" stroke-width="2"/>` : ''}
+      ${showCvDot ? `<circle cx="${dotAt(e.cv).x}" cy="${dotAt(e.cv).y}" r="6" fill="#73421f" stroke="#f5efe8" stroke-width="2"/>` : ''}
+    `;
+  }
+
+  root.querySelectorAll('[data-outcome]').forEach(btn => btn.addEventListener('click', () => {
+    activeOutcome = btn.dataset.outcome;
+    render();
+  }));
+  Object.values(inputs).forEach(input => input.addEventListener('input', render));
+  render();
+})();
+</script>
+
 <script>
 (function() {
   const dpr = window.devicePixelRatio || 1;
@@ -897,76 +1282,7 @@
     return { ctx, W, H };
   }
 
-  // === QUALITY OF LIFE CHART ===
-  {
-    const { ctx, W, H } = setupCanvas('qolChart');
-    const pad = { top: 30, right: 24, bottom: 50, left: 145 };
-    const cw = W - pad.left - pad.right;
-    const ch = H - pad.top - pad.bottom;
-    const minAge = 30, maxAge = 95;
-
-    function xA(age) { return pad.left + ((age - minAge) / (maxAge - minAge)) * cw; }
-    function yP(pct) { return pad.top + ((100 - pct) / 100) * ch; }
-
-    // Average American: BMI ~30, VO₂ ~35 at 30 declining to ~20 by 70, sedentary, MetSyn by 55
-    const qol = [
-      [30,84],[35,82],[40,79],[45,75],[50,70],[55,64],
-      [60,56],[65,48],[70,40],[75,30],[78,20],[80,12],[82,4],[83,0]
-    ];
-    const px = qol.map(d => [xA(d[0]), yP(d[1])]);
-
-    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
-
-    // Category bands
-    const bands = [
-      { from: 75, to: 100, color: 'rgba(162,101,59,0.10)', label: 'Do anything', labelColor: '#6d3f27', border: '#a2653b' },
-      { from: 50, to: 75, color: 'rgba(239,234,224,0.28)', label: 'Active & independent', labelColor: '#a2653b', border: '#a2653b' },
-      { from: 25, to: 50, color: 'rgba(224,155,45,0.10)', label: 'Slowing down', labelColor: '#a2653b', border: '#a2653b' },
-      { from: 0, to: 25, color: 'rgba(142,61,47,0.12)', label: 'Need help', labelColor: '#8e3d2f', border: '#8e3d2f' }
-    ];
-    bands.forEach(b => {
-      ctx.fillStyle = b.color;
-      ctx.fillRect(pad.left, yP(b.to), cw, yP(b.from) - yP(b.to));
-      
-      // Divider line
-      ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(pad.left, yP(b.to)); ctx.lineTo(pad.left + cw, yP(b.to)); ctx.stroke();
-    });
-
-    // Shaded area under curve
-    ctx.beginPath();
-    ctx.moveTo(px[0][0], px[0][1]);
-    const m = monoTangents(px);
-    for(let i=0; i<px.length-1; i++) {
-      const dx = px[i+1][0] - px[i][0];
-      ctx.bezierCurveTo(px[i][0]+dx/3, px[i][1]+m[i]*dx/3, px[i+1][0]-dx/3, px[i+1][1]-m[i+1]*dx/3, px[i+1][0], px[i+1][1]);
-    }
-    ctx.lineTo(px[px.length-1][0], yP(0));
-    ctx.lineTo(px[0][0], yP(0));
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(162,101,59,0.08)';
-    ctx.fill();
-
-    drawCurve(ctx, px, '#a2653b', 3.5);
-
-    // Y-axis: category labels instead of percentages
-    ctx.font = '600 11px Inter'; ctx.textAlign = 'right';
-    bands.forEach(b => {
-      ctx.fillStyle = b.labelColor;
-      const midY = (yP(b.to) + yP(b.from)) / 2;
-      ctx.fillText(b.label, pad.left - 10, midY + 4);
-      // Color accent strip between label and plot
-      if (b.border) { ctx.fillStyle = b.border; ctx.fillRect(pad.left - 4, yP(b.to) + 1, 2.5, yP(b.from) - yP(b.to) - 2); }
-    });
-
-    // X-axis
-    ctx.font = '500 13px Inter'; ctx.textAlign = 'center'; ctx.fillStyle = '#6f6a61';
-    for(let age = 30; age <= 90; age += 10) ctx.fillText(age, xA(age), yP(0) + 20);
-    ctx.fillStyle = '#6f6a61'; ctx.font = '600 13px Inter';
-    ctx.fillText('Age', pad.left + cw / 2, yP(0) + 40);
-  }
-
-  // survChart removed
+  // === SLIDE 1: VO2max tool replaces old canvas curve ===
 
   // === SLIDE 3: QUALITY OF LIFE — TWO CURVES ===
   {
