@@ -172,204 +172,191 @@
   div { border-radius: 0 !important; }
 
 
-  /* VO2max interactive trajectory component */
-  .vo2-slide {
+
+
+  /* Canonical QOL/VO2 component transplanted from /Projects/qol-three-slider/aleron.html */
+  .source-qol-slide {
     padding: 48px 56px 40px;
     justify-content: center;
     align-items: center;
-    background: #f4eee6 !important;
+    background: #F6F4EE !important;
   }
-  .vo2-tool {
+  .qol-source-tool {
+    --ink: #0A0A0B;
+    --ink-2: #14140F;
+    --paper: #F6F4EE;
+    --paper-warm: #EFEAE0;
+    --bone: #ECE5D6;
+    --gold: #D4A574;
+    --gold-light: #E8C99A;
+    --gold-deep: #6F4A20;
+    --line: rgba(10,10,11,0.12);
+    --line-soft: rgba(10,10,11,0.06);
+    --text: #0A0A0B;
+    --text-muted: #4A4A4D;
+    --text-dim: #4A4A4D;
+    --chart-bg: #FBF8F1;
+    --chart-border: rgba(10,10,11,0.10);
+    --chart-tick: rgba(10,10,11,0.22);
+    --max: 1180px;
+    --gutter: clamp(20px, 4vw, 64px);
+    --ease: cubic-bezier(.2, .7, .2, 1);
+    --cond: #2E5A87;
+    --life: #3B7A4F;
+    --risk: #B8854D;
     width: min(1180px, 96vw);
-    background: #f5efe8;
-    color: #2b2b2d;
-    border: 1px solid rgba(43, 43, 45, 0.08);
-    box-shadow: 0 24px 70px rgba(36, 36, 38, 0.08);
-    padding: 26px 28px 28px;
   }
-  .vo2-title {
-    text-align: center;
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: #242426;
-    margin-bottom: 0;
+  /* ============ CHART CARD ============ */
+  .chart-wrap {
+    background: var(--chart-bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 18px 14px;
+    box-shadow: 0 1px 0 rgba(10,10,11,0.02), 0 24px 60px -28px rgba(10,10,11,0.18);
+    overflow: hidden;
   }
-  .vo2-unit {
-    text-align: center;
-    font-size: 13px;
-    font-weight: 600;
-    color: #7b766e;
-    margin-bottom: 12px;
+  .chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #chart { display: block; width: 100%; min-width: 1040px; height: auto; }
+  @media (min-width: 1120px) { #chart { min-width: 0; } }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px 44px; padding: 22px 4px 4px;
+    justify-content: center; }
+  .legend-toggle {
+    display: inline-grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 10px;
+    row-gap: 2px;
+    align-items: center;
+    background: transparent; border: none; padding: 5px 2px;
+    font-size: 14px; letter-spacing: 0.1px; color: var(--ink);
+    font-family: 'Inter', sans-serif; cursor: pointer;
+    user-select: none; line-height: 1.2;
+    text-align: left;
   }
-  .vo2-chart-shell {
-    width: 100%;
-    overflow-x: auto;
-    padding: 0 2px 2px;
+  .legend-toggle .track { grid-row: 1 / span 2; align-self: center; }
+  .legend-toggle .label { grid-column: 2; grid-row: 1; font-weight: 600; }
+  .legend-toggle .pct {
+    grid-column: 2; grid-row: 2;
+    color: var(--text-muted); font-variant-numeric: tabular-nums;
+    font-size: 17px; font-weight: 700; color: var(--ink);
   }
-  .vo2-svg {
-    display: block;
-    width: 100%;
-    min-width: 920px;
-    height: auto;
+  .legend-toggle .track {
+    position: relative; width: 32px; height: 18px;
+    background: rgba(10,10,11,0.12); border-radius: 999px; flex-shrink: 0;
+    transition: background 140ms ease;
   }
-  .vo2-func-label {
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    font-weight: 650;
+  .legend-toggle .track::after {
+    content: ''; position: absolute;
+    top: 2px; left: 2px; width: 14px; height: 14px;
+    background: rgba(10,10,11,0.38); border-radius: 50%;
+    transition: transform 140ms ease, background 140ms ease;
+    box-shadow: 0 1px 2px rgba(10,10,11,0.12);
+  }
+  .legend-toggle[data-active="true"] .track::after {
+    transform: translateX(14px); background: var(--swatch, var(--gold));
+  }
+  .legend-toggle[data-active="true"] .track { background: rgba(111,74,32,0.22); }
+  .legend-toggle[data-active="false"] .label,
+  .legend-toggle[data-active="false"] .pct { color: var(--text-muted); opacity: 0.72; }
+  .legend-toggle:hover .track { background: rgba(10,10,11,0.20); }
+  .legend-refs { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(10,10,11,0.06); justify-content: center; }
+  .legend-ref { display: inline-flex; align-items: center; gap: 10px;
+    padding: 5px 2px; font-size: 13px; color: var(--text-muted);
+    font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0.2px; }
+  .legend-ref .dash { display: inline-block; width: 32px; height: 0;
+    border-top: 1.5px dashed rgba(10,10,11,0.45); }
+  .legend-ref .swatch { display: inline-block; width: 32px; height: 12px;
+    background: rgba(100,100,100,0.5); border-radius: 2px; }
+  .legend-toggle[data-active="true"]:hover .track { background: rgba(111,74,32,0.34); }
+  .chart-caption {
+    padding: 8px 4px 0;
+    color: var(--text-muted);
     font-size: 14px;
-    fill: #4b4947;
+    line-height: 1.45;
+    max-width: 86ch;
   }
-  .vo2-axis-label,
-  .vo2-tick-label {
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    fill: #68635d;
-    font-size: 13px;
-    font-weight: 650;
+
+  /* ============ SLIDER CONTROLS ============ */
+  .controls {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px; margin-top: 22px;
   }
-  .vo2-legend {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 12px 18px;
-    margin: 10px auto 24px;
-    color: #625d56;
-    font-size: 13px;
+  @media (max-width: 800px) { .controls { grid-template-columns: 1fr; } }
+  .ctl {
+    background: var(--paper-warm);
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    padding: 18px 20px 16px;
   }
-  .vo2-outcome-toggle {
-    border: 0;
-    background: transparent;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 0;
+  .ctl-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .ctl-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 600; color: var(--text-muted);
+  }
+  .ctl-val {
+    color: var(--ink); font-variant-numeric: tabular-nums;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 17px; font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  input[type=range] {
+    width: 100%; -webkit-appearance: none; appearance: none;
+    height: 3px; background: rgba(10,10,11,0.14); border-radius: 4px; outline: none;
+    margin: 6px 0 4px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #FFFFFF;
     cursor: pointer;
-    color: #69645e;
-    font: inherit;
+    border: 2.5px solid var(--gold-deep);
+    box-shadow: 0 1px 4px rgba(10,10,11,0.16);
   }
-  .vo2-toggle-dot {
-    width: 25px;
-    height: 14px;
-    border-radius: 999px !important;
-    background: #b8b2aa;
-    position: relative;
-    box-shadow: inset 0 0 0 1px rgba(36,36,38,0.08);
-  }
-  .vo2-toggle-dot::after {
-    content: "";
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50% !important;
-    background: #f7f2ea;
-    transition: transform 180ms ease;
-  }
-  .vo2-outcome-toggle.is-active .vo2-toggle-dot {
-    background: #9b5d2f;
-  }
-  .vo2-outcome-toggle.is-active .vo2-toggle-dot::after {
-    transform: translateX(11px);
-  }
-  .vo2-outcome-toggle strong {
-    color: #242426;
-    font-weight: 800;
-  }
-  .vo2-key-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-  }
-  .vo2-dash-swatch {
-    width: 38px;
-    height: 0;
-    border-top: 2px dashed #8f8880;
-  }
-  .vo2-window-swatch {
-    width: 28px;
-    height: 14px;
-    background: rgba(126, 126, 126, 0.34);
-    border: 1px solid rgba(94, 94, 94, 0.20);
-  }
-  .vo2-controls {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-  .vo2-control-card {
-    background: #e9e2da;
-    border: 1px solid rgba(36,36,38,0.08);
-    padding: 18px 18px 16px;
-  }
-  .vo2-control-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-  .vo2-control-kicker {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    color: #8b847b;
-  }
-  .vo2-control-value {
-    font-size: 25px;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: #29292b;
-    text-align: right;
-  }
-  .vo2-slider {
-    width: 100%;
-    appearance: none;
-    height: 2px;
-    background: #bcb5ad;
-    outline: none;
-    margin: 2px 0 13px;
-  }
-  .vo2-slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50% !important;
-    border: 2px solid #8d867e;
-    background: #f8f3ec;
+  input[type=range]::-moz-range-thumb {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #FFFFFF;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(36,36,38,0.14);
+    border: 2.5px solid var(--gold-deep);
+    box-shadow: 0 1px 4px rgba(10,10,11,0.16);
   }
-  .vo2-slider::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50% !important;
-    border: 2px solid #8d867e;
-    background: #f8f3ec;
-    cursor: pointer;
+  .ctl-marks {
+    display: flex; justify-content: space-between;
+    color: var(--text-muted); font-size: 12px; letter-spacing: 0.04em;
+    text-transform: uppercase; margin-top: 7px;
   }
-  .vo2-scale-labels {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.09em;
-    color: #817a71;
-    text-transform: uppercase;
-  }
-  .vo2-panel,
-  .vo2-tool,
-  .vo2-control-card {
-    border-radius: 24px !important;
-  }
+
+  /* ============ SVG ELEMENT BASE STYLES ============ */
+  .ax-tick { stroke: var(--chart-tick); }
+  .ax-label { fill: var(--text-muted); font-size: 13px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .ref-curve { fill: none; stroke: rgba(10,10,11,0.38); stroke-width: 1.4;
+    stroke-dasharray: 6 5; opacity: 0.72; }
+  .patient-curve { fill: none; stroke: var(--gold-deep); stroke-width: 2.4;
+    stroke-dasharray: 9 5; opacity: 0.95; }
+  .patient-marker { fill: var(--gold-deep); stroke: var(--chart-bg); stroke-width: 2; }
+  .ref-label { fill: var(--text-muted); font-size: 13px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .patient-label { fill: #67451E; font-size: 13px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 600; }
+  .event-marker { fill: #A44938; opacity: 1; }
+  .event-label { fill: var(--text-muted); font-size: 13px;
+    font-family: 'Inter', sans-serif; font-weight: 600; }
+
+  .qol-source-tool .chart-wrap { border-radius: 14px !important; }
+  .qol-source-tool .ctl { border-radius: 12px !important; }
+  .qol-source-tool .legend-toggle .track { border-radius: 999px !important; }
+  .qol-source-tool .legend-toggle .track::after { border-radius: 50% !important; }
+  .qol-source-tool .legend-ref .swatch { border-radius: 2px !important; }
+  .qol-source-tool input[type=range] { border-radius: 4px !important; }
+  .qol-source-tool input[type=range]::-webkit-slider-thumb { border-radius: 50% !important; }
+  .qol-source-tool input[type=range]::-moz-range-thumb { border-radius: 50% !important; }
   @media (max-width: 900px) {
-    .vo2-slide { padding: 36px 18px; align-items: stretch; }
-    .vo2-tool { width: 100%; padding: 20px 14px 18px; }
-    .vo2-controls { grid-template-columns: 1fr; }
-    .vo2-title { font-size: 26px; }
+    .source-qol-slide { padding: 36px 18px; align-items: stretch; }
+    .qol-source-tool { width: 100%; }
   }
 
 
@@ -507,36 +494,39 @@
 </section>
 
 <!-- SLIDE 1 -->
-<div class="slide vo2-slide" data-vo2-tool-section>
-  <section class="vo2-tool" aria-label="Interactive VO2max trajectory tool">
-    <h2 class="vo2-title">VO2max</h2>
-    <div class="vo2-unit">mL/kg/min</div>
-    <div class="vo2-chart-shell">
-      <svg class="vo2-svg" data-vo2-chart viewBox="0 0 1180 620" role="img" aria-label="VO2max trajectory by age"></svg>
-    </div>
-    <div class="vo2-legend" data-vo2-legend>
-      <button class="vo2-outcome-toggle" type="button" data-outcome="spared" aria-pressed="false"><span class="vo2-toggle-dot" aria-hidden="true"></span><span>spared both <strong data-percent="spared">41%</strong></span></button>
-      <button class="vo2-outcome-toggle" type="button" data-outcome="cancer" aria-pressed="false"><span class="vo2-toggle-dot" aria-hidden="true"></span><span>cancer only <strong data-percent="cancer">28%</strong></span></button>
-      <button class="vo2-outcome-toggle" type="button" data-outcome="cv" aria-pressed="false"><span class="vo2-toggle-dot" aria-hidden="true"></span><span>CV only <strong data-percent="cv">18%</strong></span></button>
-      <button class="vo2-outcome-toggle is-active" type="button" data-outcome="both" aria-pressed="true"><span class="vo2-toggle-dot" aria-hidden="true"></span><span>both events <strong data-percent="both">13%</strong></span></button>
-      <span class="vo2-key-item"><span class="vo2-dash-swatch" aria-hidden="true"></span><span>Average American reference</span></span>
-      <span class="vo2-key-item"><span class="vo2-window-swatch" aria-hidden="true"></span><span>Cognitive impairment window</span></span>
-    </div>
-    <div class="vo2-controls">
-      <div class="vo2-control-card">
-        <div class="vo2-control-head"><div class="vo2-control-kicker">CONDITIONING</div><div class="vo2-control-value" data-vo2-value="conditioning">Average</div></div>
-        <input class="vo2-slider" type="range" min="0" max="3" step="1" value="1" data-vo2-input="conditioning" aria-label="Conditioning">
-        <div class="vo2-scale-labels"><span>DECOND</span><span>AVG</span><span>WELL</span><span>ELITE</span></div>
+<div class="slide source-qol-slide" data-qol-source-tool-section>
+  <section class="qol-source-tool" aria-label="Quality of Life VO2max teaching tool copied from qol-three-slider/aleron.html">
+    <div class="chart-wrap">
+      <div class="chart-scroll">
+        <svg id="chart" viewBox="0 0 1080 560" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
-      <div class="vo2-control-card">
-        <div class="vo2-control-head"><div class="vo2-control-kicker">LIFESTYLE</div><div class="vo2-control-value" data-vo2-value="lifestyle">Maintained</div></div>
-        <input class="vo2-slider" type="range" min="0" max="2" step="1" value="1" data-vo2-input="lifestyle" aria-label="Lifestyle">
-        <div class="vo2-scale-labels"><span>NEGLECTED</span><span>MAINTAINED</span><span>OPTIMIZED</span></div>
+      <div class="legend" id="legend" aria-label="Trajectory toggles"></div>
+    </div>
+
+    <div class="controls">
+      <div class="ctl">
+        <div class="ctl-head">
+          <span class="ctl-name">Conditioning</span>
+          <span class="ctl-val" id="condVal">Average</span>
+        </div>
+        <input type="range" id="cond" min="0" max="100" step="1" value="33"/>
+        <div class="ctl-marks"><span>Decond</span><span>Avg</span><span>Well</span><span>Elite</span></div>
       </div>
-      <div class="vo2-control-card">
-        <div class="vo2-control-head"><div class="vo2-control-kicker">UNDERLYING RISK</div><div class="vo2-control-value" data-vo2-value="risk">Average</div></div>
-        <input class="vo2-slider" type="range" min="0" max="2" step="1" value="1" data-vo2-input="risk" aria-label="Underlying risk">
-        <div class="vo2-scale-labels"><span>LOW</span><span>AVG</span><span>HIGH</span></div>
+      <div class="ctl">
+        <div class="ctl-head">
+          <span class="ctl-name">Lifestyle</span>
+          <span class="ctl-val" id="lifeVal">Maintained</span>
+        </div>
+        <input type="range" id="life" min="0" max="100" step="1" value="50"/>
+        <div class="ctl-marks"><span>Neglected</span><span>Maintained</span><span>Optimized</span></div>
+      </div>
+      <div class="ctl">
+        <div class="ctl-head">
+          <span class="ctl-name">Underlying Risk</span>
+          <span class="ctl-val" id="riskVal">Average</span>
+        </div>
+        <input type="range" id="risk" min="0" max="100" step="1" value="50"/>
+        <div class="ctl-marks"><span>Low</span><span>Avg</span><span>High</span></div>
       </div>
     </div>
   </section>
@@ -1066,173 +1056,478 @@
 
 
 
+
+
 <script>
 (function() {
-  const root = document.querySelector('[data-vo2-tool-section]');
-  if (!root) return;
-  const svg = root.querySelector('[data-vo2-chart]');
-  const inputs = {
-    conditioning: root.querySelector('[data-vo2-input="conditioning"]'),
-    lifestyle: root.querySelector('[data-vo2-input="lifestyle"]'),
-    risk: root.querySelector('[data-vo2-input="risk"]')
-  };
-  const valueLabels = {
-    conditioning: root.querySelector('[data-vo2-value="conditioning"]'),
-    lifestyle: root.querySelector('[data-vo2-value="lifestyle"]'),
-    risk: root.querySelector('[data-vo2-value="risk"]')
-  };
-  const labels = {
-    conditioning: ['Deconditioned', 'Average', 'Well', 'Elite'],
-    lifestyle: ['Neglected', 'Maintained', 'Optimized'],
-    risk: ['Low', 'Average', 'High']
-  };
-  let activeOutcome = 'both';
+// ============================================================================
+// Functional Capacity Teaching Tool — Aleron edition
+// Engine identical to the source tool; palette adjusted for paper background.
+// ============================================================================
 
-  const box = { x0: 210, y0: 70, w: 860, h: 390 };
-  const xAge = age => box.x0 + ((age - 30) / 70) * box.w;
-  const yVo2 = v => box.y0 + ((62 - v) / 62) * box.h;
-  const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+const TEMPLATES = {
+  elite: { 30: 56, 40: 53, 50: 50, 60: 47, 65: 45, 70: 42, 75: 38, 80: 34, 85: 30, 90: 26, 100: 18 },
+  average: { 30: 38, 40: 35, 50: 33, 60: 31, 65: 29, 70: 26, 75: 22, 80: 19, 85: 16, 90: 13, 100: 8 },
+  deconditioned: { 30: 26, 40: 23, 50: 20, 60: 18, 65: 16, 70: 14, 75: 12, 80: 10, 85: 8, 90: 7, 100: 5 }
+};
 
-  function pathFrom(points) {
-    return points.map((p, i) => `${i ? 'L' : 'M'}${xAge(p.age).toFixed(1)} ${yVo2(p.vo2).toFixed(1)}`).join(' ');
-  }
-
-  function state() {
-    return {
-      conditioning: Number(inputs.conditioning.value),
-      lifestyle: Number(inputs.lifestyle.value),
-      risk: Number(inputs.risk.value)
-    };
-  }
-
-  function eventAges(s) {
-    const cancer = clamp(66 + s.lifestyle * 3 - s.risk * 4, 58, 78);
-    const cv = clamp(76 + s.lifestyle * 2 - s.risk * 5, cancer + 4, 88);
-    return { cancer, cv };
-  }
-
-  function baseVo2(age, s) {
-    const start = [29, 38, 48, 56][s.conditioning];
-    const decline = [0.30, 0.23, 0.17][s.lifestyle] + [0.00, 0.04, 0.09][s.risk];
-    const yrs = age - 30;
-    return start - decline * yrs - 0.0026 * yrs * yrs;
-  }
-
-  function vo2At(age, kind, s) {
-    const e = eventAges(s);
-    let vo2 = baseVo2(age, s);
-    if ((kind === 'cancer' || kind === 'both') && age >= e.cancer) vo2 -= (age - e.cancer) * 0.34;
-    if ((kind === 'cv' || kind === 'both') && age >= e.cv) vo2 -= (age - e.cv) * 0.42;
-    return clamp(vo2, 6, 62);
-  }
-
-  function trajectory(kind, s) {
-    const pts = [];
-    for (let age = 30; age <= 100; age += 2) pts.push({ age, vo2: vo2At(age, kind, s) });
-    return pts;
-  }
-
-  function sampleSegment(kind, s, start, end) {
-    const pts = [{ age: start, vo2: vo2At(start, kind, s) }];
-    let age = Math.ceil(start / 2) * 2;
-    for (; age < end; age += 2) {
-      if (age > start) pts.push({ age, vo2: vo2At(age, kind, s) });
+function templateAt(tmpl, age) {
+  const ages = Object.keys(tmpl).map(Number).sort((a,b) => a - b);
+  if (age <= ages[0]) return tmpl[ages[0]];
+  if (age >= ages[ages.length-1]) return tmpl[ages[ages.length-1]];
+  for (let i = 0; i < ages.length - 1; i++) {
+    const a0 = ages[i], a1 = ages[i+1];
+    if (age >= a0 && age <= a1) {
+      const t = (age - a0) / (a1 - a0);
+      return tmpl[a0] * (1 - t) + tmpl[a1] * t;
     }
-    pts.push({ age: end, vo2: vo2At(end, kind, s) });
-    return pts;
   }
+  return tmpl[ages[ages.length-1]];
+}
 
-  function segmentedPaths(kind, s) {
-    const e = eventAges(s);
-    if (kind === 'spared') return [{ color: '#48b75f', pts: sampleSegment(kind, s, 30, 100) }];
-    if (kind === 'cancer') return [
-      { color: '#48b75f', pts: sampleSegment(kind, s, 30, e.cancer) },
-      { color: '#e3a436', pts: sampleSegment(kind, s, e.cancer, 100) }
-    ];
-    if (kind === 'cv') return [
-      { color: '#48b75f', pts: sampleSegment(kind, s, 30, e.cv) },
-      { color: '#e07168', pts: sampleSegment(kind, s, e.cv, 100) }
-    ];
-    return [
-      { color: '#48b75f', pts: sampleSegment(kind, s, 30, e.cancer) },
-      { color: '#e3a436', pts: sampleSegment(kind, s, e.cancer, e.cv) },
-      { color: '#e07168', pts: sampleSegment(kind, s, e.cv, 100) }
-    ];
-  }
+function conditioningCurve(condSlider, age) {
+  const dec = templateAt(TEMPLATES.deconditioned, age);
+  const avg = templateAt(TEMPLATES.average, age);
+  const eli = templateAt(TEMPLATES.elite, age);
+  if (condSlider <= 33) { const t = condSlider / 33; return dec * (1 - t) + avg * t; }
+  const t = (condSlider - 33) / 67; return avg * (1 - t) + eli * t;
+}
 
-  function probabilityMix(s) {
-    let spared = 41 + (s.conditioning - 1) * 7 + (s.lifestyle - 1) * 10 - (s.risk - 1) * 8;
-    let cancer = 28 - (s.lifestyle - 1) * 3 + (s.risk - 1) * 3;
-    let cv = 18 - (s.conditioning - 1) * 3 - (s.lifestyle - 1) * 3 + (s.risk - 1) * 4;
-    let both = 100 - spared - cancer - cv;
-    const vals = [spared, cancer, cv, both].map(v => Math.max(4, v));
-    const sum = vals.reduce((a, b) => a + b, 0);
-    const rounded = vals.map(v => Math.round(v / sum * 100));
-    rounded[3] += 100 - rounded.reduce((a, b) => a + b, 0);
-    return { spared: rounded[0], cancer: rounded[1], cv: rounded[2], both: rounded[3] };
-  }
+function baseCapacity(condSlider, lifeSlider, age) {
+  const baseline = conditioningCurve(condSlider, 30);
+  const unmodified = conditioningCurve(condSlider, age);
+  const mult = 1.10 - (lifeSlider / 100) * 0.20;
+  return baseline + mult * (unmodified - baseline);
+}
 
-  function render() {
-    const s = state();
-    valueLabels.conditioning.textContent = labels.conditioning[s.conditioning];
-    valueLabels.lifestyle.textContent = labels.lifestyle[s.lifestyle];
-    valueLabels.risk.textContent = labels.risk[s.risk];
-    const mix = probabilityMix(s);
-    Object.entries(mix).forEach(([k, v]) => {
-      const el = root.querySelector(`[data-percent="${k}"]`);
-      if (el) el.textContent = `${v}%`;
-    });
-    root.querySelectorAll('[data-outcome]').forEach(btn => {
-      const on = btn.dataset.outcome === activeOutcome;
-      btn.classList.toggle('is-active', on);
-      btn.setAttribute('aria-pressed', String(on));
-    });
+function effectiveRisk(condSlider, lifeSlider, riskSlider) {
+  const r = riskSlider / 100;
+  const decon = 1 - condSlider / 100;
+  const neg = 1 - lifeSlider / 100;
+  return 0.55 * r + 0.35 * decon + 0.10 * neg;
+}
 
-    const yTicks = [0, 10, 20, 30, 40, 50, 60];
-    const xTicks = [30, 40, 50, 60, 70, 80, 90, 100];
-    const funcLabels = [
-      ['Endurance athlete', 60], ['Hard recreation', 48], ['Stairs without thinking', 37],
-      ['Independent daily life', 28], ['Strained effort', 21], ['Needs help', 12]
-    ];
-    const e = eventAges(s);
-    const activePts = trajectory(activeOutcome, s);
-    const refPts = [];
-    for (let age = 30; age <= 100; age += 2) {
-      const yrs = age - 30;
-      refPts.push({ age, vo2: clamp(36 - 0.24 * yrs - 0.0028 * yrs * yrs, 7, 60) });
+function interpolateAnchors(R, anchors) {
+  const n = anchors.length;
+  if (R <= anchors[0][0]) return anchors[0][1];
+  if (R >= anchors[n-1][0]) return anchors[n-1][1];
+  for (let i = 0; i < n - 1; i++) {
+    if (R >= anchors[i][0] && R <= anchors[i+1][0]) {
+      const t = (R - anchors[i][0]) / (anchors[i+1][0] - anchors[i][0]);
+      return anchors[i][1] * (1 - t) + anchors[i+1][1] * t;
     }
-    const dotAt = age => {
-      const nearest = activePts.reduce((best, p) => Math.abs(p.age - age) < Math.abs(best.age - age) ? p : best, activePts[0]);
-      return { x: xAge(age), y: yVo2(nearest.vo2) };
-    };
-    const showCancerDot = activeOutcome === 'cancer' || activeOutcome === 'both';
-    const showCvDot = activeOutcome === 'cv' || activeOutcome === 'both';
-
-    svg.innerHTML = `
-      <rect x="0" y="0" width="1180" height="620" fill="#f5efe8"/>
-      <rect x="${box.x0}" y="${yVo2(18)}" width="${box.w}" height="${yVo2(0)-yVo2(18)}" fill="rgba(225, 137, 137, 0.20)"/>
-      <rect x="${xAge(83)}" y="${box.y0}" width="${xAge(100)-xAge(83)}" height="${box.h}" fill="rgba(122, 122, 122, 0.22)"/>
-      ${yTicks.map(t => `<line x1="${box.x0}" y1="${yVo2(t)}" x2="${box.x0 + box.w}" y2="${yVo2(t)}" stroke="rgba(86,81,76,0.16)" stroke-width="1"/>`).join('')}
-      ${xTicks.map(t => `<line x1="${xAge(t)}" y1="${box.y0}" x2="${xAge(t)}" y2="${box.y0 + box.h}" stroke="rgba(86,81,76,0.08)" stroke-width="1"/>`).join('')}
-      <path d="${pathFrom(refPts)}" fill="none" stroke="#8f8880" stroke-width="2" stroke-dasharray="8 8" opacity="0.72"/>
-      ${funcLabels.map(([label, v]) => `<text class="vo2-func-label" x="${box.x0 - 24}" y="${yVo2(v) + 4}" text-anchor="end">${label}</text>`).join('')}
-      ${yTicks.map(t => `<text class="vo2-tick-label" x="${box.x0 + box.w + 24}" y="${yVo2(t) + 4}" text-anchor="middle">${t}</text>`).join('')}
-      ${xTicks.map(t => `<text class="vo2-tick-label" x="${xAge(t)}" y="${box.y0 + box.h + 33}" text-anchor="middle">${t}</text>`).join('')}
-      <text class="vo2-axis-label" x="${box.x0 + box.w/2}" y="${box.y0 + box.h + 67}" text-anchor="middle" style="font-size:16px;letter-spacing:.08em;">AGE</text>
-      <line x1="${box.x0}" y1="${box.y0 + box.h}" x2="${box.x0 + box.w}" y2="${box.y0 + box.h}" stroke="#625d56" stroke-width="1.5"/>
-      <line x1="${box.x0 + box.w}" y1="${box.y0}" x2="${box.x0 + box.w}" y2="${box.y0 + box.h}" stroke="#625d56" stroke-width="1.5" opacity="0.45"/>
-      ${segmentedPaths(activeOutcome, s).map(seg => seg.pts.length > 1 ? `<path d="${pathFrom(seg.pts)}" fill="none" stroke="${seg.color}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>` : '').join('')}
-      ${showCancerDot ? `<circle cx="${dotAt(e.cancer).x}" cy="${dotAt(e.cancer).y}" r="6" fill="#73421f" stroke="#f5efe8" stroke-width="2"/>` : ''}
-      ${showCvDot ? `<circle cx="${dotAt(e.cv).x}" cy="${dotAt(e.cv).y}" r="6" fill="#73421f" stroke="#f5efe8" stroke-width="2"/>` : ''}
-    `;
   }
+  return anchors[n-1][1];
+}
 
-  root.querySelectorAll('[data-outcome]').forEach(btn => btn.addEventListener('click', () => {
-    activeOutcome = btn.dataset.outcome;
-    render();
+// Anchors extended to R_eff ∈ [0.05, 0.95] so corner slider combinations
+// (high-risk + elite fit, low-risk + deconditioned) remain responsive instead
+// of clamping against a [0.30, 0.80] floor/ceiling.
+const FORK_EVENTS = [
+  { id: 'cancer', name: 'Cancer treatment', shortName: 'cancer',
+    pAnchors: [[0.05, 0.18], [0.30, 0.25], [0.55, 0.40], [0.80, 0.55], [0.95, 0.68]],
+    ageAnchors: [[0.05, 73], [0.30, 70], [0.55, 65], [0.80, 58], [0.95, 54]],
+    drop: 0.25, tau: 24, recoveryFrac: 0.20 },
+  { id: 'cv', name: 'CV event', shortName: 'CV',
+    pAnchors: [[0.05, 0.05], [0.30, 0.10], [0.55, 0.30], [0.80, 0.55], [0.95, 0.68]],
+    ageAnchors: [[0.05, 85], [0.30, 82], [0.55, 75], [0.80, 67], [0.95, 63]],
+    drop: 0.25, tau: 6, recoveryFrac: 0.75 }
+];
+
+function activeForks(R) {
+  return FORK_EVENTS.map(ev => ({
+    ...ev,
+    pEvent: interpolateAnchors(R, ev.pAnchors),
+    modalAge: interpolateAnchors(R, ev.ageAnchors)
   }));
-  Object.values(inputs).forEach(input => input.addEventListener('input', render));
+}
+
+function eventFactorAt(event, age) {
+  if (age < event.modalAge) return 1.0;
+  const yearsSince = age - event.modalAge;
+  const tauYears = event.tau / 12;
+  const residualFrac = event.drop * (1 - event.recoveryFrac);
+  const dropFrac = residualFrac + (event.drop - residualFrac) * Math.exp(-yearsSince / tauYears);
+  return 1 - dropFrac;
+}
+
+function jointOutcomes(forks) {
+  const cancer = forks.find(f => f.id === 'cancer');
+  const cv = forks.find(f => f.id === 'cv');
+  const pc = cancer.pEvent;
+  const pcv = cv.pEvent;
+  return [
+    { id: 'spared',  label: 'spared both', shortLabel: 'spared',     p: (1 - pc) * (1 - pcv), events: [] },
+    { id: 'cancer',  label: 'cancer only', shortLabel: 'cancer only', p: pc * (1 - pcv),       events: [cancer] },
+    { id: 'cv',      label: 'CV only',     shortLabel: 'CV only',     p: (1 - pc) * pcv,       events: [cv] },
+    { id: 'both',    label: 'both events', shortLabel: 'both',        p: pc * pcv,             events: [cancer, cv] }
+  ];
+}
+
+const CAPACITY_FLOOR_VO2 = 3;
+const VIT_DROP_SCALAR = 0.6;
+
+function capacityForOutcome(condSlider, lifeSlider, age, outcomeEvents) {
+  let factor = 1.0;
+  for (const ev of outcomeEvents) factor *= eventFactorAt(ev, age);
+  return Math.max(baseCapacity(condSlider, lifeSlider, age) * factor, CAPACITY_FLOOR_VO2);
+}
+
+function vitalityAt(condSlider, lifeSlider, age, events) {
+  const lifeNorm = lifeSlider / 100;
+  const condNorm = condSlider / 100;
+  const mix = 0.65 * lifeNorm + 0.35 * condNorm;
+  let vit = 0.45 + 0.50 * mix;
+  const vit100 = 0.05 + 0.45 * mix;
+  if (age > 30) {
+    const ageT = (age - 30) / 70;
+    const curveT = ageT * ageT * 0.5 + ageT * 0.5;
+    vit = vit - (vit - vit100) * curveT;
+  }
+  for (const ev of events) {
+    if (age < ev.modalAge) continue;
+    const yearsSince = age - ev.modalAge;
+    const acuteVitDrop = ev.drop * VIT_DROP_SCALAR;
+    const tauYears = ev.tau / 12;
+    const residualVit = acuteVitDrop * (1 - ev.recoveryFrac);
+    const dropAtAge = residualVit + (acuteVitDrop - residualVit) * Math.exp(-yearsSince / tauYears);
+    vit -= dropAtAge;
+  }
+  return Math.max(0, Math.min(1, vit));
+}
+
+// Vitality color ramp — felt-experience should turn before the functional
+// curve collapses. Average American should read as leaving "good" by the
+// 60s, so amber starts earlier and green is reserved for clearly high
+// vitality. Keep the amber→green transition near-discrete to avoid olive muddling
+// against cream paper.
+function vitalityColor(v) {
+  const stops = [
+    { v: 0.00, r: 200, g: 25,  b: 55  },  // deep crimson
+    { v: 0.30, r: 232, g: 75,  b: 40  },  // vermillion
+    { v: 0.50, r: 240, g: 145, b: 30  },  // vivid amber
+    { v: 0.579, r: 240, g: 145, b: 30  }, // hold amber once average turns in late 50s
+    { v: 0.58, r: 60,  g: 155, b: 80  },  // near-step jump to saturated green
+    { v: 1.00, r: 15,  g: 130, b: 60  },  // deep emerald
+  ];
+  for (let i = 0; i < stops.length - 1; i++) {
+    const a = stops[i], b = stops[i+1];
+    if (v >= a.v && v <= b.v) {
+      const t = (v - a.v) / (b.v - a.v);
+      const r = Math.round(a.r * (1 - t) + b.r * t);
+      const g = Math.round(a.g * (1 - t) + b.g * t);
+      const bl = Math.round(a.b * (1 - t) + b.b * t);
+      return `rgb(${r},${g},${bl})`;
+    }
+  }
+  return 'rgb(120,120,120)';
+}
+
+function neurodegenOnset(condSlider, lifeSlider, riskSlider) {
+  const R = effectiveRisk(condSlider, lifeSlider, riskSlider);
+  // Onset age slides continuously with R across the full range. No opacity
+  // gate — the cloud always renders at its computed onset age so the
+  // sliders always do visible work, even at low underlying risk.
+  const ageAtFloor = 95, ageAtMax = 73;
+  const t = Math.max(0, Math.min(1, R / 1.00));
+  const onsetAge = ageAtFloor + t * (ageAtMax - ageAtFloor);
+  return { age: onsetAge, opacity: 1 };
+}
+
+const BANDS = [
+  { lo: 55, hi: 65, name: 'Endurance athlete' },
+  { lo: 40, hi: 55, name: 'Hard recreation' },
+  { lo: 30, hi: 40, name: 'Stairs without thinking' },
+  { lo: 22, hi: 30, name: 'Independent daily life' },
+  { lo: 18, hi: 22, name: 'Strained effort' },
+  { lo: 0,  hi: 18, name: 'Needs help' },
+];
+
+const AGE_MIN = 30, AGE_MAX = 100;
+const VO2_MIN = 0, VO2_MAX = 65;
+const PAD = { l: 262, r: 36, t: 64, b: 68 };
+const W = 1080, H = 560;
+const CW = W - PAD.l - PAD.r;
+const CH = H - PAD.t - PAD.b;
+
+function xAge(age) { return PAD.l + ((age - AGE_MIN) / (AGE_MAX - AGE_MIN)) * CW; }
+function yV(v) { return PAD.t + (1 - (v - VO2_MIN) / (VO2_MAX - VO2_MIN)) * CH; }
+
+const svg = document.getElementById('chart');
+
+const params = new URLSearchParams(window.location.search);
+const PATIENT_LINE = (() => {
+  const name = params.get('patient') || params.get('patientName');
+  const age = Number(params.get('age') || params.get('patientAge'));
+  const vo2 = Number(params.get('vo2') || params.get('patientVo2'));
+  const source = params.get('source') || params.get('patientSource') || 'estimated';
+  if (!name || !Number.isFinite(age) || !Number.isFinite(vo2)) return null;
+  if (age < AGE_MIN || age > AGE_MAX || vo2 <= VO2_MIN || vo2 > VO2_MAX) return null;
+  return { name, age, vo2, source };
+})();
+
+function condLabel(c) {
+  if (c <= 8) return 'Deconditioned';
+  if (c <= 28) return 'Below average';
+  if (c <= 38) return 'Average';
+  if (c <= 60) return 'Above average';
+  if (c <= 75) return 'Well-conditioned';
+  if (c <= 92) return 'Highly conditioned';
+  return 'Elite';
+}
+function lifeLabel(l) {
+  if (l <= 15) return 'Neglected';
+  if (l <= 40) return 'Below average';
+  if (l <= 60) return 'Maintained';
+  if (l <= 85) return 'Optimized';
+  return 'Highly optimized';
+}
+function riskLabel(r) {
+  if (r <= 15) return 'Very low';
+  if (r <= 35) return 'Low';
+  if (r < 50) return 'Below average';
+  if (r <= 65) return 'Average';
+  if (r <= 85) return 'High';
+  return 'Very high';
+}
+
+function render() {
+  const cond = +document.getElementById('cond').value;
+  const life = +document.getElementById('life').value;
+  const risk = +document.getElementById('risk').value;
+
+  document.getElementById('condVal').textContent = condLabel(cond);
+  document.getElementById('lifeVal').textContent = lifeLabel(life);
+  document.getElementById('riskVal').textContent = riskLabel(risk);
+
+  const R = effectiveRisk(cond, life, risk);
+  const forks = activeForks(R);
+  const outcomes = jointOutcomes(forks);
+  const neuroOnset = neurodegenOnset(cond, life, risk);
+
+  let s = '';
+
+  // Background bands — all-warm ramp on paper. Cool blues read as foreign on
+  // the Aleron palette; warmth ramps from sage→stone→clay→terracotta→rust.
+  const BAND_TINTS = [
+    'rgba(140,160,130,0.10)',  // 55+   sage, barely-there
+    'rgba(160,165,140,0.12)',
+    'rgba(180,170,150,0.08)',
+    'rgba(195,160,125,0.12)',
+    'rgba(190,120,85,0.16)',
+    'rgba(170,75,70,0.20)'
+  ];
+  for (let i = 0; i < BANDS.length; i++) {
+    const b = BANDS[i];
+    const y0 = yV(b.hi), y1 = yV(b.lo);
+    const fill = BAND_TINTS[i] || 'rgba(10,10,11,0.02)';
+    s += `<rect x="${PAD.l}" y="${y0}" width="${CW}" height="${y1 - y0}" fill="${fill}"/>`;
+    if (i > 0) {
+      s += `<line x1="${PAD.l}" y1="${y0}" x2="${PAD.l + CW}" y2="${y0}" stroke="rgba(10,10,11,0.08)" stroke-width="0.5"/>`;
+    }
+    const yMid = (y0 + y1) / 2;
+    s += `<text x="${PAD.l - 44}" y="${yMid + 5}" text-anchor="end" style="fill:#3F3A32;font-size:14px;letter-spacing:0.1px;font-family:'Inter',sans-serif;font-weight:550">${b.name}</text>`;
+  }
+
+  // Y-axis ticks
+  for (const v of [0, 10, 20, 30, 40, 50, 60]) {
+    const y = yV(v);
+    s += `<line x1="${PAD.l - 4}" y1="${y}" x2="${PAD.l}" y2="${y}" class="ax-tick"/>`;
+    s += `<text x="${PAD.l - 8}" y="${y + 3}" text-anchor="end" class="ax-label">${v}</text>`;
+  }
+  s += `<text x="${PAD.l - 8}" y="${PAD.t - 26}" text-anchor="end" class="ax-label" style="font-size:14px;font-weight:600;fill:#3F3A32">VO₂max</text>`;
+  s += `<text x="${PAD.l - 8}" y="${PAD.t - 7}" text-anchor="end" class="ax-label" style="font-size:12px;fill:#4A4A4D">mL/kg/min</text>`;
+
+  // X-axis ticks
+  for (const a of [30, 40, 50, 60, 70, 80, 90, 100]) {
+    const x = xAge(a);
+    s += `<line x1="${x}" y1="${PAD.t + CH}" x2="${x}" y2="${PAD.t + CH + 4}" class="ax-tick"/>`;
+    s += `<text x="${x}" y="${PAD.t + CH + 18}" text-anchor="middle" class="ax-label">${a}</text>`;
+  }
+  s += `<text x="${PAD.l + CW / 2}" y="${PAD.t + CH + 45}" text-anchor="middle" class="ax-label" style="letter-spacing:2px;font-size:13px;font-weight:600">AGE</text>`;
+
+  // Avg American reference
+  let refPts = [];
+  for (let a = AGE_MIN; a <= AGE_MAX; a += 1) {
+    refPts.push(`${xAge(a)},${yV(templateAt(TEMPLATES.average, a))}`);
+  }
+  s += `<polyline points="${refPts.join(' ')}" class="ref-curve"/>`;
+
+
+  // Patient-specific line (URL params)
+  if (PATIENT_LINE) {
+    const patientPts = [];
+    const avgAtStart = templateAt(TEMPLATES.average, PATIENT_LINE.age);
+    for (let a = PATIENT_LINE.age; a <= AGE_MAX; a += 1) {
+      const shifted = PATIENT_LINE.vo2 + (templateAt(TEMPLATES.average, a) - avgAtStart);
+      patientPts.push(`${xAge(a)},${yV(Math.max(VO2_MIN, Math.min(VO2_MAX, shifted)))}`);
+    }
+    s += `<polyline points="${patientPts.join(' ')}" class="patient-curve"/>`;
+    s += `<circle cx="${xAge(PATIENT_LINE.age)}" cy="${yV(PATIENT_LINE.vo2)}" r="5" class="patient-marker"/>`;
+    const startLabelY = Math.max(PAD.t + 14, yV(PATIENT_LINE.vo2) - 10);
+    s += `<text x="${xAge(PATIENT_LINE.age) + 8}" y="${startLabelY}" class="patient-label">${PATIENT_LINE.name} start · age ${Math.round(PATIENT_LINE.age)} · VO₂max ${PATIENT_LINE.vo2.toFixed(0)} mL/kg/min</text>`;
+    const terminalVo2 = PATIENT_LINE.vo2 + (templateAt(TEMPLATES.average, AGE_MAX) - avgAtStart);
+    s += `<text x="${xAge(95)}" y="${yV(Math.max(VO2_MIN, Math.min(VO2_MAX, terminalVo2))) - 8}" class="patient-label" text-anchor="end">${PATIENT_LINE.name} est.</text>`;
+  }
+
+  // Outcome trajectories
+  const outcomeSamples = outcomes.map(o => {
+    const pts = [];
+    for (let a = AGE_MIN; a <= AGE_MAX; a += 0.5) {
+      pts.push({
+        a, x: xAge(a),
+        y: yV(capacityForOutcome(cond, life, a, o.events)),
+        vit: vitalityAt(cond, life, a, o.events)
+      });
+    }
+    // Enforce monotone non-increasing capacity: once VO2 drops it cannot rise.
+    // Prevents acute-event recovery models from overlaying an upward curve
+    // on top of natural age decline. (y increases downward in screen coords,
+    // so monotone non-increasing capacity = monotone non-decreasing y.)
+    for (let i = 1; i < pts.length; i++) {
+      if (pts[i].y < pts[i - 1].y) pts[i].y = pts[i - 1].y;
+    }
+    return { outcome: o, pts };
+  });
+
+  const probVisible = outcomeSamples.filter(({ outcome }) => outcome.p >= 0.005);
+  const visibleOutcomes = probVisible.filter(({ outcome }) => activeOutcomes[outcome.id] !== false);
+
+  // dashStart tracks neuro onset age directly. The slider moves the window
+  // visibly across the full R range; the cloud always renders solid grey.
+  const dashStart = neuroOnset ? neuroOnset.age : 95;
+
+  for (const { outcome, pts } of visibleOutcomes) {
+    const isMain = outcome.id === 'spared';
+    if (isMain) {
+      // Main timeline: solid, per-segment vitality color, full weight.
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[i], p1 = pts[i + 1];
+        const vitMid = (p0.vit + p1.vit) / 2;
+        const color = vitalityColor(vitMid);
+        const width = 2.4 + vitMid * 1.4;
+        s += `<line x1="${p0.x}" y1="${p0.y}" x2="${p1.x}" y2="${p1.y}" stroke="${color}" stroke-width="${width.toFixed(2)}" stroke-linecap="round"/>`;
+      }
+    } else {
+      // Event timeline: dashed polyline from fork onset. Pattern + weight encode which branch.
+      // cancer = long-dash 1.6px, cv = dotted 1.6px, both = dash-dot 2.2px (compound, heavier).
+      const branchStyle = (
+        outcome.id === 'cancer' ? { dash: '7 4',      width: 1.6 } :
+        outcome.id === 'cv'     ? { dash: '1.5 4',    width: 1.6 } :
+        outcome.id === 'both'   ? { dash: '8 3 1.5 3', width: 2.2 } :
+                                  { dash: '6 4',      width: 1.6 }
+      );
+      // Single-event branches fork from the main line. Compound branches fork
+      // from the already-evented parent path at the second event. The rendered
+      // branch starts on the parent curve, then drops away, so it never appears
+      // as a disconnected curve floating below its source trajectory.
+      const onsetAge = outcome.events.length > 1
+        ? outcome.events.reduce((m, e) => Math.max(m, e.modalAge), -Infinity)
+        : outcome.events[0].modalAge;
+      const parentEvents = outcome.events.filter(e => e.modalAge < onsetAge - 0.01);
+      const forkPt = { a: onsetAge, x: xAge(onsetAge), y: yV(capacityForOutcome(cond, life, onsetAge, parentEvents)) };
+      const eventPt = { a: onsetAge, x: xAge(onsetAge), y: yV(capacityForOutcome(cond, life, onsetAge, outcome.events)) };
+      const tail = pts.filter(p => p.a > onsetAge + 0.25);
+      const drawPts = [eventPt, ...tail];
+      for (let i = 1; i < drawPts.length; i++) {
+        if (drawPts[i].y < drawPts[i - 1].y) drawPts[i].y = drawPts[i - 1].y;
+      }
+      if (drawPts.length > 1) {
+        const vitAvg = drawPts.reduce((acc, p) => acc + p.vit, 0) / drawPts.length;
+        const color = vitalityColor(vitAvg);
+        s += `<line x1="${forkPt.x}" y1="${forkPt.y}" x2="${eventPt.x}" y2="${eventPt.y}" stroke="${color}" stroke-width="${branchStyle.width}" stroke-linecap="round" stroke-dasharray="2 3" opacity="0.9"/>`;
+        const polyPts = drawPts.map(p => `${p.x},${p.y}`).join(' ');
+        s += `<polyline points="${polyPts}" fill="none" stroke="${color}" stroke-width="${branchStyle.width}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${branchStyle.dash}" opacity="0.92"/>`;
+        s += `<circle cx="${forkPt.x}" cy="${forkPt.y}" r="6.4" fill="#FBF8F1" stroke="#FBF8F1" stroke-width="3"/>`;
+        s += `<circle cx="${forkPt.x}" cy="${forkPt.y}" r="5.0" fill="#FBF8F1" stroke="${color}" stroke-width="2.4"/>`;
+      }
+    }
+  }
+
+  // Open rings on active branches carry fork timing; full-height fork guides
+  // removed to avoid reading as extra event trajectories or vertical drops.
+
+  // Right-edge outcome labels removed — legend below the chart carries the
+  // outcome name and percentage instead.
+
+  // Cognitive uncertainty cloud — a soft, 50%-opaque paper-toned wash from
+  // dashStart to the right edge of the plot. Soft left edge via gradient so
+  // it reads as a "cloud" creeping in, not a hard cutoff. Sits on top of the
+  // outcome curves so they visibly muddle inside the window — that muddling
+  // IS the message: this tool does not model the cognitive axis.
+  const cloudLeft = xAge(Math.max(AGE_MIN, dashStart));
+  const cloudRight = PAD.l + CW;
+  const cloudW = Math.max(0, cloudRight - cloudLeft);
+  if (cloudW > 0) {
+    // Solid 50% grey wash — hard left edge so the boundary reads as a real
+    // distinction between "modeled" and "cognitive trajectory dominates,
+    // not modeled by this tool." Cloud + boundary line carry the meaning;
+    // legend/caption name the region.
+    s += `<rect x="${cloudLeft}" y="${PAD.t}" width="${cloudW}" height="${CH}" fill="rgba(110,110,115,0.50)"/>`;
+    s += `<line x1="${cloudLeft}" y1="${PAD.t}" x2="${cloudLeft}" y2="${PAD.t + CH}" stroke="rgba(60,60,65,0.55)" stroke-width="1"/>`;
+  }
+
+  // Chart border
+  s += `<rect x="${PAD.l}" y="${PAD.t}" width="${CW}" height="${CH}" fill="none" stroke="rgba(10,10,11,0.16)" stroke-width="1"/>`;
+
+  svg.innerHTML = s;
+  renderLegend(probVisible);
+}
+
+const activeOutcomes = { spared: true, cancer: false, cv: false, both: false };
+
+const OUTCOME_SWATCH = {
+  spared: '#7A5628',
+  cancer: '#A44938',
+  cv: '#6F5A3A',
+  both: '#3F3A32'
+};
+
+function renderLegend(probVisibleOutcomes) {
+  const el = document.getElementById('legend');
+  if (!el) return;
+  const ORDER = ['spared', 'cancer', 'cv', 'both'];
+  const byId = Object.fromEntries(probVisibleOutcomes.map(o => [o.outcome.id, o]));
+  el.innerHTML = ORDER.map(id => {
+    const entry = byId[id];
+    if (!entry) return '';
+    const { outcome, pts } = entry;
+    const last = pts[pts.length - 1];
+    const swatch = OUTCOME_SWATCH[outcome.id] || vitalityColor(last.vit);
+    const pct = Math.round(outcome.p * 100);
+    const active = activeOutcomes[id] !== false;
+    return `<button class="legend-toggle" data-outcome="${id}" data-active="${active}" type="button" role="switch" aria-checked="${active}" style="--swatch:${swatch}">
+      <span class="track" aria-hidden="true"></span>
+      <span class="label">${outcome.label}</span>
+      <span class="pct">${pct}%</span>
+    </button>`;
+  }).join('') + `<span class="legend-refs"><span class="legend-ref" aria-hidden="true"><span class="dash"></span><span class="ref-label">Average American reference</span></span><span class="legend-ref" aria-hidden="true"><span class="swatch"></span><span class="ref-label">Cognitive impairment window</span></span></span>`;
+}
+
+['cond', 'life', 'risk'].forEach(id => {
+  document.getElementById(id).addEventListener('input', render);
+});
+
+document.getElementById('legend').addEventListener('click', e => {
+  const pill = e.target.closest('.legend-toggle');
+  if (!pill) return;
+  const id = pill.dataset.outcome;
+  const otherActive = Object.entries(activeOutcomes).some(([k, v]) => k !== id && v);
+  if (activeOutcomes[id] !== false && !otherActive) return;
+  activeOutcomes[id] = activeOutcomes[id] === false;
   render();
+});
+
+document.querySelectorAll('.preset').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.getElementById('cond').value = btn.dataset.c;
+    document.getElementById('life').value = btn.dataset.l;
+    document.getElementById('risk').value = btn.dataset.r;
+    render();
+  });
+});
+
+render();
 })();
 </script>
 
@@ -1281,8 +1576,6 @@
     ctx.scale(dpr, dpr);
     return { ctx, W, H };
   }
-
-  // === SLIDE 1: VO2max tool replaces old canvas curve ===
 
   // === SLIDE 3: QUALITY OF LIFE — TWO CURVES ===
   {
