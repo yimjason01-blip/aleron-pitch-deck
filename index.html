@@ -264,32 +264,6 @@
     letter-spacing: -0.01em;
     text-wrap: balance;
   }
-  .opening-hero-actions {
-    pointer-events: auto;
-    display: flex;
-    gap: clamp(12px, 1.157407vw, 20px);
-    margin-top: 20px;
-  }
-  .opening-hero-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 40px;
-    padding: 0 clamp(22px, 2.1vw, 36px);
-    border-radius: 0;
-    border: 1px solid rgba(239,234,224,0.62);
-    background: rgba(239,234,224,0.08);
-    color: var(--cream);
-    font-size: clamp(12px, 0.925926vw, 16px);
-    line-height: 1.2;
-    letter-spacing: clamp(-0.16px, -0.009259vw, -0.08px);
-    text-decoration: none;
-  }
-  .opening-hero-button.primary {
-    background: var(--cream);
-    border-color: var(--cream);
-    color: var(--ink);
-  }
   .opening-hero-handoff {
     position: absolute;
     left: 0;
@@ -311,7 +285,6 @@
     .opening-hero-logo { width: 120px; }
     .opening-hero-login { display: none; }
     .opening-hero-copy { width: min(86%, 520px); margin-bottom: 64px; }
-    .opening-hero-actions { flex-direction: column; align-items: flex-start; }
   }
 
 </style>
@@ -334,10 +307,6 @@
       <div class="opening-hero-copy">
         <h1>Your best days are still ahead.</h1>
         <p>Physician-led longevity care, powered by AI and your genetic, lab, and wearable data.</p>
-        <div class="opening-hero-actions">
-          <a class="opening-hero-button primary" href="#">Apply for Membership →</a>
-          <a class="opening-hero-button" href="#">For Employers →</a>
-        </div>
       </div>
     </div>
     <div class="opening-hero-handoff" aria-hidden="true"></div>
