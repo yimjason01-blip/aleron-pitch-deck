@@ -161,6 +161,300 @@
     filter: drop-shadow(0 1px 10px rgba(10, 13, 20, 0.35));
   }
 
+
+
+  /* Aleron full-aesthetic translation from Figma landing frames */
+  body::before {
+    content: "";
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 96px;
+    pointer-events: none;
+    background: rgba(20, 24, 32, 0.72);
+    border-bottom: 1px solid rgba(239, 234, 224, 0.14);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .slide {
+    isolation: isolate;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .slide > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .deck-hero,
+  .deck-dark {
+    background:
+      linear-gradient(134deg, rgba(162, 101, 59, 0.98) 0%, rgba(129, 102, 51, 0.72) 18%, rgba(65, 76, 106, 0.98) 48%, #2c3240 100%) !important;
+    color: var(--cream);
+  }
+
+  .deck-hero::before,
+  .deck-dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(36, 36, 38, 0.40), transparent 44%),
+      linear-gradient(180deg, rgba(255, 128, 0, 0.10), transparent 32%);
+  }
+
+  .deck-hero::after,
+  .deck-dark::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    width: 27vw;
+    height: 10.8vh;
+    right: 6vw;
+    top: 12.5vh;
+    background: rgba(239, 234, 224, 0.24);
+    box-shadow:
+      -25vw 8.5vh 0 rgba(197, 162, 110, 0.42),
+      7vw 13vh 0 rgba(162, 101, 59, 0.72),
+      -10vw 29vh 0 rgba(44, 50, 64, 0.88),
+      15vw 36vh 0 rgba(44, 50, 64, 0.82),
+      -31vw 46vh 0 rgba(35, 49, 48, 0.66),
+      1vw 56vh 0 rgba(44, 50, 64, 0.86);
+    opacity: 1;
+  }
+
+  .deck-light {
+    background:
+      radial-gradient(ellipse at 50% 42%, rgba(243, 206, 151, 0.16) 0%, rgba(255,255,255,0) 38%),
+      radial-gradient(ellipse at 57% 72%, rgba(162, 101, 59, 0.10) 0%, rgba(255,255,255,0) 34%),
+      linear-gradient(180deg, #fefdfc 0%, #fffefb 48%, #e8e0cb 130%) !important;
+    color: var(--ink);
+  }
+
+  .deck-light::before,
+  .deck-table::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(36,36,38,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(36,36,38,0.055) 1px, transparent 1px);
+    background-size: calc(100vw / 7) calc(100vh / 4);
+    opacity: 1;
+  }
+
+  .slide-brand {
+    top: 32px;
+    left: 72px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .slide-brand img {
+    width: 128px;
+  }
+
+  .slide-headline {
+    font-weight: 400;
+    letter-spacing: -0.055em;
+    line-height: 1.02;
+  }
+
+  .deck-hero .slide-headline,
+  .deck-dark .slide-headline {
+    color: var(--cream) !important;
+    text-align: left;
+    align-self: flex-start;
+    max-width: 780px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .deck-hero .slide-headline span,
+  .deck-dark .slide-headline span {
+    color: #f3ce97 !important;
+  }
+
+  .deck-light .slide-headline span,
+  .deck-table .slide-headline span {
+    color: var(--rust) !important;
+  }
+
+  .chart-card,
+  .deck-dark [style*="rgba(255,255,255,0.04)"],
+  .deck-dark [style*="rgba(255,255,255,0.05)"],
+  .deck-dark [style*="rgba(255,255,255,0.06)"] {
+    background: rgba(255, 254, 251, 0.06) !important;
+    border: 1px solid rgba(239, 234, 224, 0.18) !important;
+    box-shadow: none !important;
+  }
+
+  .deck-light .chart-card,
+  .deck-table table {
+    background: rgba(255, 254, 251, 0.70) !important;
+    border: 1px solid rgba(36, 36, 38, 0.12) !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .chart-label {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .deck-icon {
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    color: var(--cream);
+  }
+
+  .deck-icon svg {
+    width: 64px;
+    height: 64px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 4;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  .deck-icon rect,
+  .deck-icon path:first-child[fill] {
+    fill: currentColor;
+  }
+
+  .deck-table {
+    padding-top: 112px !important;
+  }
+
+  .deck-table table {
+    overflow: hidden;
+  }
+
+  .deck-table th {
+    background: var(--navy) !important;
+    color: rgba(255, 254, 251, 0.62) !important;
+    border-color: rgba(239, 234, 224, 0.18) !important;
+  }
+
+  .deck-table th:nth-child(2) {
+    background: var(--rust) !important;
+    color: var(--page-bg) !important;
+  }
+
+  .deck-table td {
+    background: rgba(255, 254, 251, 0.50) !important;
+    border-bottom-color: rgba(36, 36, 38, 0.12) !important;
+  }
+
+  .deck-table td:nth-child(2) {
+    background: rgba(162, 101, 59, 0.10) !important;
+  }
+
+  .deck-table span {
+    background: rgba(239, 234, 224, 0.70) !important;
+    color: var(--ink) !important;
+    border: 1px solid rgba(162, 101, 59, 0.18) !important;
+  }
+
+  .slide-num {
+    color: rgba(36, 36, 38, 0.25) !important;
+    font-family: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 400;
+  }
+
+  .deck-hero .slide-num,
+  .deck-dark .slide-num {
+    color: rgba(239, 234, 224, 0.34) !important;
+  }
+
+
+
+  /* Figma curve-section translation: cream grid + warm radial bands */
+  .slide-01,
+  .slide-03,
+  .slide-04,
+  .slide-05,
+  .slide-10 {
+    justify-content: center;
+    align-items: center;
+    padding-top: 128px;
+  }
+
+  .slide-01 .slide-headline,
+  .slide-03 .slide-headline,
+  .slide-04 .slide-headline,
+  .slide-05 .slide-headline,
+  .slide-10 .slide-headline {
+    color: var(--ink) !important;
+    text-align: center;
+    font-weight: 400 !important;
+    max-width: 960px;
+  }
+
+  .slide-04 .slide-headline span {
+    color: var(--rust) !important;
+  }
+
+  .slide-01 .chart-card,
+  .slide-03 .chart-card,
+  .slide-04 .charts-row > div {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.72), rgba(232,224,203,0.18)) !important;
+    border: 1px solid rgba(36,36,38,0.14) !important;
+  }
+
+  .slide-01::after,
+  .slide-03::after,
+  .slide-04::after,
+  .slide-05::after,
+  .slide-10::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, transparent 0 14.2%, rgba(162,101,59,0.055) 14.2% 28.4%, transparent 28.4% 100%),
+      linear-gradient(180deg, transparent 0 43%, rgba(243,206,151,0.16) 43% 57%, transparent 57% 100%);
+    mix-blend-mode: multiply;
+  }
+
+  .slide-02,
+  .slide-06,
+  .slide-09 {
+    padding-top: 140px;
+  }
+
+  .slide-02 > div:not(.slide-num),
+  .slide-06 > div:not(.slide-num),
+  .slide-09 > div:not(.slide-num) {
+    align-self: flex-start;
+  }
+
+  .slide-02 [style*="display:flex"],
+  .slide-06 [style*="display:grid"],
+  .slide-09 [style*="display:grid"] {
+    align-self: center;
+  }
+
   /* Aleron deck square-geometry enforcement */
   .chart-card,
   table,
@@ -173,7 +467,7 @@
 <body>
 
 <!-- SLIDE 1 -->
-<div class="slide" style="background:var(--deck-light-bg);">
+<div class="slide deck-light slide-01" style="background:var(--deck-light-bg);">
   <div class="slide-headline">
     The story of your future is written<br>on top of <span>one curve.</span>
   </div>
@@ -203,28 +497,28 @@
 </div>
 
 <!-- SLIDE 2 -->
-<div class="slide" style="background:var(--navy);">
+<div class="slide deck-dark slide-02" style="background:var(--navy);">
   <div class="slide-headline" style="color:#fffefb;">
     That curve is shaped by your <span style="color:var(--mint);">blood</span>,<br><span style="color:var(--mint);">behavior</span>, and <span style="color:var(--mint);">DNA.</span>
   </div>
 
   <div style="display:flex;justify-content:center;gap:48px;max-width:960px;">
     <div style="text-align:center;background:rgba(255,255,255,0.06);border-radius:0;padding:36px 32px;min-width:240px;border:1px solid rgba(255,255,255,0.08);">
-      <div style="font-size:64px;margin-bottom:16px;">🩸</div>
+      <div class="deck-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M32 8 L48 31 C54 43 46 56 32 56 C18 56 10 43 16 31 Z"/><path d="M24 37 H40 M32 25 V49"/></svg></div>
       <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:24px;font-weight:700;color:var(--mint);margin-bottom:8px;">Blood</div>
       <div style="font-size:15px;color:rgba(255,254,251,0.6);line-height:1.6;max-width:240px;">
         Cholesterol, inflammation, metabolic markers — the signals your body is sending right now.
       </div>
     </div>
     <div style="text-align:center;background:rgba(255,255,255,0.06);border-radius:0;padding:36px 32px;min-width:240px;border:1px solid rgba(255,255,255,0.08);">
-      <div style="font-size:64px;margin-bottom:16px;">🏃</div>
+      <div class="deck-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="28" y="8" width="10" height="10"/><path d="M32 20 L24 34 L14 36 M32 20 L44 30 L52 26 M24 34 L20 54 M28 38 L44 54"/></svg></div>
       <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:24px;font-weight:700;color:var(--mint);margin-bottom:8px;">Behavior</div>
       <div style="font-size:15px;color:rgba(255,254,251,0.6);line-height:1.6;max-width:240px;">
         Fitness, sleep, training consistency — the daily choices that bend your curve up or down.
       </div>
     </div>
     <div style="text-align:center;background:rgba(255,255,255,0.06);border-radius:0;padding:36px 32px;min-width:240px;border:1px solid rgba(255,255,255,0.08);">
-      <div style="font-size:64px;margin-bottom:16px;">🧬</div>
+      <div class="deck-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M20 8 C44 20 44 44 20 56 M44 8 C20 20 20 44 44 56"/><path d="M25 18 H39 M22 30 H42 M22 42 H42 M25 52 H39"/></svg></div>
       <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:24px;font-weight:700;color:var(--mint);margin-bottom:8px;">DNA</div>
       <div style="font-size:15px;color:rgba(255,254,251,0.6);line-height:1.6;max-width:240px;">
         Genetic variants that set your baseline risk — some you can offset, some you can't.
@@ -235,7 +529,7 @@
 </div>
 
 <!-- SLIDE 3 -->
-<div class="slide" style="background:var(--deck-light-bg);">
+<div class="slide deck-light slide-03" style="background:var(--deck-light-bg);">
   <div class="slide-headline">
     If you know what to do,<br>you can <span>shift and bend the curve.</span>
   </div>
@@ -263,7 +557,7 @@
 </div>
 
 <!-- SLIDE 4 -->
-<div class="slide" style="background:var(--navy);">
+<div class="slide deck-light deck-hazard slide-04" style="background:var(--navy);">
   <div class="slide-headline" style="color:#fffefb;">
     But if you're not steering,<br>it can bend the <span style="color:rgba(162,78,59,0.92);">other way.</span>
   </div>
@@ -291,7 +585,7 @@
 </div>
 
 <!-- SLIDE 4b: THE ROI — WHAT CLARITY BUYS YOU -->
-<div class="slide" style="background:var(--deck-light-bg);">
+<div class="slide deck-light slide-05" style="background:var(--deck-light-bg);">
   <div style="max-width:1100px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:800;color:var(--navy);letter-spacing:-2px;line-height:1.15;">
       One more session. <span style="color:var(--teal);">Two pills.</span>
@@ -350,7 +644,7 @@
 </div>
 
 <!-- SLIDE 4c: THE START IS JUST THE START -->
-<div class="slide" style="background:var(--navy);">
+<div class="slide deck-dark slide-06" style="background:var(--navy);">
   <div style="max-width:1100px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:52px;font-weight:800;color:#fffefb;letter-spacing:-2px;line-height:1.15;">
       The start is <span style="color:var(--mint);">just the start.</span>
@@ -446,7 +740,7 @@
 </div>
 
 <!-- SLIDE 4d: COMPETITIVE LANDSCAPE -->
-<div class="slide" style="background:var(--deck-light-bg);padding:48px 60px;">
+<div class="slide deck-light deck-table slide-07" style="background:var(--deck-light-bg);padding:48px 60px;">
   <div style="max-width:1060px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:700;color:var(--navy);letter-spacing:-0.045em;line-height:1.08;">
       Meridian vs. <span style="color:var(--teal);">Consumer Market.</span>
@@ -536,7 +830,7 @@
 </div>
 
 <!-- SLIDE 4e: EXECUTIVE HEALTH LANDSCAPE -->
-<div class="slide" style="background:var(--deck-light-bg);padding:48px 60px;">
+<div class="slide deck-light deck-table slide-08" style="background:var(--deck-light-bg);padding:48px 60px;">
   <div style="max-width:1060px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:48px;font-weight:800;color:var(--navy);letter-spacing:-2px;line-height:1.15;">
       Meridian vs. <span style="color:var(--teal);">Executive Health.</span>
@@ -627,7 +921,7 @@
 
 
 <!-- SLIDE 05b: MARKET VALIDATION STATS -->
-<div class="slide" style="background:var(--navy);">
+<div class="slide deck-dark slide-09" style="background:var(--navy);">
   <div style="max-width:1100px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:56px;font-weight:800;color:#fffefb;letter-spacing:-2.5px;line-height:1.1;">
       The market wants it.<br><span style="color:var(--mint);">No one's built it.</span>
@@ -688,7 +982,7 @@
 </div>
 
 <!-- SLIDE 6: POSSIBILITIES -->
-<div class="slide" style="background:var(--page-bg);padding-top:40px;">
+<div class="slide deck-light slide-10" style="background:var(--page-bg);padding-top:40px;">
   <div style="max-width:900px;width:100%;text-align:center;">
     <div style="font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-size:96px;font-weight:800;color:var(--navy);letter-spacing:-3px;line-height:1;">Possibilities.</div>
     <div style="margin-top:80px;text-align:left;max-width:800px;margin-left:auto;margin-right:auto;">
