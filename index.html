@@ -168,6 +168,10 @@
   .slide-brand[data-logo-tone="dark"] img {
     filter: brightness(0) saturate(100%) invert(29%) sepia(12%) saturate(1122%) hue-rotate(187deg) brightness(92%) contrast(88%) drop-shadow(0 1px 8px rgba(10, 13, 20, 0.10));
   }
+  .slide-brand[data-logo-placement="experience"] {
+    top: clamp(34px, 5.2vh, 48px);
+    left: calc(42vw + clamp(68px, 6.4vw, 92px));
+  }
 
   /* Aleron deck square-geometry enforcement */
   .chart-card,
@@ -644,7 +648,7 @@
   border-radius: 0 !important;
   padding: 0;
   display: grid;
-  grid-template-columns: minmax(0,48vw) minmax(0,52vw);
+  grid-template-columns: minmax(0,42vw) minmax(0,58vw);
   gap: 0;
   align-items: stretch;
   box-shadow: none;
@@ -654,15 +658,17 @@
   min-height: 100vh;
 }
 .exp-stage-step {
-  position: absolute;
-  top: clamp(64px, 9vh, 92px);
-  right: clamp(56px, 7vw, 96px);
+  display: none;
+}
+.exp-pane-step {
+  display: block;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
   font-size: 11px;
   color: var(--rust-lower);
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  margin-bottom: 24px;
 }
 
 .exp-visual {
@@ -682,8 +688,9 @@
   width: 100%; max-width: none; height: 100%; object-fit: cover;
   display: block; border-radius: 0 !important; box-shadow: none;
 }
+.exp-frame[data-i="4"] img { transform: scaleX(-1); }
 
-.exp-copy { position: relative; min-height: 100vh; padding: clamp(72px, 10vh, 112px) clamp(56px, 7vw, 96px) clamp(120px, 16vh, 150px); }
+.exp-copy { position: relative; min-height: 100vh; padding: 0; }
 .exp-pane {
   position: absolute; inset: 0;
   display: flex;
@@ -692,7 +699,7 @@
   opacity: 0; transform: translateY(8px);
   transition: opacity 0.45s ease, transform 0.45s ease;
   pointer-events: none;
-  padding-top: 0;
+  padding: clamp(124px, 15vh, 154px) clamp(64px, 6.2vw, 92px) clamp(132px, 16vh, 154px) clamp(68px, 6.4vw, 92px);
 }
 .exp-pane.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
 .exp-copy h3 {
@@ -709,10 +716,10 @@
   color: var(--rust-lower); font-weight: 600; margin-top: 0; margin-bottom: 14px;
 }
 .exp-stat-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 22px; margin-top: 2px; max-width: 480px; }
-.exp-stat { border-top: 1px solid rgba(65,76,106,0.18); padding-top: 16px; min-height: 82px; }
+.exp-stat { border-top: 1px solid rgba(65,76,106,0.26); padding-top: 18px; min-height: 86px; }
 .exp-stat-num { font-family: 'Inter Tight', sans-serif; font-style: normal; font-weight: 600; font-size: 34px; color: var(--navy-lower); line-height: 1; }
 .exp-stat-num small { font-size: 16px; opacity: 0.62; }
-.exp-stat-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #6f6a61; font-weight: 500; margin-top: 6px; }
+.exp-stat-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #6f6a61; font-weight: 500; margin-top: 10px; }
 
 .exp-logos { display: grid; grid-template-columns: repeat(4,1fr); gap: 9px; max-width: 410px; }
 .exp-marker-list { font-size: 13px !important; color: #6f6a61 !important; margin: 0 !important; max-width: 46ch !important; line-height: 1.65 !important; }
@@ -758,9 +765,10 @@
   justify-content: flex-start;
   align-items: flex-end;
   position: absolute;
-  right: clamp(42px, 6vw, 76px);
+  left: calc(42vw + clamp(68px, 6.4vw, 92px));
+  right: clamp(64px, 6.2vw, 92px);
   bottom: clamp(42px, 6vh, 68px);
-  width: min(690px, calc(52vw - 72px));
+  width: auto;
 }
 .exp-tab {
   appearance: none;
@@ -786,7 +794,7 @@
   color: var(--bronze-lower);
   opacity: 0.72;
 }
-.exp-tab:hover { color: var(--navy-lower); border-color: rgba(65,76,106,0.32); }
+.exp-tab:hover { color: var(--navy-lower); border-color: rgba(65,76,106,0.24); }
 .exp-tab.is-active {
   background: transparent;
   color: var(--navy-lower);
@@ -810,11 +818,13 @@
 }
 
 @media (max-width: 900px) {
+  .slide-brand[data-logo-placement="experience"] { top: 24px; left: 24px; }
   .exp-stage { grid-template-columns: 1fr; padding: 32px 22px; gap: 28px; min-height: auto; border-radius: 20px !important; margin-top: 48px; }
-  .exp-stage-step { position: static; margin-bottom: 6px; display: block; }
+  .exp-stage-step { display: none; }
   .exp-visual { min-height: 240px; }
   .exp-visual img { max-width: 380px; }
   .exp-copy { min-height: 280px; }
+  .exp-pane { padding: 0; }
   .exp-copy h3 { font-size: 24px; line-height: 1.2; white-space: normal; }
   .exp-copy p { font-size: 15px; }
   .exp-stat-row { grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -822,7 +832,7 @@
   .exp-logos { gap: 6px; grid-template-columns: repeat(2,1fr); }
   .exp-logo-cell { height: 48px; padding: 8px; border-radius: 10px !important; }
   .exp-logo-cell .logo-wm { font-size: 12px; }
-  .exp-tabs { gap: 6px; margin-top: 24px; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+  .exp-tabs { position: static; left: auto; right: auto; bottom: auto; gap: 6px; margin-top: 24px; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
   .exp-tab { padding: 10px 14px; font-size: 12px; flex-shrink: 0; }
   .exp-tab .num { font-size: 14px; }
 }
@@ -838,7 +848,7 @@
     border-radius: 22px !important;
     min-height: 0;
   }
-  .exp-stage-step { position: static; display: block; margin-bottom: 12px; }
+  .exp-stage-step { display: none; }
   .exp-visual { min-height: 0; margin-bottom: 18px; }
   .exp-visual .exp-frame { position: relative; inset: auto; display: none; opacity: 1; }
   .exp-visual .exp-frame.is-active { display: block; }
@@ -951,7 +961,7 @@
 </div>
 
 <!-- ============ SECTION 04 — Experience (cream, no nested dark stage) ============ -->
-<section class="exp-section" id="experience" data-logo-tone="dark">
+<section class="exp-section" id="experience" data-logo-tone="dark" data-logo-placement="experience">
   <div class="container">
     <div class="exp-stage fade-in" id="expStage">
       <span class="exp-stage-step" id="expStageStep">Step 01 / Onboarding</span>
@@ -967,6 +977,7 @@
       <div class="exp-copy">
         <!-- 01 Onboarding -->
         <div class="exp-pane is-active" data-i="0">
+          <span class="exp-pane-step">Step 01 / Onboarding</span>
           <h3>Onboarding takes fifteen minutes.</h3>
           <p>Demographics, family history, lifestyle, screening history, collected the way every other app on your phone does it. Then your wearable connects in two taps and starts streaming the signals your physician will actually use.</p>
           <div class="exp-integ-label">Connects with</div>
@@ -984,6 +995,7 @@
 
         <!-- 02 Genetics -->
         <div class="exp-pane" data-i="1">
+          <span class="exp-pane-step">Step 02 / Genetics</span>
           <h3>A small kit arrives at your door.</h3>
           <p>Spit in a tube. Drop it in the prepaid mailer. The 163-gene Invitae panel screens for the variants that actually change a care plan: moderate-penetrance cancer risks, cardiovascular variants, pharmacogenomic markers.</p>
           <div class="exp-stat-row">
@@ -994,6 +1006,7 @@
 
         <!-- 03 Bloodwork -->
         <div class="exp-pane" data-i="2">
+          <span class="exp-pane-step">Step 03 / Bloodwork</span>
           <h3>Walk in. Ten minutes. Done.</h3>
           <p>Your Aleron lab order is waiting at your nearest Quest patient service center. The Elite panel, a comprehensive metabolic, cardiovascular, and inflammatory marker workup, runs alongside an ApoB and Lp(a) draw most physicals miss.</p>
           <div class="exp-integ-label">The Elite panel includes</div>
@@ -1002,6 +1015,7 @@
 
         <!-- 04 Consult -->
         <div class="exp-pane" data-i="3">
+          <span class="exp-pane-step">Step 04 / Consult</span>
           <h3>An hour with the doctor who'll know you.</h3>
           <p>By the time you sit down, your physician has already reviewed every result, every wearable signal, and the output of every Aleron risk model. The hour is spent on what to do, not on retelling your history.</p>
           <div class="exp-stat-row">
@@ -1012,6 +1026,7 @@
 
         <!-- 05 Closure loop -->
         <div class="exp-pane" data-i="4">
+          <span class="exp-pane-step">Step 05 / Closure loop</span>
           <h3>The consult isn't the finish line.</h3>
           <p>You leave with one top priority: the single thing that moves your risk picture most. As you act, your wearable streams the result. New labs feed back in. The engine reruns. A new top priority surfaces. The loop is the product.</p>
           <div class="exp-stat-row">
@@ -1998,6 +2013,7 @@ render();
       .map(el => el.closest && el.closest('[data-logo-tone]'))
       .find(el => el && el !== brand);
     brand.dataset.logoTone = section ? section.dataset.logoTone : 'dark';
+    brand.dataset.logoPlacement = section && section.dataset.logoPlacement ? section.dataset.logoPlacement : 'default';
   }
 
   function updateHeroBlocks() {
