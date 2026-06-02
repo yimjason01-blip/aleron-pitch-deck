@@ -222,23 +222,24 @@
     --cond: #2E5A87;
     --life: #3B7A4F;
     --risk: #B8854D;
-    width: min(1040px, calc(100vw - 128px));
+    width: min(1180px, calc(100vw - 128px));
   }
   /* ============ CHART CARD ============ */
   .chart-wrap {
-    width: min(950px, calc(100vw - 350px));
+    width: 100%;
     position: relative;
-    left: calc(50% - 144px);
-    transform: translateX(-50%);
     background: var(--chart-bg);
     border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 12px 16px 10px;
+    padding: 12px 28px 10px 18px;
     box-shadow: 0 1px 0 rgba(10,10,11,0.02), 0 18px 46px -30px rgba(10,10,11,0.16);
-    overflow: visible;
+    overflow: hidden;
   }
   .chart-grid {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 270px;
+    gap: 18px;
+    align-items: center;
   }
   .chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   #chart { display: block; width: 100%; min-width: 0; height: auto; }
@@ -247,11 +248,9 @@
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 10px;
-    position: absolute;
-    left: calc(100% + 18px);
-    top: 50%;
+    position: static;
     width: 270px;
-    transform: translateY(-50%);
+    transform: none;
     padding: 4px 0 0 18px;
     border-left: 1px solid rgba(10,10,11,0.06);
     justify-content: flex-start;
