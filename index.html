@@ -182,7 +182,7 @@
 
   /* Canonical QOL/VO2 component transplanted from /Projects/qol-three-slider/aleron.html */
   .source-qol-slide {
-    padding: 56px 56px 48px;
+    padding: 42px 48px 44px;
     justify-content: flex-start;
     align-items: center;
     background: #F6F4EE !important;
@@ -194,8 +194,8 @@
     letter-spacing: -0.05em;
     line-height: 1;
     color: #414c6a;
-    max-width: 1120px;
-    margin: 0 0 12px;
+    max-width: 1160px;
+    margin: 0 0 22px;
   }
   .qol-source-tool {
     --ink: #0A0A0B;
@@ -220,14 +220,14 @@
     --cond: #2E5A87;
     --life: #3B7A4F;
     --risk: #B8854D;
-    width: min(1120px, 94vw);
+    width: min(1160px, calc(100vw - 96px));
   }
   /* ============ CHART CARD ============ */
   .chart-wrap {
     background: var(--chart-bg);
     border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 14px 16px 12px;
+    padding: 12px 16px 10px;
     box-shadow: 0 1px 0 rgba(10,10,11,0.02), 0 18px 46px -30px rgba(10,10,11,0.16);
     overflow: hidden;
   }
@@ -235,7 +235,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) 270px;
     gap: 18px;
-    align-items: start;
+    align-items: center;
   }
   .chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   #chart { display: block; width: 100%; min-width: 0; height: auto; }
@@ -309,14 +309,14 @@
   /* ============ SLIDER CONTROLS ============ */
   .controls {
     display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px; margin-top: 14px;
+    gap: 14px; margin-top: 18px;
   }
   @media (max-width: 800px) { .controls { grid-template-columns: 1fr; } }
   .ctl {
     background: var(--paper-warm);
     border: 1px solid var(--line-soft);
     border-radius: 12px;
-    padding: 16px 18px 14px;
+    padding: 14px 18px 12px;
   }
   .ctl-head {
     display: flex; justify-content: space-between; align-items: baseline;
