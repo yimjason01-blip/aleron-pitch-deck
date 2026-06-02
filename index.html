@@ -405,7 +405,7 @@
   }
 
 
-  /* OPENING HERO — Aleron female runner, layered for scroll parallax */
+  /* OPENING HERO - two-person layered carousel with scroll parallax */
   .opening-hero-scroll {
     position: relative;
     width: 100vw;
@@ -420,9 +420,28 @@
     overflow: hidden;
     background: var(--hero-base);
     isolation: isolate;
+    --hero-floating-block-shift: 0px;
+  }
+  .opening-hero-slide {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    visibility: hidden;
+    pointer-events: none;
+    --slide-image-shift: 112vw;
+    --slide-float-shift: 230vw;
+  }
+  .opening-hero-slide.is-active {
+    z-index: 3;
+    visibility: visible;
     --slide-image-shift: 0px;
     --slide-float-shift: 0px;
-    --hero-floating-block-shift: 0px;
+  }
+  .opening-hero-slide.is-exiting {
+    z-index: 2;
+    visibility: visible;
+    --slide-image-shift: -58vw;
+    --slide-float-shift: -170vw;
   }
   .opening-hero-layer {
     position: absolute;
@@ -477,7 +496,6 @@
   }
   .opening-hero-copy {
     width: min(37%, 520px);
-    margin-bottom: 3.8%;
     color: var(--white);
   }
   .opening-hero-copy h1 {
@@ -499,6 +517,39 @@
     letter-spacing: -0.01em;
     text-wrap: balance;
   }
+  .opening-hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 3.8%;
+  }
+  .opening-hero-dots {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    min-width: 86px;
+    pointer-events: auto;
+  }
+  .opening-hero-dot {
+    width: 10px;
+    height: 10px;
+    border: 1px solid rgba(255,255,255,0.64);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.18);
+    cursor: pointer;
+    transition: width 180ms var(--ease-soft), background 180ms var(--ease-soft), border-color 180ms var(--ease-soft);
+  }
+  .opening-hero-dot.is-active {
+    width: 26px;
+    background: #fffefb;
+    border-color: #fffefb;
+  }
+  .opening-hero-dot:focus-visible {
+    outline: 2px solid #fffefb;
+    outline-offset: 4px;
+  }
   .slide-brand.hero-hidden {
     opacity: 0;
     pointer-events: none;
@@ -511,7 +562,9 @@
     }
     .opening-hero-chrome { inset: 28px; }
     .opening-hero-logo { width: 120px; }
-    .opening-hero-copy { width: min(86%, 520px); margin-bottom: 64px; }
+    .opening-hero-bottom { align-items: flex-start; flex-direction: column; margin-bottom: 64px; gap: 22px; }
+    .opening-hero-copy { width: min(86%, 520px); }
+    .opening-hero-dots { justify-content: flex-start; }
   }
 
   /* Signal sources: lowercase-a warm-paper tableau */
@@ -998,20 +1051,34 @@
 <body>
 
 
-<!-- OPENING HERO — female runner from figma-hero-shot, single layered parallax hero -->
+<!-- OPENING HERO - runner + surfer layered carousel -->
 <section class="opening-hero-scroll" data-opening-hero data-logo-tone="light">
-  <div class="opening-hero">
-    <img class="opening-hero-layer bg" data-motion-layer="background" src="assets/aleron-runner-hero/hero03-bg-plane.png" alt="Aleron female runner background plane">
-    <img class="opening-hero-layer mid" data-motion-layer="parallax-blocks" src="assets/aleron-runner-hero/hero03-mid-blocks-plane.png" alt="Aleron female runner geometric block plane">
-    <img class="opening-hero-layer subject" data-motion-layer="subject" src="assets/aleron-runner-hero/hero03-subject-plane.png" alt="Female runner foreground plane">
-    <img class="opening-hero-layer anchor" data-motion-layer="anchored" src="assets/aleron-runner-hero/hero03-anchor-block-plane.png" alt="Aleron anchored color block plane">
+  <div class="opening-hero" tabindex="0" aria-label="Aleron MD layered hero carousel with runner and surfer">
+    <div class="opening-hero-slide is-active" data-hero-slide="0" aria-hidden="false">
+      <img class="opening-hero-layer bg" data-motion-layer="background" src="assets/aleron-runner-hero/hero03-bg-plane.png?v=hero-two-person-20260601" alt="Aleron female runner background plane">
+      <img class="opening-hero-layer mid" data-motion-layer="parallax-blocks" src="assets/aleron-runner-hero/hero03-mid-blocks-plane.png?v=hero-two-person-20260601" alt="Aleron female runner geometric block plane">
+      <img class="opening-hero-layer subject" data-motion-layer="subject" src="assets/aleron-runner-hero/hero03-subject-plane.png?v=hero-two-person-20260601" alt="Female runner foreground plane">
+      <img class="opening-hero-layer anchor" data-motion-layer="anchored" src="assets/aleron-runner-hero/hero03-anchor-block-plane.png?v=hero-two-person-20260601" alt="Aleron anchored color block plane for runner">
+    </div>
+    <div class="opening-hero-slide" data-hero-slide="1" aria-hidden="true">
+      <img class="opening-hero-layer bg" data-motion-layer="background" src="assets/aleron-hero-carousel/hero02-bg-plane.png?v=hero-two-person-20260601" alt="Aleron surfer background plane">
+      <img class="opening-hero-layer mid" data-motion-layer="parallax-blocks" src="assets/aleron-hero-carousel/hero02-mid-blocks-plane.png?v=hero-two-person-20260601" alt="Aleron surfer geometric block plane">
+      <img class="opening-hero-layer subject" data-motion-layer="subject" src="assets/aleron-hero-carousel/hero02-subject-plane.png?v=hero-two-person-20260601" alt="Surfer foreground plane">
+      <img class="opening-hero-layer anchor" data-motion-layer="anchored" src="assets/aleron-hero-carousel/hero02-anchor-block-plane.png?v=hero-two-person-20260601" alt="Aleron anchored color block plane for surfer">
+    </div>
     <div class="opening-hero-chrome">
       <div class="opening-hero-topline">
         <img class="opening-hero-logo" src="assets/aleron-logo-white.png?v=aleron-runner-hero-20260601" alt="Aleron MD">
       </div>
-      <div class="opening-hero-copy">
-        <h1>Your best days are still ahead.</h1>
-        <p>Physician-led longevity care, powered by AI and your genetic, lab, and wearable data.</p>
+      <div class="opening-hero-bottom">
+        <div class="opening-hero-copy">
+          <h1>Your best days are still ahead.</h1>
+          <p>Physician-led longevity care, powered by AI and your genetic, lab, and wearable data.</p>
+        </div>
+        <div class="opening-hero-dots" role="tablist" aria-label="Hero image carousel">
+          <button class="opening-hero-dot is-active" type="button" role="tab" aria-selected="true" aria-label="Show runner hero" data-hero-target="0"></button>
+          <button class="opening-hero-dot" type="button" role="tab" aria-selected="false" aria-label="Show surfer hero" data-hero-target="1"></button>
+        </div>
       </div>
     </div>
   </div>
@@ -2102,8 +2169,14 @@ render();
   if (!hero) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const slides = Array.from(hero.querySelectorAll('.opening-hero-slide'));
+  const dots = Array.from(hero.querySelectorAll('.opening-hero-dot'));
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  let activeIndex = slides.findIndex(slide => slide.classList.contains('is-active'));
+  if (activeIndex < 0) activeIndex = 0;
   let ticking = false;
+  let exitTimer = 0;
+  let autoplayTimer = 0;
 
   function updateBrandTone() {
     if (!brand) return;
@@ -2137,7 +2210,69 @@ render();
     window.requestAnimationFrame(updateHeroBlocks);
   }
 
+  function setHeroSlide(nextIndex) {
+    if (!slides.length) return;
+    if (nextIndex < 0) nextIndex = slides.length - 1;
+    if (nextIndex >= slides.length) nextIndex = 0;
+    if (nextIndex === activeIndex) return;
+
+    window.clearTimeout(exitTimer);
+    const previous = slides[activeIndex];
+    const next = slides[nextIndex];
+
+    slides.forEach((slide, index) => {
+      slide.classList.remove('is-active', 'is-exiting');
+      slide.setAttribute('aria-hidden', index === nextIndex ? 'false' : 'true');
+    });
+
+    if (!reduceMotion && previous) {
+      previous.classList.add('is-exiting');
+      exitTimer = window.setTimeout(() => previous.classList.remove('is-exiting'), 760);
+    }
+
+    next.classList.add('is-active');
+    activeIndex = nextIndex;
+
+    dots.forEach((dot, index) => {
+      const isActive = index === activeIndex;
+      dot.classList.toggle('is-active', isActive);
+      dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    requestUpdate();
+  }
+
+  function restartAutoplay() {
+    window.clearInterval(autoplayTimer);
+    if (reduceMotion || slides.length < 2) return;
+    autoplayTimer = window.setInterval(() => setHeroSlide(activeIndex + 1), 7000);
+  }
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      setHeroSlide(Number(dot.dataset.heroTarget));
+      restartAutoplay();
+    });
+  });
+
+  hero.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') { setHeroSlide(activeIndex + 1); restartAutoplay(); }
+    if (event.key === 'ArrowLeft') { setHeroSlide(activeIndex - 1); restartAutoplay(); }
+  });
+
+  let touchStartX = null;
+  hero.addEventListener('touchstart', (event) => {
+    touchStartX = event.changedTouches[0].clientX;
+  }, { passive: true });
+  hero.addEventListener('touchend', (event) => {
+    if (touchStartX == null) return;
+    const delta = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) > 42) { setHeroSlide(activeIndex + (delta < 0 ? 1 : -1)); restartAutoplay(); }
+    touchStartX = null;
+  }, { passive: true });
+
   updateHeroBlocks();
+  restartAutoplay();
   window.addEventListener('scroll', requestUpdate, { passive: true });
   window.addEventListener('resize', requestUpdate);
 })();
