@@ -767,7 +767,6 @@
   width: 100%; max-width: none; height: 100%; object-fit: cover;
   display: block; border-radius: 0 !important; box-shadow: none;
 }
-.exp-frame[data-i="4"] img { transform: scaleX(-1); }
 
 .exp-copy { position: relative; min-height: 100vh; padding: 0; }
 .exp-pane {
@@ -1183,7 +1182,6 @@
         <div class="exp-frame" data-i="1"><img src="assets/photos/exp-02-genetics.jpg" alt="Genetics kit on a kitchen counter"></div>
         <div class="exp-frame" data-i="2"><img src="assets/photos/exp-03-bloodwork.jpg" alt="Member walking out of the lab"></div>
         <div class="exp-frame" data-i="3"><img src="assets/photos/exp-04-consult.jpg" alt="Physician reviewing advanced risk models and a member game plan"></div>
-        <div class="exp-frame" data-i="4"><img src="assets/photos/exp-05-loop.jpg" alt="Reading the care plan in evening light"></div>
       </div>
 
       <div class="exp-copy">
@@ -1239,17 +1237,6 @@
             <div class="exp-stat"><div class="exp-stat-num">1</div><div class="exp-stat-lbl">Physician-led game plan</div></div>
           </div>
         </div>
-
-        <!-- 05 Closure loop -->
-        <div class="exp-pane" data-i="4">
-          <span class="exp-pane-step">Step 05 / Closure loop</span>
-          <h3>The game plan keeps evolving.</h3>
-          <p>You leave with one top priority: the single thing that moves your risk picture most. As you act, your wearable streams the result. New labs feed back in. The engine reruns. A new top priority surfaces. The loop is the product.</p>
-          <div class="exp-stat-row">
-            <div class="exp-stat"><div class="exp-stat-num">1</div><div class="exp-stat-lbl">Top priority at a time</div></div>
-            <div class="exp-stat"><div class="exp-stat-num">90<small> days</small></div><div class="exp-stat-lbl">Default rerun cadence</div></div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -1258,7 +1245,6 @@
       <button class="exp-tab" data-i="1"><span class="num">02</span> Genetics</button>
       <button class="exp-tab" data-i="2"><span class="num">03</span> Bloodwork</button>
       <button class="exp-tab" data-i="3"><span class="num">04</span> Risk modeling</button>
-      <button class="exp-tab" data-i="4"><span class="num">05</span> Closure loop</button>
     </div>
 
     <div class="exp-progress"><div class="exp-progress-fill" id="expProgFill"></div></div>
@@ -1271,7 +1257,6 @@
       "Step 02 / Genetics",
       "Step 03 / Bloodwork",
       "Step 04 / Risk modeling",
-      "Step 05 / Closure loop",
     ];
     const tabs   = document.querySelectorAll('.exp-tab');
     const frames = document.querySelectorAll('.exp-frame');
@@ -1287,7 +1272,7 @@
       frames.forEach(f => f.classList.toggle('is-active', +f.dataset.i === i));
       panes.forEach(p => p.classList.toggle('is-active', +p.dataset.i === i));
       stepEl.textContent = stepLabels[i];
-      fill.style.width = ((i+1)/5*100)+'%';
+      fill.style.width = ((i+1)/stepLabels.length*100)+'%';
     }
 
     tabs.forEach(t => t.addEventListener('click', () => {
@@ -1297,7 +1282,7 @@
 
     function startAuto(){
       stopAuto();
-      timer = setInterval(() => go((idx+1) % 5), 5000);
+      timer = setInterval(() => go((idx+1) % stepLabels.length), 5000);
     }
     function stopAuto(){
       if(timer){ clearInterval(timer); timer = null; }
