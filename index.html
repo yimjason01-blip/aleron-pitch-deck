@@ -840,7 +840,6 @@
       <div class="ctl">
         <div class="ctl-head">
           <span class="ctl-name">Conditioning</span>
-          <span class="ctl-val" id="condVal">Average</span>
         </div>
         <input type="range" id="cond" min="0" max="100" step="1" value="33"/>
         <div class="ctl-marks"><span>Decond</span><span>Avg</span><span>Well</span><span>Elite</span></div>
@@ -848,7 +847,6 @@
       <div class="ctl">
         <div class="ctl-head">
           <span class="ctl-name">Lifestyle</span>
-          <span class="ctl-val" id="lifeVal">Maintained</span>
         </div>
         <input type="range" id="life" min="0" max="100" step="1" value="50"/>
         <div class="ctl-marks"><span>Neglected</span><span>Maintained</span><span>Optimized</span></div>
@@ -856,7 +854,6 @@
       <div class="ctl">
         <div class="ctl-head">
           <span class="ctl-name">Underlying Risk</span>
-          <span class="ctl-val" id="riskVal">Average</span>
         </div>
         <input type="range" id="risk" min="0" max="100" step="1" value="50"/>
         <div class="ctl-marks"><span>Low</span><span>Avg</span><span>High</span></div>
@@ -1743,10 +1740,6 @@ function render() {
   const cond = +document.getElementById('cond').value;
   const life = +document.getElementById('life').value;
   const risk = +document.getElementById('risk').value;
-
-  document.getElementById('condVal').textContent = condLabel(cond);
-  document.getElementById('lifeVal').textContent = lifeLabel(life);
-  document.getElementById('riskVal').textContent = riskLabel(risk);
 
   const R = effectiveRisk(cond, life, risk);
   const forks = activeForks(R);
