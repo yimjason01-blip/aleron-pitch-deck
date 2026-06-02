@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept B · Compounding cadence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,520&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+main.stage { padding-top: 86px; padding-bottom: 28px; }
+.canvas { min-height: 532px; }
+.cadence { position: absolute; inset: 24px 42px 46px; display: grid; grid-template-rows: 1fr 1fr 1fr; gap: 12px; }
+.cycle { position: relative; display: grid; grid-template-columns: 92px 1fr 174px; gap: 18px; align-items: center; padding: 18px 22px; background: rgba(255,254,251,0.78); border: 1px solid rgba(36,36,38,0.11); box-shadow: 0 16px 48px rgba(20,26,42,0.07); }
+.cycle::before { content: ''; position: absolute; left: 34px; top: -24px; bottom: -24px; width: 1px; background: rgba(197,162,110,0.34); }
+.cycle:first-child::before { top: 48px; }
+.cycle:last-child::before { bottom: 48px; }
+.cycle-num { position: relative; z-index: 1; width: 72px; height: 72px; display: grid; place-items: center; background: var(--hero-base); color: var(--cream); font-family: 'Newsreader', serif; font-size: 30px; letter-spacing: -0.04em; }
+.cycle h2 { margin: 0 0 8px; font-size: 25px; line-height: 0.98; letter-spacing: -0.05em; font-weight: 540; color: var(--hero-base); }
+.cycle p { margin: 0; color: rgba(36,36,38,0.64); font-size: 13px; line-height: 1.34; max-width: 430px; }
+.metric { border-left: 1px solid var(--line); padding-left: 20px; }
+.metric .micro { margin-bottom: 10px; }
+.progress { height: 7px; background: rgba(65,76,106,0.12); margin-top: 12px; position: relative; }
+.progress i { position:absolute; inset:0 auto 0 0; background: linear-gradient(90deg, var(--bronze), var(--rust)); width: var(--w); }
+.loopback { position: absolute; right: 58px; bottom: 26px; width: 250px; height: 116px; border-right: 1.5px solid rgba(197,162,110,0.58); border-bottom: 1.5px solid rgba(197,162,110,0.58); }
+.loopback::after { content: ''; position: absolute; right: -6px; top: -2px; width: 10px; height: 10px; border-top: 1.5px solid rgba(197,162,110,0.75); border-left: 1.5px solid rgba(197,162,110,0.75); transform: rotate(45deg); }
+.bottom-note { position:absolute; left:48px; right:48px; bottom: 22px; display:flex; justify-content: space-between; align-items:center; padding-top: 14px; border-top:1px solid rgba(36,36,38,.11); font-size:12px; color:rgba(36,36,38,.56); }
+@media (max-width: 980px) { .cadence { inset: 30px; gap: 16px; } .cycle { grid-template-columns: 80px 1fr; } .metric { grid-column: 2; border-left:0; padding-left:0; } }
+</style>
+</head>
+<body>
+<nav class="proto-nav"><div class="proto-brand">aleron</div><div class="proto-links"><a href="index.html">Overview</a><a href="A.html">A</a><a class="active" href="B.html">B</a><a href="C.html">C</a></div></nav>
+<main class="stage">
+  <section class="copy-block">
+    <p class="kicker">Concept B</p>
+    <h1>Every cycle makes the next cycle more precise.</h1>
+    <p class="lede">Less abstract than a ring. This version turns the loop into a membership cadence: baseline, intervention, re-measurement, updated priority.</p>
+    <dl class="principle"><dt>Governing idea</dt><dd>The value compounds because each round starts with better evidence than the last one.</dd></dl>
+  </section>
+  <section class="canvas" aria-label="Compounding cadence concept">
+    <div class="cadence">
+      <article class="cycle">
+        <div class="cycle-num">01</div>
+        <div><h2>Baseline reveals the first priority.</h2><p>Initial labs, genetics, history, and wearable trends set the first risk-ranked plan.</p></div>
+        <aside class="metric"><div class="micro">Plan confidence</div><div class="progress"><i style="--w:42%"></i></div></aside>
+      </article>
+      <article class="cycle">
+        <div class="cycle-num">02</div>
+        <div><h2>Action creates new signal.</h2><p>Nutrition, medication, sleep, training, or specialist follow-through becomes measurable.</p></div>
+        <aside class="metric"><div class="micro">Action specificity</div><div class="progress"><i style="--w:66%"></i></div></aside>
+      </article>
+      <article class="cycle">
+        <div class="cycle-num">03</div>
+        <div><h2>The next plan is sharper.</h2><p>Re-measurement proves what worked, catches drift, and reranks the next best move.</p></div>
+        <aside class="metric"><div class="micro">Priority clarity</div><div class="progress"><i style="--w:84%"></i></div></aside>
+      </article>
+    </div>
+    <div class="bottom-note"><span>Measure again</span><span>Update plan</span><span>Repeat with better evidence</span></div>
+  </section>
+</main>
+</body>
+</html>

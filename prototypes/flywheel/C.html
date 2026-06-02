@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept C · Priority engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,520&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.engine { position: absolute; inset: 34px 30px; display: grid; grid-template-columns: 142px minmax(240px, 1fr) 142px; gap: 14px; align-items: center; }
+.streams, .outputs { display: grid; gap: 14px; }
+.stream, .out { padding: 14px 12px 13px; border: 1px solid rgba(239,234,224,0.18); background: rgba(239,234,224,0.08); color: rgba(239,234,224,0.84); }
+.stream b, .out b { display:block; font-size: 14px; margin-bottom: 5px; color: #fffefb; letter-spacing: -0.02em; }
+.stream span, .out span { font-size: 11px; line-height: 1.3; color: rgba(239,234,224,0.62); }
+.core-stack { position: relative; min-height: 500px; display: grid; place-items: center; }
+.core-stack::before { content:''; position:absolute; left:50%; top:22px; bottom:22px; width:1px; background: rgba(197,162,110,.38); }
+.core-card { position: relative; z-index: 1; width: 258px; padding: 30px 24px; background: rgba(255,254,251,0.94); color: var(--ink); box-shadow: 0 24px 70px rgba(0,0,0,.2); text-align: center; }
+.core-card .micro { color: var(--rust); }
+.core-card h2 { margin: 15px 0 11px; font-family:'Newsreader',serif; font-size: 32px; line-height: .96; letter-spacing:-.045em; color: var(--hero-base); font-weight:520; }
+.core-card p { margin:0; color:rgba(36,36,38,.66); font-size:13px; line-height:1.38; }
+.layer { position:absolute; width: 226px; padding: 12px 14px; border: 1px solid rgba(197,162,110,.32); background: rgba(65,76,106,.54); color:rgba(239,234,224,.76); font-size:11px; letter-spacing:.06em; text-transform: uppercase; font-weight:700; }
+.l1 { top: 14px; left: 50%; transform: translateX(-50%); }
+.l2 { bottom: 14px; left: 50%; transform: translateX(-50%); }
+.connector { position:absolute; height:1px; background: rgba(197,162,110,.44); }
+.c-left-1 { left:190px; right: calc(50% + 146px); top: 178px; }
+.c-left-2 { left:190px; right: calc(50% + 146px); top: 255px; }
+.c-left-3 { left:190px; right: calc(50% + 146px); top: 332px; }
+.c-right-1 { right:190px; left: calc(50% + 146px); top: 215px; }
+.c-right-2 { right:190px; left: calc(50% + 146px); top: 295px; }
+.feedback { position:absolute; left: 72px; right: 72px; bottom: 54px; height: 0; border-top:1px solid rgba(197,162,110,.58); }
+.feedback::before { content: ''; position: absolute; left: -1px; top: -5px; width: 9px; height: 9px; border-left: 1px solid rgba(197,162,110,.72); border-bottom: 1px solid rgba(197,162,110,.72); transform: rotate(45deg); }
+.feedback::after { content: ''; position: absolute; right: -1px; top: -5px; width: 9px; height: 9px; border-right: 1px solid rgba(197,162,110,.72); border-top: 1px solid rgba(197,162,110,.72); transform: rotate(45deg); }
+.feedback span { position:absolute; left:50%; top:-9px; transform:translateX(-50%); padding:0 14px; background:#363d54; color:rgba(239,234,224,.72); font-size:11px; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; }
+@media (max-width: 980px) { .engine { grid-template-columns: 1fr; align-items: stretch; } .core-stack { min-height: 340px; } .connector,.feedback { display:none; } }
+</style>
+</head>
+<body>
+<nav class="proto-nav"><div class="proto-brand">aleron</div><div class="proto-links"><a href="index.html">Overview</a><a href="A.html">A</a><a href="B.html">B</a><a class="active" href="C.html">C</a></div></nav>
+<main class="stage">
+  <section class="copy-block">
+    <p class="kicker">Concept C</p>
+    <h1>The loop is an engine for the next best priority.</h1>
+    <p class="lede">This version puts Aleron AI and physician judgment in the middle. The loop is not just recurrence, it is reranking.</p>
+    <dl class="principle"><dt>Governing idea</dt><dd>New data only matters because it changes what Aleron asks the member and physician to do next.</dd></dl>
+  </section>
+  <section class="canvas dark" aria-label="Priority engine concept">
+    <div class="engine">
+      <div class="streams">
+        <div class="stream"><b>Labs</b><span>Biomarkers and longitudinal drift.</span></div>
+        <div class="stream"><b>Genetics</b><span>Inherited risk and screening logic.</span></div>
+        <div class="stream"><b>Wearables</b><span>Sleep, fitness, recovery, adherence.</span></div>
+        <div class="stream"><b>History</b><span>Family history, medications, symptoms.</span></div>
+      </div>
+      <div class="core-stack">
+        <div class="layer l1">Interpret what changed</div>
+        <article class="core-card"><div class="micro">Aleron intelligence layer</div><h2>Re-rank the next best action.</h2><p>AI narrows the signal. The physician converts it into a defensible plan.</p></article>
+        <div class="layer l2">Prove impact, then update</div>
+      </div>
+      <div class="outputs">
+        <div class="out"><b>Member action</b><span>The one move that matters now.</span></div>
+        <div class="out"><b>Physician plan</b><span>Clinical oversight, medication, referrals.</span></div>
+        <div class="out"><b>Next measure</b><span>The proof point for whether to stay or shift.</span></div>
+      </div>
+      <span class="connector c-left-1"></span><span class="connector c-left-2"></span><span class="connector c-left-3"></span><span class="connector c-right-1"></span><span class="connector c-right-2"></span>
+    </div>
+    <div class="feedback"><span>Measurement feeds the next ranking</span></div>
+  </section>
+</main>
+</body>
+</html>
