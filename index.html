@@ -168,9 +168,8 @@
   .slide-brand[data-logo-tone="dark"] img {
     filter: brightness(0) saturate(100%) invert(29%) sepia(12%) saturate(1122%) hue-rotate(187deg) brightness(92%) contrast(88%) drop-shadow(0 1px 8px rgba(10, 13, 20, 0.10));
   }
-  .slide-brand[data-logo-placement="experience"] {
-    top: clamp(34px, 5.2vh, 48px);
-    left: calc(42vw + clamp(68px, 6.4vw, 92px));
+  .slide-brand[data-logo-placement="hidden"] {
+    opacity: 0;
   }
 
   /* Aleron deck square-geometry enforcement */
@@ -818,7 +817,7 @@
 }
 
 @media (max-width: 900px) {
-  .slide-brand[data-logo-placement="experience"] { top: 24px; left: 24px; }
+  .slide-brand[data-logo-placement="hidden"] { opacity: 0; }
   .exp-stage { grid-template-columns: 1fr; padding: 32px 22px; gap: 28px; min-height: auto; border-radius: 20px !important; margin-top: 48px; }
   .exp-stage-step { display: none; }
   .exp-visual { min-height: 240px; }
@@ -961,7 +960,7 @@
 </div>
 
 <!-- ============ SECTION 04 — Experience (cream, no nested dark stage) ============ -->
-<section class="exp-section" id="experience" data-logo-tone="dark" data-logo-placement="experience">
+<section class="exp-section" id="experience" data-logo-tone="dark" data-logo-placement="hidden">
   <div class="container">
     <div class="exp-stage fade-in" id="expStage">
       <span class="exp-stage-step" id="expStageStep">Step 01 / Onboarding</span>
