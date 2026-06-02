@@ -721,6 +721,25 @@
 .exp-stat-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #6f6a61; font-weight: 500; margin-top: 10px; }
 
 .exp-logos { display: grid; grid-template-columns: repeat(4,1fr); gap: 9px; max-width: 410px; }
+.exp-provider-logo {
+  width: min(224px, 100%);
+  min-height: 76px;
+  background: rgba(255,254,251,0.68);
+  border: 1px solid rgba(65,76,106,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 20px;
+  margin: 0 0 22px;
+}
+.exp-provider-logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 44px;
+  object-fit: contain;
+}
+.exp-provider-logo.quest img { max-height: 34px; }
+.exp-provider-logo.invitae img { max-height: 38px; }
 .exp-marker-list { font-size: 13px !important; color: #6f6a61 !important; margin: 0 !important; max-width: 46ch !important; line-height: 1.65 !important; }
 .exp-logo-cell {
   background: rgba(255,254,251,0.68);
@@ -1145,6 +1164,8 @@
           <span class="exp-pane-step">Step 02 / Genetics</span>
           <h3>A small kit arrives at your door.</h3>
           <p>Spit in a tube. Drop it in the prepaid mailer. The 163-gene Invitae panel screens for the variants that actually change a care plan: moderate-penetrance cancer risks, cardiovascular variants, pharmacogenomic markers.</p>
+          <div class="exp-integ-label">Genetic testing by</div>
+          <div class="exp-provider-logo invitae"><img src="assets/logos/invitae.svg?v=provider-logos-20260601" alt="Invitae"></div>
           <div class="exp-stat-row">
             <div class="exp-stat"><div class="exp-stat-num">163<small> genes</small></div><div class="exp-stat-lbl">Invitae panel</div></div>
             <div class="exp-stat"><div class="exp-stat-num">~3<small> wks</small></div><div class="exp-stat-lbl">Results return</div></div>
@@ -1156,6 +1177,8 @@
           <span class="exp-pane-step">Step 03 / Bloodwork</span>
           <h3>Walk in. Ten minutes. Done.</h3>
           <p>Your Aleron lab order is waiting at your nearest Quest patient service center. The Elite panel, a comprehensive metabolic, cardiovascular, and inflammatory marker workup, runs alongside an ApoB and Lp(a) draw most physicals miss.</p>
+          <div class="exp-integ-label">Labs through</div>
+          <div class="exp-provider-logo quest"><img src="assets/logos/quest.svg?v=provider-logos-20260601" alt="Quest"></div>
           <div class="exp-integ-label">The Elite panel includes</div>
           <p class="exp-marker-list">CBC + CMP · ApoB · Lp(a) · hsCRP · HbA1c · TSH · Vitamin D · ferritin · homocysteine · uric acid · UACR</p>
         </div>
