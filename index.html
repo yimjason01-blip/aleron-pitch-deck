@@ -826,7 +826,12 @@
 }
 .exp-provider-logo.quest img { max-height: 44px; }
 .exp-provider-logo.invitae img { max-height: 38px; }
-.exp-marker-list { font-size: 13px !important; color: #6f6a61 !important; margin: 0 !important; max-width: 46ch !important; line-height: 1.65 !important; }
+.exp-marker-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; max-width: 640px !important; margin: 0 !important; }
+.exp-marker-list .marker-group { border: 1px solid rgba(65,76,106,0.14); background: rgba(255,254,251,0.62); padding: 8px 10px; }
+.exp-marker-list .marker-group b { display: block; margin-bottom: 3px; color: var(--navy-lower); font-size: 10.5px; letter-spacing: 0.11em; text-transform: uppercase; font-weight: 650; }
+.exp-marker-list .marker-group span { display: block; color: #5f5b54; font-size: 12px; line-height: 1.32; font-weight: 450; }
+.exp-marker-list .more { grid-column: 1 / -1; background: rgba(162,101,59,0.10); border-color: rgba(162,101,59,0.22); }
+.exp-marker-list .more b { color: var(--rust-lower); }
 .exp-logo-cell {
   background: rgba(255,254,251,0.68);
   border: 1px solid rgba(65,76,106,0.12);
@@ -1231,7 +1236,13 @@
           <div class="exp-integ-label">Labs through</div>
           <div class="exp-provider-logo quest"><img src="assets/logos/quest.svg?v=quest-logo-larger-20260601" alt="Quest"></div>
           <div class="exp-integ-label">The Elite panel includes</div>
-          <p class="exp-marker-list">CBC + CMP · ApoB · Lp(a) · hsCRP · HbA1c · TSH · Vitamin D · ferritin · homocysteine · uric acid · UACR</p>
+          <div class="exp-marker-list" aria-label="Elite panel markers">
+            <div class="marker-group"><b>Core panel</b><span>CBC with differential, CMP, liver markers, kidney markers</span></div>
+            <div class="marker-group"><b>Cardiometabolic</b><span>Lipid panel, ApoB, Lp(a), HbA1c, fasting insulin, uric acid</span></div>
+            <div class="marker-group"><b>Inflammation</b><span>hsCRP, homocysteine, ferritin, iron/TIBC</span></div>
+            <div class="marker-group"><b>Thyroid + nutrients</b><span>TSH, free T4, vitamin D, B12, folate</span></div>
+            <div class="marker-group more"><b>Depth</b><span>UACR and 80+ additional markers across metabolic, cardiovascular, inflammatory, renal, hepatic, and micronutrient domains</span></div>
+          </div>
         </div>
 
         <!-- 04 Risk modeling -->
