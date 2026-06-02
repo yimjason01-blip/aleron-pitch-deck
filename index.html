@@ -638,15 +638,15 @@
   color: #14110D;
   border: 1px solid rgba(20,17,13,0.08);
   border-radius: 28px !important;
-  padding: 56px 64px;
+  padding: 48px 56px;
   display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  gap: 56px;
+  grid-template-columns: minmax(0,0.95fr) minmax(500px,1.05fr);
+  gap: 48px;
   align-items: center;
   box-shadow: 0 20px 60px -30px rgba(20,17,13,0.18);
   position: relative;
   overflow: hidden;
-  min-height: 520px;
+  min-height: 500px;
 }
 .exp-stage-step {
   position: absolute; top: 28px; right: 36px;
@@ -658,7 +658,7 @@
 .exp-visual {
   position: relative;
   display: flex; align-items: center; justify-content: center;
-  min-height: 380px;
+  min-height: 360px;
 }
 .exp-visual .exp-frame {
   position: absolute; inset: 0;
@@ -667,11 +667,14 @@
   pointer-events: none;
 }
 .exp-visual .exp-frame.is-active { opacity: 1; pointer-events: auto; }
-.exp-visual img { width: 100%; max-width: 560px; height: auto; display: block; border-radius: 16px !important; box-shadow: 0 24px 60px -28px rgba(20,17,13,0.35); }
+.exp-visual img { width: 100%; max-width: 520px; height: auto; display: block; border-radius: 16px !important; box-shadow: 0 24px 60px -28px rgba(20,17,13,0.35); }
 
-.exp-copy { position: relative; min-height: 460px; }
+.exp-copy { position: relative; min-height: 360px; }
 .exp-pane {
   position: absolute; inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   opacity: 0; transform: translateY(8px);
   transition: opacity 0.45s ease, transform 0.45s ease;
   pointer-events: none;
@@ -679,22 +682,24 @@
 .exp-pane.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
 .exp-copy h3 {
   font-family: 'Inter Tight', sans-serif; font-weight: 400;
-  font-size: clamp(26px, 2.6vw, 36px); line-height: 1.15;
-  margin: 0 0 14px; max-width: 22ch; letter-spacing: -0.01em;
+  font-size: clamp(26px, 2.15vw, 32px); line-height: 1.12;
+  margin: 0 0 16px; max-width: none; letter-spacing: -0.015em;
+  white-space: nowrap;
 }
 .exp-copy h3 em { font: inherit; color: inherit; }
-.exp-copy p { font-size: 16px; line-height: 1.6; color: #5b544a; margin: 0 0 24px; max-width: 50ch; }
+.exp-copy p { font-size: 16px; line-height: 1.58; color: #5b544a; margin: 0 0 26px; max-width: 46ch; }
 .exp-integ-label {
   font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: #9a9082; font-weight: 500; margin-top: 12px; margin-bottom: 14px;
+  color: #9a9082; font-weight: 500; margin-top: 0; margin-bottom: 14px;
 }
-.exp-stat-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; margin-top: 6px; }
-.exp-stat { border-top: 1px solid rgba(20,17,13,0.12); padding-top: 14px; }
+.exp-stat-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; margin-top: 2px; max-width: 460px; }
+.exp-stat { border-top: 1px solid rgba(20,17,13,0.12); padding-top: 16px; min-height: 82px; }
 .exp-stat-num { font-family: 'Cormorant', serif; font-style: italic; font-weight: 500; font-size: 32px; color: #14110D; line-height: 1; }
 .exp-stat-num small { font-size: 16px; opacity: 0.6; }
 .exp-stat-lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #7a7268; font-weight: 500; margin-top: 6px; }
 
-.exp-logos { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; max-width: 380px; }
+.exp-logos { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; max-width: 384px; }
+.exp-marker-list { font-size: 13px !important; color: #7a7268 !important; margin: 0 !important; max-width: 46ch !important; line-height: 1.65 !important; }
 .exp-logo-cell {
   background: #fff; border: 1px solid rgba(20,17,13,0.08); border-radius: 12px !important;
   aspect-ratio: 1 / 1;
@@ -777,7 +782,7 @@
   .exp-visual { min-height: 240px; }
   .exp-visual img { max-width: 380px; }
   .exp-copy { min-height: 280px; }
-  .exp-copy h3 { font-size: 24px; line-height: 1.2; }
+  .exp-copy h3 { font-size: 24px; line-height: 1.2; white-space: normal; }
   .exp-copy p { font-size: 15px; }
   .exp-stat-row { grid-template-columns: 1fr 1fr; gap: 14px; }
   .exp-stat-num { font-size: 26px; }
@@ -959,7 +964,7 @@
           <h3>Walk in. Ten minutes. Done.</h3>
           <p>Your Aleron lab order is waiting at your nearest Quest patient service center. The Elite panel, a comprehensive metabolic, cardiovascular, and inflammatory marker workup, runs alongside an ApoB and Lp(a) draw most physicals miss.</p>
           <div class="exp-integ-label">The Elite panel includes</div>
-          <p style="font-size: 13px; color: #7a7268; margin: 0;">CBC + CMP · ApoB · Lp(a) · hsCRP · HbA1c · TSH · Vitamin D · ferritin · homocysteine · uric acid · UACR</p>
+          <p class="exp-marker-list">CBC + CMP · ApoB · Lp(a) · hsCRP · HbA1c · TSH · Vitamin D · ferritin · homocysteine · uric acid · UACR</p>
         </div>
 
         <!-- 04 Consult -->
