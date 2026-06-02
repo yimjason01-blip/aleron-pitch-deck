@@ -1049,33 +1049,6 @@
   </script>
 </section>
 
-<!-- SLIDE 3 -->
-<div class="slide" data-logo-tone="dark" style="background:var(--deck-light-bg);">
-  <div class="slide-headline">
-    If you know what to do,<br>you can <span>shift and bend the curve.</span>
-  </div>
-
-  <div class="charts-row">
-    <!-- Quality of Life — with intervention -->
-    <div class="chart-card">
-      <div class="chart-label">Quality of life</div>
-      <div class="chart-desc">The same curve — but with the right interventions, it stays higher for longer.</div>
-      <canvas id="qolChart2" height="320"></canvas>
-      <div class="chart-legend">
-        <div class="chart-legend-item">
-          <div class="chart-legend-line" style="background:#c9c0b2;"></div>
-          <div class="chart-legend-label">Average American</div>
-        </div>
-        <div class="chart-legend-item">
-          <div class="chart-legend-line" style="background:var(--accent);"></div>
-          <div class="chart-legend-label">Best possible</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="slide-num">03</div>
-</div>
 
 <!-- SLIDE 4 -->
 <div class="slide" data-logo-tone="light" style="background:var(--navy);">
@@ -2050,78 +2023,6 @@ render();
     ctx.scale(dpr, dpr);
     return { ctx, W, H };
   }
-
-  // === SLIDE 3: QUALITY OF LIFE — TWO CURVES ===
-  {
-    const { ctx, W, H } = setupCanvas('qolChart2');
-    const pad = { top: 30, right: 24, bottom: 50, left: 145 };
-    const cw = W - pad.left - pad.right;
-    const ch = H - pad.top - pad.bottom;
-    const minAge = 30, maxAge = 95;
-
-    function xA(age) { return pad.left + ((age - minAge) / (maxAge - minAge)) * cw; }
-    function yP(pct) { return pad.top + ((100 - pct) / 100) * ch; }
-
-    // US average (same as slide 1)
-    const qolDef = [
-      [30,84],[35,82],[40,79],[45,75],[50,70],[55,64],
-      [60,56],[65,48],[70,40],[75,30],[78,20],[80,12],[82,4],[83,0]
-    ];
-    // Best version: elite fitness, optimal lipids, proactive screening, good sleep
-    const qolOpt = [
-      [30,97],[35,97],[40,96],[45,95],[50,94],[55,92],
-      [60,89],[65,85],[70,80],[75,74],[78,68],[80,62],[82,55],[84,45],[86,30],[87,15],[88,0]
-    ];
-
-    const pxDef = qolDef.map(d => [xA(d[0]), yP(d[1])]);
-    const pxOpt = qolOpt.map(d => [xA(d[0]), yP(d[1])]);
-
-    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
-
-    // Category bands
-    const bands = [
-      { from: 75, to: 100, color: 'rgba(162,101,59,0.10)', label: 'Do anything', labelColor: '#6d3f27', border: '#a2653b' },
-      { from: 50, to: 75, color: 'rgba(239,234,224,0.28)', label: 'Active & independent', labelColor: '#a2653b', border: '#a2653b' },
-      { from: 25, to: 50, color: 'rgba(224,155,45,0.10)', label: 'Slowing down', labelColor: '#a2653b', border: '#a2653b' },
-      { from: 0, to: 25, color: 'rgba(142,61,47,0.12)', label: 'Need help', labelColor: '#8e3d2f', border: '#8e3d2f' }
-    ];
-    bands.forEach(b => {
-      ctx.fillStyle = b.color;
-      ctx.fillRect(pad.left, yP(b.to), cw, yP(b.from) - yP(b.to));
-      
-      ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(pad.left, yP(b.to)); ctx.lineTo(pad.left + cw, yP(b.to)); ctx.stroke();
-    });
-
-    // Shaded area between curves
-    ctx.beginPath();
-    pxDef.forEach((p,i) => i===0 ? ctx.moveTo(p[0],p[1]) : ctx.lineTo(p[0],p[1]));
-    for(let i=pxOpt.length-1; i>=0; i--) ctx.lineTo(pxOpt[i][0], pxOpt[i][1]);
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(162,101,59,0.10)';
-    ctx.fill();
-
-    drawCurve(ctx, pxDef, '#c9c0b2', 3);
-    drawCurve(ctx, pxOpt, '#a2653b', 3.5);
-
-    // Y-axis: category labels
-    ctx.font = '600 11px Inter'; ctx.textAlign = 'right';
-    bands.forEach(b => {
-      ctx.fillStyle = b.labelColor;
-      const midY = (yP(b.to) + yP(b.from)) / 2;
-      ctx.fillText(b.label, pad.left - 10, midY + 4);
-      // Color accent strip between label and plot
-      if (b.border) { ctx.fillStyle = b.border; ctx.fillRect(pad.left - 4, yP(b.to) + 1, 2.5, yP(b.from) - yP(b.to) - 2); }
-    });
-
-    // X-axis
-    ctx.font = '500 13px Inter'; ctx.textAlign = 'center'; ctx.fillStyle = '#6f6a61';
-    for(let age = 30; age <= 90; age += 10) ctx.fillText(age, xA(age), yP(0) + 20);
-    ctx.fillStyle = '#6f6a61'; ctx.font = '600 13px Inter';
-    ctx.fillText('Age', pad.left + cw / 2, yP(0) + 40);
-  }
-
-  // survChart2 removed
 
   // === SLIDE 4: QoL with 30-year annotation ===
   {
