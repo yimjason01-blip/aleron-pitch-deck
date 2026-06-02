@@ -494,6 +494,33 @@
     height: auto;
     filter: drop-shadow(0 1px 10px rgba(10, 13, 20, 0.45));
   }
+  .opening-hero-login {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 18px;
+    border: 1px solid rgba(255,255,255,0.58);
+    color: #fffefb;
+    background: rgba(255,255,255,0.08);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: background 180ms var(--ease-soft), border-color 180ms var(--ease-soft), transform 180ms var(--ease-soft);
+  }
+  .opening-hero-login:hover {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.86);
+  }
+  .opening-hero-login:focus-visible {
+    outline: 2px solid #fffefb;
+    outline-offset: 4px;
+  }
   .opening-hero-copy {
     width: min(37%, 520px);
     color: var(--white);
@@ -1069,6 +1096,7 @@
     <div class="opening-hero-chrome">
       <div class="opening-hero-topline">
         <img class="opening-hero-logo" src="assets/aleron-logo-white.png?v=aleron-runner-hero-20260601" alt="Aleron MD">
+        <a class="opening-hero-login" href="https://yimjason01-blip.github.io/aleron-md/login.html">Log in</a>
       </div>
       <div class="opening-hero-bottom">
         <div class="opening-hero-copy">
