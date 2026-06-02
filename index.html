@@ -1050,33 +1050,6 @@
 </section>
 
 
-<!-- SLIDE 4 -->
-<div class="slide" data-logo-tone="light" style="background:var(--navy);">
-  <div class="slide-headline" style="color:#fffefb;">
-    But if you're not steering,<br>it can bend the <span style="color:rgba(162,78,59,0.92);">other way.</span>
-  </div>
-
-  <div class="charts-row">
-    <div style="background:rgba(255,255,255,0.04);border-radius:0;padding:28px;border:1px solid rgba(255,255,255,0.08);">
-      <canvas id="qolChart3" height="320"></canvas>
-      <div style="display:flex;gap:20px;margin-top:14px;justify-content:center;">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="width:28px;height:3px;background:rgba(162,78,59,0.78);border-radius:0;"></div>
-          <span style="font-size:13px;font-weight:600;color:rgba(255,254,251,0.5);">Worst case</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="width:28px;height:3px;background:#c9c0b2;border-radius:0;"></div>
-          <span style="font-size:13px;font-weight:600;color:rgba(255,254,251,0.5);">Average American</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="width:28px;height:3px;background:#efeae0;border-radius:0;"></div>
-          <span style="font-size:13px;font-weight:600;color:rgba(255,254,251,0.5);">Best possible</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-num" style="color:rgba(255,255,255,0.15);">04</div>
-</div>
 
 <!-- SLIDE 4b: THE ROI — WHAT CLARITY BUYS YOU -->
 <div class="slide" data-logo-tone="dark" style="background:var(--deck-light-bg);">
@@ -2024,94 +1997,7 @@ render();
     return { ctx, W, H };
   }
 
-  // === SLIDE 4: QoL with 30-year annotation ===
-  {
-    const { ctx, W, H } = setupCanvas('qolChart3');
-    const pad = { top: 30, right: 24, bottom: 50, left: 145 };
-    const cw = W - pad.left - pad.right;
-    const ch = H - pad.top - pad.bottom;
-    const minAge = 30, maxAge = 95;
 
-    function xA(age) { return pad.left + ((age - minAge) / (maxAge - minAge)) * cw; }
-    function yP(pct) { return pad.top + ((100 - pct) / 100) * ch; }
-
-    const qolDef = [
-      [30,84],[35,82],[40,79],[45,75],[50,70],[55,64],
-      [60,56],[65,48],[70,40],[75,30],[78,20],[80,12],[82,4],[83,0]
-    ];
-    const qolOpt = [
-      [30,97],[35,97],[40,96],[45,95],[50,94],[55,92],
-      [60,89],[65,85],[70,80],[75,74],[78,68],[80,62],[82,55],[84,45],[86,30],[87,15],[88,0]
-    ];
-    // Worst case: tracks average but offset ~8-10pts lower, then cardiac event at 55
-    const qolWorst = [
-      [30,76],[35,74],[40,71],[45,67],[50,62],[53,57],[54.5,55]
-    ];
-
-    const pxDef = qolDef.map(d => [xA(d[0]), yP(d[1])]);
-    const pxOpt = qolOpt.map(d => [xA(d[0]), yP(d[1])]);
-    const pxWorst = qolWorst.map(d => [xA(d[0]), yP(d[1])]);
-
-    // Dark background for this chart
-    ctx.fillStyle = 'rgba(17,35,75,0.3)'; ctx.fillRect(0, 0, W, H);
-
-    // Category bands (dark theme)
-    const bands = [
-      { from: 75, to: 100, color: 'rgba(239,234,224,0.14)', label: 'Do anything', labelColor: 'rgba(239,234,224,0.82)', border: '#a2653b' },
-      { from: 50, to: 75, color: 'rgba(162,101,59,0.16)', label: 'Active & independent', labelColor: 'rgba(162,101,59,0.78)', border: '#a2653b' },
-      { from: 25, to: 50, color: 'rgba(224,155,45,0.10)', label: 'Slowing down', labelColor: 'rgba(224,155,45,0.6)', border: '#a2653b' },
-      { from: 0, to: 25, color: 'rgba(142,61,47,0.12)', label: 'Need help', labelColor: 'rgba(239,234,224,0.56)', border: '#8e3d2f' }
-    ];
-    bands.forEach(b => {
-      ctx.fillStyle = b.color;
-      ctx.fillRect(pad.left, yP(b.to), cw, yP(b.from) - yP(b.to));
-      
-      ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(pad.left, yP(b.to)); ctx.lineTo(pad.left + cw, yP(b.to)); ctx.stroke();
-    });
-
-    // Shaded area between average and best only (no shading past cardiac event)
-    ctx.beginPath();
-    pxDef.forEach((p,i) => i===0 ? ctx.moveTo(p[0],p[1]) : ctx.lineTo(p[0],p[1]));
-    for(let i=pxOpt.length-1; i>=0; i--) ctx.lineTo(pxOpt[i][0], pxOpt[i][1]);
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(239,234,224,0.08)';
-    ctx.fill();
-
-    // Draw curves
-    drawCurve(ctx, pxWorst, 'rgba(162,78,59,0.78)', 2.5);
-    // Vertical drop — cardiac event
-    const lastWorst = pxWorst[pxWorst.length - 1];
-    ctx.beginPath();
-    ctx.moveTo(lastWorst[0], lastWorst[1]);
-    ctx.lineTo(lastWorst[0], yP(0));
-    ctx.strokeStyle = 'rgba(162,78,59,0.78)'; ctx.lineWidth = 2.5; ctx.setLineDash([]); ctx.stroke();
-
-    drawCurve(ctx, pxDef, 'rgba(203,208,219,0.6)', 2.5);
-    drawCurve(ctx, pxOpt, '#efeae0', 3.5);
-
-    // Fatal event marker at bottom of drop
-    ctx.beginPath(); ctx.arc(lastWorst[0], yP(0), 5, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(162,78,59,0.92)'; ctx.fill();
-    ctx.strokeStyle = 'rgba(17,35,75,0.8)'; ctx.lineWidth = 2; ctx.stroke();
-
-
-    // Y-axis labels
-    ctx.font = '600 11px Inter'; ctx.textAlign = 'right';
-    bands.forEach(b => {
-      ctx.fillStyle = b.labelColor;
-      const midY = (yP(b.to) + yP(b.from)) / 2;
-      ctx.fillText(b.label, pad.left - 10, midY + 4);
-      // Color accent strip between label and plot
-      if (b.border) { ctx.fillStyle = b.border; ctx.fillRect(pad.left - 4, yP(b.to) + 1, 2.5, yP(b.from) - yP(b.to) - 2); }
-    });
-
-    // X-axis
-    ctx.font = '500 13px Inter'; ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(255,254,251,0.4)';
-    for(let age = 30; age <= 90; age += 10) ctx.fillText(age, xA(age), yP(0) + 20);
-    ctx.fillStyle = 'rgba(255,254,251,0.5)'; ctx.font = '600 13px Inter';
-    ctx.fillText('Age', pad.left + cw / 2, yP(0) + 40);
-  }
 })();
 </script>
 
