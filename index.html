@@ -774,14 +774,14 @@
   width: 100%; max-width: none; height: 100%; object-fit: cover;
   display: block; border-radius: 0 !important; box-shadow: none;
 }
-.exp-frame-split { display: flex; flex-direction: row; gap: 0; }
+.exp-frame-split { display: flex; flex-direction: column; gap: 0; }
 .exp-split-half {
-  position: relative; flex: 1 1 50%; min-width: 0; height: 100%; overflow: hidden;
+  position: relative; flex: 1 1 50%; min-height: 0; width: 100%; overflow: hidden;
 }
-.exp-split-half + .exp-split-half { border-left: 2px solid rgba(255,254,251,0.92); }
+.exp-split-half + .exp-split-half { border-top: 2px solid rgba(255,254,251,0.92); }
 .exp-split-half img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .exp-split-tag {
-  position: absolute; left: 16px; bottom: 16px;
+  position: absolute; left: 14px; top: 14px;
   font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase; color: #fff;
   background: rgba(26,26,26,0.62); backdrop-filter: blur(4px);
@@ -1205,8 +1205,8 @@
         <div class="exp-frame is-active" data-i="0"><img src="assets/photos/exp-01-onboarding.jpg" alt="Onboarding · phone and Apple Watch"></div>
         <div class="exp-frame" data-i="1"><img src="assets/photos/exp-02-genetics.jpg" alt="Genetics kit on a kitchen counter"></div>
         <div class="exp-frame exp-frame-split" data-i="2">
-          <div class="exp-split-half"><img src="assets/photos/exp-03-bloodwork-location.jpg?v=split-20260608" alt="Member leaving a Quest patient service center after a blood draw"><span class="exp-split-tag">In person</span></div>
-          <div class="exp-split-half"><img src="assets/photos/exp-03-bloodwork-athome.jpg?v=split-20260608" alt="Member using an at-home capillary collection device at the kitchen table"><span class="exp-split-tag">At home</span></div>
+          <div class="exp-split-half"><img src="assets/photos/exp-03-bloodwork-location.jpg?v=split-h-20260608" alt="Member leaving a Quest patient service center after a blood draw"><span class="exp-split-tag">In person</span></div>
+          <div class="exp-split-half"><img src="assets/photos/exp-03-bloodwork-athome.jpg?v=split-h-20260608" alt="Member using an at-home capillary collection device at the kitchen table"><span class="exp-split-tag">At home</span></div>
         </div>
         <div class="exp-frame" data-i="3"><img src="assets/photos/exp-04-consult.jpg" alt="Physician reviewing advanced risk models and a member game plan"></div>
       </div>
