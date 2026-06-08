@@ -1095,6 +1095,18 @@
 .comparison-alt.comparison-approved span[style*="background: #f2ddd5"]::before {
   content: '' !important;
 }
+/* No-wrap fit pass: widen container, trim padding/font, force single-line cells */
+.comparison-alt.comparison-approved > div:first-child { max-width: 1200px !important; }
+.comparison-alt.comparison-approved table { font-size: 13.5px !important; }
+.comparison-alt.comparison-approved th,
+.comparison-alt.comparison-approved td { padding: 15px 11px !important; white-space: nowrap !important; }
+.comparison-alt.comparison-approved th:first-child,
+.comparison-alt.comparison-approved td:first-child {
+  width: 150px !important; min-width: 150px !important; padding: 15px 14px !important; white-space: nowrap !important;
+}
+.comparison-alt.comparison-approved th:nth-child(2),
+.comparison-alt.comparison-approved td:nth-child(2) { padding: 15px 14px !important; }
+.comparison-alt.comparison-approved span[style*="background"] { padding: 4px 9px !important; white-space: nowrap !important; }
 
 </style>
 </head>
@@ -1447,7 +1459,7 @@
         </tr>
         <tr>
           <td style="padding:18px 20px;border-bottom:1px solid rgba(36,36,38,0.12);font-weight:700;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:0.3px;">Blood labs</td>
-          <td style="padding:18px 20px;border-bottom:1px solid rgba(36,36,38,0.12);background:rgba(162,101,59,0.08);"><span style="background:#efeae0;color:#2c3240;font-size:12px;font-weight:600;padding:4px 12px;border-radius:0;">Quest Elite · 100 markers · 2×/yr</span></td>
+          <td style="padding:18px 20px;border-bottom:1px solid rgba(36,36,38,0.12);background:rgba(162,101,59,0.08);"><span style="background:#efeae0;color:#2c3240;font-size:12px;font-weight:600;padding:4px 12px;border-radius:0;">Quest Elite · 100+ · 2×/yr</span></td>
           <td style="padding:18px 18px;border-bottom:1px solid rgba(36,36,38,0.12);"><span style="background:#efeae0;color:#2c3240;font-size:12px;font-weight:600;padding:4px 12px;border-radius:0;">100+ · 1×/yr</span></td>
           <td style="padding:16px 11px;border-bottom:1px solid rgba(36,36,38,0.12);"><span style="background:#efeae0;color:#2c3240;font-size:12px;font-weight:600;padding:4px 10px;border-radius:0;">120+ · 1×/yr</span></td>
           <td style="padding:18px 18px;border-bottom:1px solid rgba(36,36,38,0.12);"><span style="background:#efeae0;color:#2c3240;font-size:12px;font-weight:600;padding:4px 12px;border-radius:0;">Diamond panel · unltd</span></td>
