@@ -774,6 +774,19 @@
   width: 100%; max-width: none; height: 100%; object-fit: cover;
   display: block; border-radius: 0 !important; box-shadow: none;
 }
+.exp-frame-split { display: flex; flex-direction: row; gap: 0; }
+.exp-split-half {
+  position: relative; flex: 1 1 50%; min-width: 0; height: 100%; overflow: hidden;
+}
+.exp-split-half + .exp-split-half { border-left: 2px solid rgba(255,254,251,0.92); }
+.exp-split-half img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.exp-split-tag {
+  position: absolute; left: 16px; bottom: 16px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: #fff;
+  background: rgba(26,26,26,0.62); backdrop-filter: blur(4px);
+  padding: 7px 11px; border-radius: 0;
+}
 
 .exp-copy { position: relative; min-height: 100vh; padding: 0; }
 .exp-pane {
@@ -1191,7 +1204,10 @@
       <div class="exp-visual">
         <div class="exp-frame is-active" data-i="0"><img src="assets/photos/exp-01-onboarding.jpg" alt="Onboarding · phone and Apple Watch"></div>
         <div class="exp-frame" data-i="1"><img src="assets/photos/exp-02-genetics.jpg" alt="Genetics kit on a kitchen counter"></div>
-        <div class="exp-frame" data-i="2"><img src="assets/photos/exp-03-bloodwork.jpg" alt="Member walking out of the lab"></div>
+        <div class="exp-frame exp-frame-split" data-i="2">
+          <div class="exp-split-half"><img src="assets/photos/exp-03-bloodwork-location.jpg?v=split-20260608" alt="Member leaving a Quest patient service center after a blood draw"><span class="exp-split-tag">In person</span></div>
+          <div class="exp-split-half"><img src="assets/photos/exp-03-bloodwork-athome.jpg?v=split-20260608" alt="Member using an at-home capillary collection device at the kitchen table"><span class="exp-split-tag">At home</span></div>
+        </div>
         <div class="exp-frame" data-i="3"><img src="assets/photos/exp-04-consult.jpg" alt="Physician reviewing advanced risk models and a member game plan"></div>
       </div>
 
@@ -1230,8 +1246,8 @@
         <!-- 03 Bloodwork -->
         <div class="exp-pane" data-i="2">
           <span class="exp-pane-step">Step 03 / Bloodwork</span>
-          <h3>Your lab order is ready when you are.</h3>
-          <p>Your Aleron lab order is waiting at your nearest Quest patient service center. The Elite panel, a comprehensive metabolic, cardiovascular, and inflammatory marker workup, runs alongside an ApoB and Lp(a) draw most physicals miss.</p>
+          <h3>Bloodwork on your terms.</h3>
+          <p>Draw the same Elite panel two ways: walk into your nearest Quest patient service center, or skip the trip with an at-home capillary kit that ships to your door. Either way you get a comprehensive metabolic, cardiovascular, and inflammatory workup, including the ApoB and Lp(a) markers most physicals miss.</p>
           <div class="exp-integ-label">Labs through</div>
           <div class="exp-provider-logo quest"><img src="assets/logos/quest.svg?v=quest-logo-larger-20260601" alt="Quest"></div>
           <div class="exp-integ-label">The Elite panel includes</div>
