@@ -2378,7 +2378,9 @@
   .curve-instrument .head { position: static !important; transform: none !important; width: auto !important; left: auto !important; margin: 0 0 4px !important; }
   .curve-instrument #cp-title { position: static !important; white-space: normal !important; opacity: 1 !important; font-size: clamp(23px, 6.2vw, 30px); text-align: left; }
   .curve-instrument #cp-body { display: none !important; }
-  .curve-instrument svg.plot { position: static !important; height: auto !important; width: 100% !important; transform: none !important; margin: 2px 0 0 !important; }
+  /* Full-bleed the plot to the whole screen width (break out of the stage's side padding) so the
+     curve uses every horizontal pixel; calc(50% - 50vw) matches whatever the stage padding is. */
+  .curve-instrument svg.plot { position: static !important; height: auto !important; width: 100vw !important; max-width: 100vw !important; transform: none !important; margin: 2px 0 0 calc(50% - 50vw) !important; }
   .curve-instrument .endlab { font-size: 24px; }
   .curve-instrument #cp-dependent tspan:nth-child(2) { display: none; }  /* drop "ON OTHERS" 2nd line (its dy is too tight when enlarged) */
   /* Graph (mobile): drop the cramped left-gutter axis labels; show two zone labels
@@ -2396,6 +2398,13 @@
   .cp-event-readout { display:flex !important; align-items:baseline; justify-content:space-between; gap:14px; margin:16px 0 0; padding:14px 16px; border:1px solid rgba(164,69,44,.28); border-radius:12px; background:rgba(164,69,44,.05); }
   .cp-event-readout-lbl { font-family:var(--audit); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#5A6378; }
   .cp-event-readout-val { font-family:var(--voice); font-weight:600; font-size:30px; color:#A4452C; line-height:1; }
+  /* No top-fade on mobile: the graph reads crisp and solid to the top instead of softening into the headline. */
+  .curve-instrument #cp-field { mask: none !important; -webkit-mask: none !important; }
+  /* Scale-independent, heavier line weights: non-scaling-stroke renders stroke widths in screen px
+     regardless of the shrunk mobile viewBox, so the curve + fork read clearly and the grid stays faint. */
+  .curve-instrument #cp-inkc { vector-effect: non-scaling-stroke; stroke-width: 2.6px !important; }
+  .curve-instrument #cp-event-branch { vector-effect: non-scaling-stroke; stroke-width: 2.6px !important; }
+  .curve-instrument #cp-grid line { vector-effect: non-scaling-stroke; stroke-width: 1px !important; }
   .curve-instrument .axistitle { font-size: 32px; }
   .curve-instrument .ticklabel { font-size: 30px; }
   .curve-instrument .controls {
