@@ -1233,6 +1233,21 @@
 })();
 </script>
 
+<script>
+/* MOBILE CURVE ZONE LABELS — re-present the y-axis as two labels centered in the
+   open space above/below the curve; drop INDEPENDENT + the rotated axis titles.
+   Curve is in FIXED mode on mobile (no scroll re-render), so these positions stay put. */
+(function(){
+  if(!matchMedia('(max-width:900px)').matches) return;
+  var svg=document.getElementById('cp-plot'); if(!svg) return;
+  svg.setAttribute('viewBox','176 112 1376 700');   // trim dead margin -> less letterbox
+  var cx=864;                                        // plot centre (PL+PR)/2
+  var ath=document.getElementById('cp-athlete'), dep=document.getElementById('cp-dependent');
+  if(ath){ ath.textContent='Athlete'; ath.setAttribute('x',cx); ath.setAttribute('y',324); ath.setAttribute('text-anchor','middle'); ath.setAttribute('class','grafzone'); ath.style.opacity=1; }
+  if(dep){ dep.textContent='Dependent on others'; dep.setAttribute('x',cx); dep.setAttribute('y',660); dep.setAttribute('text-anchor','middle'); dep.setAttribute('class','grafzone'); dep.style.opacity=1; }
+})();
+</script>
+
 <div class="slide-brand" data-logo-tone="dark">
   <span class="lockup">aleron<span class="tag grad">MD</span></span>
 </div>
@@ -1456,6 +1471,168 @@
   })();
   </script>
 </section>
+
+<!-- ===== MOBILE EXPERIENCE TIMELINE (.xp) — numbered vertical timeline, phones only (<=900).
+     ADDITIVE: the desktop filmstrip <section id="experience"> above is untouched and is hidden on
+     mobile by the CSS below. Step copy matches the desktop filmstrip verbatim (incl. "comprehensive
+     panel"). Header/eyebrow/lede intentionally omitted pending Jason's copy. ===== -->
+<style>
+.xp { display:none; }
+@media (max-width:900px){
+  #experience.exp-section, .exp-section { display:none !important; }   /* hide desktop filmstrip on mobile */
+  .xp { display:block; background:#FAF7F2; color:#1D1B18; padding:clamp(64px,9vh,120px) clamp(24px,7vw,80px); }
+  .xp-inner { max-width:780px; margin:0 auto; }
+  .xp-steps { list-style:none; margin:0; padding:0; }
+  .xp-step { display:grid; grid-template-columns:40px minmax(0,1fr); gap:clamp(16px,3vw,24px); padding-bottom:clamp(40px,6vh,56px); }
+  .xp-step:last-child { padding-bottom:0; }
+  .xp-rail { position:relative; display:flex; justify-content:center; }
+  .xp-num { display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; border:1px solid rgba(36,36,38,.22); background:#FAF7F2; font-family:var(--audit); font-size:13px; color:#1D1B18; position:relative; z-index:1; }
+  .xp-step:not(:last-child) .xp-rail::after { content:""; position:absolute; top:40px; bottom:calc(-1 * clamp(40px,6vh,56px)); left:50%; width:1px; transform:translateX(-50%); background:rgba(36,36,38,.16); }
+  .xp-step--result .xp-num { background:#8A6A2F; border-color:#8A6A2F; color:#FAF7F2; }
+  .xp-content { min-width:0; --xp-pad:clamp(18px,2.4vw,26px); background:#FFFDFA; border:1px solid rgba(36,36,38,.12); border-radius:16px; overflow:hidden; padding:var(--xp-pad); box-shadow:0 1px 2px rgba(36,36,38,.04), 0 18px 34px -26px rgba(36,36,38,.30); }
+  .xp-media { margin:calc(-1*var(--xp-pad)) calc(-1*var(--xp-pad)) clamp(16px,2vw,20px); }
+  .xp-media > img { width:100%; height:clamp(180px,27vw,240px); object-fit:cover; display:block; }
+  .xp-media.split { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .xp-half { position:relative; min-width:0; }
+  .xp-half img { width:100%; height:clamp(160px,25vw,220px); object-fit:cover; display:block; }
+  .xp-mtag { position:absolute; left:10px; bottom:10px; font-family:var(--audit); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:rgba(20,22,28,.55); padding:4px 8px; border-radius:4px; }
+  .xp-tag { font-family:var(--audit); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8A6A2F; margin:0; }
+  .xp-h { font-family:var(--voice); font-weight:400; font-size:clamp(22px,2.8vw,30px); line-height:1.08; letter-spacing:-.015em; margin:8px 0 0; }
+  .xp-p { font-family:var(--voice); font-size:clamp(15px,1.2vw,17px); line-height:1.6; color:#5A6378; margin:12px 0 0; }
+  .xp-detail { margin:clamp(16px,2vw,20px) calc(-1*var(--xp-pad)) calc(-1*var(--xp-pad)); padding:clamp(15px,1.8vw,18px) var(--xp-pad) var(--xp-pad); border-top:1px solid rgba(36,36,38,.10); background:rgba(36,36,38,.025); }
+  .xp-step--result .xp-content { border-color:rgba(138,106,47,.38); }
+  .xp-step--result .xp-detail { background:rgba(138,106,47,.05); border-top-color:rgba(138,106,47,.18); }
+  .xp-dl { display:block; font-family:var(--audit); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#5A6378; }
+  .xp-dl + * { margin-top:12px; }
+  * + .xp-dl { margin-top:16px; }
+  .xp-provider + .xp-stats { margin-top:16px; }
+  .xp-logos { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .xp-logo { display:flex; align-items:center; justify-content:center; height:46px; border:1px solid rgba(36,36,38,.12); border-radius:10px; background:#fff; }
+  .xp-logo img { max-width:60%; max-height:44%; object-fit:contain; filter:brightness(0) saturate(100%) invert(30%) sepia(13%) saturate(1094%) hue-rotate(186deg) brightness(93%) contrast(87%); }
+  .xp-provider img { height:26px; width:auto; display:block; }
+  .xp-stats { display:flex; gap:32px; flex-wrap:wrap; }
+  .xp-stat-num { font-family:var(--voice); font-weight:500; font-size:26px; color:#1D1B18; line-height:1; }
+  .xp-stat-num small { font-size:14px; font-weight:400; color:#5A6378; }
+  .xp-stat-lbl { font-family:var(--audit); font-size:11px; letter-spacing:.04em; color:#5A6378; margin-top:6px; }
+  .xp-markers { display:grid; gap:10px; }
+  .xp-mk { font-family:var(--voice); font-size:14px; line-height:1.45; }
+  .xp-mk b { font-weight:500; color:#1D1B18; }
+  .xp-mk span { color:#5A6378; }
+}
+@media (max-width:560px){
+  .xp-step { grid-template-columns:32px minmax(0,1fr); gap:14px; }
+  .xp-num { width:32px; height:32px; font-size:12px; }
+  .xp-step:not(:last-child) .xp-rail::after { top:32px; }
+  .xp-stats { gap:24px; }
+}
+</style>
+<section class="xp" data-logo-tone="dark" data-logo-placement="hidden" aria-label="The Aleron experience">
+  <div class="xp-inner">
+    <ol class="xp-steps">
+
+      <li class="xp-step">
+        <div class="xp-rail"><span class="xp-num">01</span></div>
+        <div class="xp-content">
+          <figure class="xp-media"><img src="assets/photos/exp-01-onboarding.jpg" alt="Onboarding with phone and Apple Watch"></figure>
+          <div class="xp-tag">Onboarding</div>
+          <h3 class="xp-h">Onboarding takes fifteen minutes.</h3>
+          <p class="xp-p">We begin with a structured intake: demographics, family history, lifestyle, and screening history. You then connect your wearable, and its continuous data begins informing your care from day one.</p>
+          <div class="xp-detail">
+            <span class="xp-dl">Connects with</span>
+            <div class="xp-logos">
+              <span class="xp-logo"><img src="assets/logos/apple.svg" alt="Apple Watch"></span>
+              <span class="xp-logo"><img src="assets/logos/polar.svg" alt="Polar"></span>
+              <span class="xp-logo"><img src="assets/logos/whoop.svg" alt="Whoop"></span>
+              <span class="xp-logo"><img src="assets/logos/garmin.svg" alt="Garmin"></span>
+              <span class="xp-logo"><img src="assets/logos/fitbit.svg" alt="Fitbit"></span>
+              <span class="xp-logo"><img src="assets/logos/eightsleep.svg" alt="Eight Sleep"></span>
+              <span class="xp-logo"><img src="assets/logos/dexcom.svg" alt="Dexcom"></span>
+              <span class="xp-logo"><img src="assets/logos/withings.svg" alt="Withings"></span>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="xp-step">
+        <div class="xp-rail"><span class="xp-num">02</span></div>
+        <div class="xp-content">
+          <figure class="xp-media"><img src="assets/photos/exp-02-genetics.jpg" alt="Genetics kit on a kitchen counter"></figure>
+          <div class="xp-tag">Genetics</div>
+          <h3 class="xp-h">A small kit arrives at your door.</h3>
+          <p class="xp-p">Provide a saliva sample and return it in the prepaid mailer. The 163-gene Invitae panel screens for the variants that meaningfully change a care plan: moderate-penetrance cancer risks, cardiovascular variants, and pharmacogenomic markers.</p>
+          <div class="xp-detail">
+            <span class="xp-dl">Genetic testing by</span>
+            <div class="xp-provider"><img src="assets/logos/invitae.svg?v=provider-logos-20260601" alt="Invitae"></div>
+            <div class="xp-stats">
+              <div><div class="xp-stat-num">163<small> genes</small></div><div class="xp-stat-lbl">Invitae panel</div></div>
+              <div><div class="xp-stat-num">~3<small> wks</small></div><div class="xp-stat-lbl">Results return</div></div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="xp-step">
+        <div class="xp-rail"><span class="xp-num">03</span></div>
+        <div class="xp-content">
+          <figure class="xp-media split">
+            <div class="xp-half"><img src="assets/photos/exp-03-bloodwork-location.jpg?v=split-h2-20260608" alt="Member leaving a Quest patient service center after a blood draw"><span class="xp-mtag">In person</span></div>
+            <div class="xp-half"><img src="assets/photos/exp-03-bloodwork-athome.jpg?v=split-h2-20260608" alt="Member using an at-home capillary collection device"><span class="xp-mtag">At home</span></div>
+          </figure>
+          <div class="xp-tag">Bloodwork</div>
+          <h3 class="xp-h">Bloodwork on your terms.</h3>
+          <p class="xp-p">Draw the same comprehensive panel two ways: walk into your nearest Quest patient service center, or skip the trip with an at-home capillary kit that ships to your door. Either way you get a comprehensive metabolic, cardiovascular, and inflammatory workup, including the ApoB and Lp(a) markers most physicals miss.</p>
+          <div class="xp-detail">
+            <span class="xp-dl">Labs through</span>
+            <div class="xp-provider"><img src="assets/logos/quest.svg?v=quest-logo-larger-20260601" alt="Quest"></div>
+            <span class="xp-dl">The comprehensive panel includes</span>
+            <div class="xp-markers">
+              <div class="xp-mk"><b>Core panel</b> <span>CBC with differential, CMP, liver markers, kidney markers</span></div>
+              <div class="xp-mk"><b>Cardiometabolic</b> <span>Lipid panel, ApoB, Lp(a), HbA1c, fasting insulin, uric acid</span></div>
+              <div class="xp-mk"><b>Inflammation</b> <span>hsCRP, homocysteine, ferritin, iron/TIBC</span></div>
+              <div class="xp-mk"><b>Thyroid + nutrients</b> <span>TSH, free T4, vitamin D, B12, folate</span></div>
+              <div class="xp-mk"><b>Depth</b> <span>UACR and 80+ additional markers across metabolic, cardiovascular, inflammatory, renal, hepatic, and micronutrient domains</span></div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="xp-step xp-step--result">
+        <div class="xp-rail"><span class="xp-num">04</span></div>
+        <div class="xp-content">
+          <figure class="xp-media split">
+            <div class="xp-half"><img src="assets/photos/exp-04-sync.jpg?v=risk-split-20260608" alt="Member on a live video visit with an Aleron physician"><span class="xp-mtag">Live visit</span></div>
+            <div class="xp-half"><img src="assets/photos/exp-04-async.jpg?v=risk-split-20260608" alt="Member reviewing their game plan from home"><span class="xp-mtag">Async</span></div>
+          </figure>
+          <div class="xp-tag">Risk modeling</div>
+          <h3 class="xp-h">A physician in your corner, on your schedule.</h3>
+          <p class="xp-p">Aleron runs five critical disease risk models across your labs, genetics, wearable trends, imaging, and records. From those models, a cross-cutting analysis by both the system and your physician determines the highest-priority actions to lower your risk and add healthy years. Talk it through live on a video visit, or handle it asynchronously: message your care team and review your plan whenever it suits you. The output is not a report. It is a game plan to help you progress toward your goals.</p>
+          <div class="xp-detail">
+            <div class="xp-stats">
+              <div><div class="xp-stat-num">5<small> domains</small></div><div class="xp-stat-lbl">Risk models run</div></div>
+              <div><div class="xp-stat-num">1</div><div class="xp-stat-lbl">Physician-led game plan</div></div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ol>
+  </div>
+</section>
+
+<script>
+/* The footer "The Aleron experience" link (#experience) targets the desktop filmstrip, which is
+   display:none on mobile. Redirect it to the mobile timeline so the anchor still scrolls on phones. */
+(function(){
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href="#experience"]');
+    if(!a) return;
+    if(matchMedia('(max-width:900px)').matches){
+      var m = document.querySelector('.xp');
+      if(m){ e.preventDefault(); m.scrollIntoView({behavior:'smooth'}); history.replaceState(null,'','#experience'); }
+    }
+  });
+})();
+</script>
 
 
 
@@ -2157,6 +2334,9 @@
     left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important;
     object-fit: cover !important; object-position: center !important; transform: none !important;
   }
+  /* Keep the surfer (h2121) mirrored on mobile — the desktop scaleX(-1) flip was being
+     wiped by transform:none above, leaving him facing the wrong way. */
+  .opening-hero-slide[data-weave="h2121"] .opening-hero-layer.bg .hero-cover { transform: scaleX(-1) !important; }
   .opening-hero-chrome { inset: 0 !important; padding: 22px 22px 32px !important; }
   .opening-hero-chrome::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 64%;
@@ -2184,6 +2364,12 @@
   .curve-instrument svg.plot { position: static !important; height: auto !important; width: 100% !important; transform: none !important; margin: 2px 0 0 !important; }
   .curve-instrument .endlab { font-size: 24px; }
   .curve-instrument #cp-dependent tspan:nth-child(2) { display: none; }  /* drop "ON OTHERS" 2nd line (its dy is too tight when enlarged) */
+  /* Graph (mobile): drop the cramped left-gutter axis labels; show two zone labels
+     centered in the open space above/below the curve (positioned by the script after the curve IIFE). */
+  .curve-instrument #cp-independent,
+  .curve-instrument #cp-ycap,
+  .curve-instrument #cp-xage { display: none !important; }
+  .curve-instrument .grafzone { font-family: var(--audit); fill: #5A6378; letter-spacing: .04em; font-size: 62px; }
   .curve-instrument .axistitle { font-size: 32px; }
   .curve-instrument .ticklabel { font-size: 30px; }
   .curve-instrument .controls {
