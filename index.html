@@ -1076,6 +1076,10 @@
       <div class="ctl pulse"><div class="ctl-name">Capability <span class="ctl-sub">(VO<sub>2</sub> max)</span></div><input type="range" id="cp-sCap" min="0" max="100" value="40"><div class="ctl-marks"><span>DECONDITIONED</span><span>ELITE</span></div></div>
       <div class="ctl pulse"><div class="ctl-name">Critical disease risk</div><input type="range" id="cp-sRisk" min="0" max="100" value="50"><div class="ctl-marks"><span>LOW</span><span>HIGH</span></div></div>
     </div>
+    <div class="cp-event-readout" id="cp-event-readout" style="display:none">
+      <span class="cp-event-readout-lbl">Disease event probability</span>
+      <span class="cp-event-readout-val" id="cp-event-prob-m">&mdash;</span>
+    </div>
     <p class="cp-disc" id="cp-disc">This illustration shows physical capability (roughly VO<sub>2</sub> max) over time. Capability sets how high the curve runs; critical disease risk sets the chance and timing of a major cardiovascular or cancer event that forks it downward. The shapes draw on published longevity research, not your data, and are not a forecast or medical advice. Individual outcomes vary.</p>
     <div class="hint" id="cp-hint">SCROLL</div>
   </div></div>
@@ -1245,6 +1249,19 @@
   var ath=document.getElementById('cp-athlete'), dep=document.getElementById('cp-dependent');
   if(ath){ ath.textContent='Athlete'; ath.setAttribute('x',cx); ath.setAttribute('y',324); ath.setAttribute('text-anchor','middle'); ath.setAttribute('class','grafzone'); ath.style.opacity=1; }
   if(dep){ dep.textContent='Dependent on others'; dep.setAttribute('x',cx); dep.setAttribute('y',660); dep.setAttribute('text-anchor','middle'); dep.setAttribute('class','grafzone'); dep.style.opacity=1; }
+})();
+</script>
+
+<script>
+/* MOBILE DISEASE-EVENT READOUT — mirror the in-plot probability into the HTML line below the
+   sliders (the in-plot text is hidden on mobile). Updates live as the risk slider re-renders. */
+(function(){
+  if(!matchMedia('(max-width:900px)').matches) return;
+  var src=document.getElementById('cp-event-prob'), dst=document.getElementById('cp-event-prob-m');
+  if(!src||!dst) return;
+  var sync=function(){ var t=(src.textContent||'').trim(); if(t) dst.textContent=t; };
+  sync();
+  new MutationObserver(sync).observe(src,{childList:true,characterData:true,subtree:true});
 })();
 </script>
 
@@ -2370,6 +2387,15 @@
   .curve-instrument #cp-ycap,
   .curve-instrument #cp-xage { display: none !important; }
   .curve-instrument .grafzone { font-family: var(--audit); fill: #5A6378; letter-spacing: .04em; font-size: 62px; }
+  /* Disease-event readout: the in-plot text stack is unreadably small on the shrunk mobile plot,
+     so hide it and surface the value as an HTML line below the sliders (mirrored by the script). */
+  .curve-instrument #cp-event-label,
+  .curve-instrument #cp-event-prob,
+  .curve-instrument #cp-event-cap,
+  .curve-instrument #cp-event-leader { display: none !important; }
+  .cp-event-readout { display:flex !important; align-items:baseline; justify-content:space-between; gap:14px; margin:16px 0 0; padding:14px 16px; border:1px solid rgba(164,69,44,.28); border-radius:12px; background:rgba(164,69,44,.05); }
+  .cp-event-readout-lbl { font-family:var(--audit); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#5A6378; }
+  .cp-event-readout-val { font-family:var(--voice); font-weight:600; font-size:30px; color:#A4452C; line-height:1; }
   .curve-instrument .axistitle { font-size: 32px; }
   .curve-instrument .ticklabel { font-size: 30px; }
   .curve-instrument .controls {
