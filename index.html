@@ -1179,7 +1179,7 @@
         controls=$('cp-controls'),hint=$('cp-hint'),ycap=$('cp-ycap'),athlete=$('cp-athlete'),independent=$('cp-independent'),dependent=$('cp-dependent'),disc=$('cp-disc'),
         title=$('cp-title'),track=$('cp-track'),xage=$('cp-xage');
   const headEl=document.querySelector('.curve-instrument .head'),plotEl=document.querySelector('.curve-instrument svg.plot'),stageEl=document.querySelector('.curve-instrument .stage');
-  const params=new URLSearchParams(location.search);const FIXED=params.has('p')?parseFloat(params.get('p')):null;
+  const params=new URLSearchParams(location.search);const CP_MOBILE=window.matchMedia('(max-width:900px)').matches;const FIXED=params.has('p')?parseFloat(params.get('p')):(CP_MOBILE?0.86:null);
   function render(p){
     const d=cpath(cv);
     inkc.setAttribute('d',d);
@@ -2178,5 +2178,84 @@
 </script>
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"8dc646a0a32e46b1a343e1b4fd6a2995","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<style>
+/* =====================================================================
+   RESPONSIVE LAYER — breakpoint contract: sm 600 / md 900 / lg 1200.
+   Bespoke mobile treatments gated at md(900)/sm(600); desktop layouts untouched.
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* Fixed brand mark collides with section headlines on mobile; the hero carries the logo. */
+  .slide-brand { display: none !important; }
+
+  /* HERO — dedicated tall mobile hero (desktop is a 1728:903 letterbox strip) */
+  .opening-hero { aspect-ratio: auto !important; height: 100svh !important; min-height: 560px; }
+  .opening-hero-layer.mid,
+  .opening-hero-layer.anchor,
+  .opening-hero-layer.subject { display: none !important; }
+  .opening-hero-layer.bg > :not(img) { display: none !important; }
+  .opening-hero-layer.bg .hero3-bg,
+  .opening-hero-layer.bg .hero-cover {
+    position: absolute !important; inset: 0 !important;
+    left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important;
+    object-fit: cover !important; object-position: center !important; transform: none !important;
+  }
+  .opening-hero-chrome { inset: 0 !important; padding: 22px 22px 32px !important; }
+  .opening-hero-chrome::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 64%;
+    background: linear-gradient(to top, rgba(18,20,26,0.88) 6%, rgba(18,20,26,0.40) 46%, rgba(18,20,26,0) 100%);
+    pointer-events: none; z-index: 0;
+  }
+  .opening-hero-topline, .opening-hero-bottom { position: relative; z-index: 1; }
+  .opening-hero-bottom { flex-direction: column; align-items: stretch; gap: 16px; margin-bottom: 0 !important; }
+  .opening-hero-copy { width: 100% !important; }
+  .opening-hero-copy h1 { font-size: clamp(34px, 9vw, 46px); }
+  .opening-hero-copy p { width: 100%; font-size: 15px; }
+  .opening-hero-cta { display: block; text-align: center; margin-top: 18px; padding: 0.95em 1em; }
+  .opening-hero-dots { justify-content: center; }
+
+  /* CURVE — static instrument (no 420vh scroll-jacking); JS renders a FIXED frame on mobile */
+  .curve-instrument .track { height: auto !important; }
+  .curve-instrument .stage {
+    position: static !important; height: auto !important; min-height: 0 !important;
+    overflow: visible !important; display: flex !important; flex-direction: column !important;
+    padding: 44px 20px 36px !important;
+  }
+  .curve-instrument .head { position: static !important; transform: none !important; width: auto !important; left: auto !important; margin: 0 0 4px !important; }
+  .curve-instrument #cp-title { position: static !important; white-space: normal !important; opacity: 1 !important; font-size: clamp(23px, 6.2vw, 30px); text-align: left; }
+  .curve-instrument #cp-body { display: none !important; }
+  .curve-instrument svg.plot { position: static !important; height: auto !important; width: 100% !important; transform: none !important; margin: 2px 0 0 !important; }
+  .curve-instrument .endlab { font-size: 24px; }
+  .curve-instrument #cp-dependent tspan:nth-child(2) { display: none; }  /* drop "ON OTHERS" 2nd line (its dy is too tight when enlarged) */
+  .curve-instrument .axistitle { font-size: 32px; }
+  .curve-instrument .ticklabel { font-size: 30px; }
+  .curve-instrument .controls {
+    position: static !important; transform: none !important; left: auto !important; right: auto !important;
+    width: 100% !important; opacity: 1 !important; grid-template-columns: 1fr !important; gap: 14px !important; margin-top: 6px !important;
+  }
+  .curve-instrument .cp-disc {
+    position: static !important; transform: none !important; opacity: 1 !important;
+    width: auto !important; max-width: none !important; left: auto !important; bottom: auto !important; margin: 16px 0 0 !important;
+  }
+  .curve-instrument .hint { display: none !important; }
+
+  /* EXPERIENCE — collapse the 325vh horizontal filmstrip into a vertical journey.
+     (The designer's old ≤600 rules hid .exp-pane/.exp-frame expecting an .is-active
+      tabbed markup that no longer exists, blanking the section on phones.) */
+  .exp-section { height: auto !important; }
+  .exp-section .container { position: static !important; height: auto !important; overflow: visible !important; }
+  .exp-stage { height: auto !important; min-height: 0 !important; overflow: visible !important; }
+  .exp-rail { flex-direction: column !important; transform: none !important; height: auto !important; width: 100% !important; }
+  .exp-panel { flex: 0 0 auto !important; width: 100% !important; height: auto !important; grid-template-columns: 1fr !important; gap: 16px; }
+  .exp-panel + .exp-panel { margin-top: 44px; }
+  .exp-copy, .exp-pane { display: block !important; }
+  .exp-visual { min-height: 0 !important; height: auto !important; }
+  .exp-visual .exp-frame { position: relative !important; inset: auto !important; display: block !important; }
+  .exp-visual img { width: 100% !important; height: 220px !important; object-fit: cover !important; }
+}
+@media (max-width: 600px) {
+  .opening-hero-copy h1 { font-size: clamp(30px, 8.4vw, 40px); }
+  .curve-instrument .stage { padding: 36px 16px 30px !important; }
+}
+</style>
 </body>
 </html>
