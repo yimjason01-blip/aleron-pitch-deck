@@ -335,18 +335,6 @@
     z-index: 4;
     transform: none;
   }
-  /* Hero_3 (Figma 2124:17) image planes — boxes replicate the Figma node positions so the
-     cut-out couple aligns exactly over the background scene. */
-  .opening-hero-layer.bg .hero3-bg {
-    position: absolute; inset: auto;
-    left: 8.27%; top: 0.11%; width: 93.58%; height: 119.16%;
-    object-fit: cover; object-position: center top;
-  }
-  .opening-hero-layer.subject.hero3-subject {
-    inset: auto;
-    left: 8.27%; top: 0.11%; width: 93.58%; height: 119.16%;
-    object-fit: cover; object-position: center top;
-  }
   /* Carousel slide planes (2121 / 2106): the bg scene and the aligned subject cut-out share
      identical source dimensions, so the SAME box + flip keeps the cut-out registered over its
      background. Boxes replicate each Figma frame's image placement exactly (offset + scale,
@@ -972,27 +960,17 @@
 <!-- OPENING HERO - runner + surfer layered carousel -->
 <section class="opening-hero-scroll" data-opening-hero data-logo-tone="light">
   <div class="opening-hero" tabindex="0" aria-label="Aleron MD hero, your best days are still ahead">
-    <!-- SLIDE 0 — Hero_3 (Figma 2124:17): first-light couple. -->
-    <div class="opening-hero-slide is-active" data-hero-slide="0" data-weave="hero3" aria-hidden="false">
-      <!-- BG plane (z1): the full first-light scene; the static velocity-weave mass rides this plane, behind the couple -->
-      <div class="opening-hero-layer bg" data-motion-layer="background" data-weave-mass><img class="hero3-bg" src="assets/aleron-hero3/scene.webp?v=hero3c" alt="A couple together outdoors at first light"></div>
-      <!-- MID plane (z2): the isolated floating weave accents — these ride the parallax transform -->
-      <div class="opening-hero-layer mid" data-motion-layer="parallax-blocks" aria-hidden="true"></div>
-      <!-- SUBJECT plane (z3): the couple, cut out, in front of the weave so the faces are never covered -->
-      <img class="opening-hero-layer subject hero3-subject" data-motion-layer="subject" src="assets/aleron-hero3/siloed.webp?v=hero3c" alt="">
-      <div class="opening-hero-layer anchor" data-motion-layer="anchored" aria-hidden="true"></div>
-    </div>
-    <!-- SLIDE 1 — Hero (Figma 2121:2149): man rising from the water at first light. Same dark weave gradient,
+    <!-- SLIDE 0 — Hero (Figma 2121:2149): man rising from the water at first light. Same dark weave gradient,
          this slide's own block composition; the gold cast is the sunrise photo showing through the gaps. -->
-    <div class="opening-hero-slide" data-hero-slide="1" data-weave="h2121" aria-hidden="true">
+    <div class="opening-hero-slide is-active" data-hero-slide="0" data-weave="h2121" aria-hidden="false">
       <div class="opening-hero-layer bg" data-motion-layer="background" data-weave-mass><img class="hero-cover" src="assets/hero-water/scene.jpg?v=hero2" alt="A man rising from the water at first light"></div>
       <div class="opening-hero-layer mid" data-motion-layer="parallax-blocks" aria-hidden="true"></div>
       <img class="opening-hero-layer subject hero-cover" data-motion-layer="subject" src="assets/hero-water/subject.webp?v=hero3" alt="">
       <div class="opening-hero-layer anchor" data-motion-layer="anchored" aria-hidden="true"></div>
     </div>
-    <!-- SLIDE 2 — Hero_2 (Figma 2106:390): woman running the coast. NOTE: background is a GettyImages comp —
+    <!-- SLIDE 1 — Hero_2 (Figma 2106:390): woman running the coast. NOTE: background is a GettyImages comp —
          must be licensed (or swapped) before launch. -->
-    <div class="opening-hero-slide" data-hero-slide="2" data-weave="h2106" aria-hidden="true">
+    <div class="opening-hero-slide" data-hero-slide="1" data-weave="h2106" aria-hidden="true">
       <div class="opening-hero-layer bg" data-motion-layer="background" data-weave-mass><img class="hero-cover" src="assets/hero-run/scene.jpg?v=hero2" alt="A woman running along the coast at first light"></div>
       <div class="opening-hero-layer mid" data-motion-layer="parallax-blocks" aria-hidden="true"></div>
       <img class="opening-hero-layer subject hero-cover" data-motion-layer="subject" src="assets/hero-run/subject.webp?v=hero3" alt="">
@@ -1012,7 +990,6 @@
         <div class="opening-hero-dots" role="tablist" aria-label="Hero slides">
           <button class="opening-hero-dot is-active" type="button" role="tab" aria-selected="true" aria-label="Slide 1"></button>
           <button class="opening-hero-dot" type="button" role="tab" aria-selected="false" aria-label="Slide 2"></button>
-          <button class="opening-hero-dot" type="button" role="tab" aria-selected="false" aria-label="Slide 3"></button>
         </div>
       </div>
     </div>
@@ -2100,19 +2077,6 @@
   // Each slide picks its composition via its data-weave attribute. The fill gradient is the same
   // dark Union (#1C1E22 -> #49545D) on every slide — the gold/white casts are the photos behind.
   const COMPOS = {
-    // Hero_3 (2124:17) — first-light couple.
-    hero3: {
-      blocks: [
-        [0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,10],[0,11],[0,12],[0,13],
-        [1,0],[1,1],[1,2],[1,3],[1,4],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[1,13],
-        [2,5],[2,7],[2,8],[2,9],[2,10],[2,11],[2,12],[2,13],
-        [3,1],[3,8],[3,9],[3,13],
-        [4,2],[4,10],
-        [6,9],
-        [7,5],[7,13]
-      ],
-      floating: new Set(['3,1','4,2','4,10','6,9','7,5','7,13'])
-    },
     // Hero (2121:2149) — man rising from the water.
     h2121: {
       blocks: [
@@ -2164,7 +2128,7 @@
     const mid = slide.querySelector('.opening-hero-layer.mid');
     const mass = slide.querySelector('[data-weave-mass]');
     if (!mid || mid.dataset.weavePopulated === 'true') return;
-    const compo = COMPOS[slide.dataset.weave] || COMPOS.hero3;
+    const compo = COMPOS[slide.dataset.weave] || COMPOS.h2121;
     const fMid = document.createDocumentFragment();
     const fMass = document.createDocumentFragment();
     compo.blocks.forEach(([c, r]) => {
@@ -2193,7 +2157,6 @@
   .opening-hero-layer.anchor,
   .opening-hero-layer.subject { display: none !important; }
   .opening-hero-layer.bg > :not(img) { display: none !important; }
-  .opening-hero-layer.bg .hero3-bg,
   .opening-hero-layer.bg .hero-cover {
     position: absolute !important; inset: 0 !important;
     left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important;
